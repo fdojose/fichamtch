@@ -48,7 +48,7 @@
 
  function muestraFicha(){
    db.allDocs({include_docs: true, descending: true}, function(err, doc) {
-     console.log(JSON.stringify(doc, null, "  "));
+     //console.log(JSON.stringify(doc, null, "  "));
    });
  }
 
@@ -154,6 +154,8 @@
     var showLink = document.createElement('button');
     showLink.className = 'destroy';
     showLink.addEventListener( 'click', showButtonPressed.bind(this, todo));
+    var t = document.createTextNode("Seleccionar");
+    showLink.appendChild(t);
 
     var divDisplay = document.createElement('div');
     divDisplay.className = 'view';
