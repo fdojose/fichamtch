@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <script type="text/javascript" src="./bower_components/jquery/dist/jquery.js"></script
+        <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    </head>
+<body>
+        <script type="text/javascript">
+
+          function textoKeyPressed(miObj,evento){
+              console.log(miObj+":"+evento);
+          };
+
+          function textoBlurred(miObj,evento){
+            console.log(miObj+":"+evento);
+            miFade(miObj);
+
+          };
+
+          function miFade(miObj){
+
+            var divDisplay = document.createElement('div');
+            divDisplay.className="modal fade";
+            var mod=document.createElement('div');
+            mod.className="modal-dialog";
+            var modCont=document.createElement('div');
+            modCont.className="modal-content";
+            var modText=document.createElement('div');
+               modText.className="modal-title";
+             var modTitle=document.createTextNode("Ventana modal");
+            modText.appendChild(modTitle);
+            modCont.appendChild(modText);
+            mod.appendChild(modCont);
+            divDisplay.appendChild(mod);
+
+            var miContenido=document.getElementById("contenido");
+            miContenido.appendChild(divDisplay);
+
+          };
+
+          function crea(){
+            var texto=document.createElement("input");
+            texto.className="clase1";
+            texto.type="text";
+
+            todo="un texto";
+
+            texto.addEventListener('keypress', textoKeyPressed.bind(this, todo));
+            texto.addEventListener('blur', textoBlurred.bind(this, todo));
+
+
+            var divDisplay = document.createElement('div');
+            divDisplay.className = 'view';
+            divDisplay.appendChild(texto);
+            divDisplay.id="vista1"
+
+            return divDisplay;
+          }
+
+          function dibuja(){
+              var miContenido=document.getElementById("contenido");
+              miContenido.innerHTML='';
+              miContenido.appendChild(crea());
+          }
+
+          $(document).ready(function() {
+            dibuja();
+          });
+
+        </script>
+
+        <div id="contenido"></div>
+
+</body>
+</html>

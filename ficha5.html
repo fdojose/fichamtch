@@ -1,0 +1,499 @@
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
+
+        <link type="text/css" rel="stylesheet" href="./bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+
+        <link type="text/css" href="./bower_components/alpaca/dist/alpaca/bootstrap/alpaca.min.css" rel="stylesheet" />
+
+        <script type="text/javascript" src="./bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="./bower_components/moment/min/moment-with-locales.min.js"></script>
+        <script type="text/javascript" src="./bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+        <script type="text/javascript" src="./bower_components/handlebars/handlebars.min.js"></script>
+        <script type="text/javascript" src="./bower_components/alpaca/dist/alpaca/bootstrap/alpaca.js"></script>
+        <script type="text/javascript" src="./bower_components/typeahead.js/dist/bloodhound.js"></script>
+        <script type="text/javascript" src="./bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+
+        <link href="./js/select2-4.0.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="./js/select2-4.0.0/dist/js/select2.min.js"></script>
+
+        <script type="text/javascript" src="./js/hashfvn1.js"></script>
+
+    </head>
+    <body>
+
+
+              <section id="todoapp">
+                <header id="header">
+          	<h1>Fichas</h1>
+          	<input id="new-todo" placeholder="What needs to be done?" autofocus hidden="true">
+                </header>
+                <section id="main">
+          	<ul id="todo-list"></ul>
+                </section>
+                <footer id="footer">
+          	<span id="todo-count"></span>
+                  <div id="sync-wrapper">
+                    <div id="sync-success">Currently syncing</div>
+                    <div id="sync-error">There was a problem syncing</div>
+                  </div>
+                </footer>
+              </section>
+
+              <div id="mostrar1"><input id="inputIDBd"></input><button id="bMostrar1">Mostrar</button></div>
+<!--
+              <script src="http://cdn.jsdelivr.net/pouchdb/3.5.0/pouchdb.min.js"></script>
+-->
+              <script type="text/javascript" src="./bower_components/pouchdb/dist/pouchdb.min.js"></script>
+              <script src="./js/base.js"></script>
+              <script src="./js/app2.js"></script>
+              <script src="./data/puntos_nombres.js"></script>
+              <script type="text/javascript">
+
+                var substrMatcher= function(strs) {  //no la estamos usando de momento.
+
+                  return function findMatches(q, cb) {
+                    var matches, substrRegex;
+
+                    // an array that will be populated with substring matches
+                    matches = [];
+
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, str) {
+                      if (substrRegex.test(str)) {
+                        matches.push(str);
+                      }
+                    });
+                      cb(matches);
+                      //return matches;
+                    };
+                };
+
+              var misOpciones={
+                  "fields":{
+                    "historia":{
+                      "fields":{
+                        "hipertension":{
+                           "fields":{
+                             "sino":{
+                               "type": "radio",
+                               "vertical":false
+                             }
+                           },
+                           "collapsible":true,
+                           "collapsed": true
+                        },
+                        "tiroidismo":{
+                           "fields":{
+                             "sino":{
+                               "type": "radio",
+                               "vertical":false
+                             }
+                           }
+                        },
+                        "diabetes":{
+                           "fields":{
+                             "sino":{
+                               "type": "radio",
+                               "vertical":false
+                             }
+                           }
+                        },
+                        "ets":{
+                           "fields":{
+                             "sino":{
+                               "type": "radio",
+                               "vertical":false
+                             }
+                           }
+                        },
+                        "hepatitis":{
+                           "fields":{
+                             "sino":{
+                               "type": "radio",
+                               "vertical":false
+                             }
+                           }
+                        },
+                        "cancer":{
+                           "fields":{
+                             "sino":{
+                               "type": "radio",
+                               "vertical":false
+                             }
+                           }
+                        },
+                        "cirugias":{
+                           "fields":{
+                             "sino":{
+                               "type": "radio",
+                               "vertical":false
+                             }
+                           }
+                        },
+                        "otras":{
+                           "fields":{
+                             "sino":{
+                               "type": "radio",
+                               "vertical":false
+                             }
+                           }
+                        }
+
+                      }
+                    },
+                    "tratamientos":{
+                        "fields":{
+                          "item":{ //tratamientos_0_habitos_sueño_concilacion
+                            "fields":{
+                              "motivo":{//funciona //tratamientos_0_motivo
+                                    "type": "textarea",
+                                    "rows": 5,
+                                    "cols": 40,
+                                    "helper": "Por favor ingrese el motivo principal de su consulta actual"
+                               },
+                               "motivoSecundario":{//funciona
+                                     "rows": 5,
+                                     "cols": 40,
+                                     "helper": "Por favor ingresar los motivos secundarios de su consulta actual"
+                                },
+                              "medicamentos":{
+                                "type":"table"
+                              },
+                               "habitos":{
+                                 "fields":{
+                                   "drogas":{
+                                     "type":"table"
+                                   },
+                                   "sueno":{ //funciona
+                                     "fields":{
+                                       "concilacion":{
+                                         "type": "radio",
+                                         "vertical":false
+                                       },
+                                       "calidad":{
+                                         "type":"radio",
+                                         "vertical":false
+                                       },
+                                       "tipo":{
+                                         "type":"radio",
+                                         "vertical":false
+                                       },
+                                       "suenos":{
+                                         "type":"radio",
+                                         "vertical":false
+                                       },
+                                     }
+                                   }
+                                 }
+                               },
+                               "signos":{
+                                 "fields":{
+                                   "emociones":{
+                                     "fields":{
+                                       "emocion":{
+                                         "type":"checkbox"
+                                       }
+                                     }
+                                   },
+                                   "piel":{
+                                     "fields":{
+                                       "piel":{
+                                         "type":"checkbox"
+                                       },
+                                       "unas":{
+                                         "type":"checkbox"
+                                       },
+                                       "pelo":{
+                                         "type":"checkbox"
+                                       }
+                                     }
+                                   },
+                                   "sudor":{
+                                     "fields":{
+                                       "tipo":{
+                                         "type":"checkbox"
+                                       },
+                                       "localizacion":{
+                                         "type":"checkbox"
+                                       }
+                                     }
+                                   },
+                                   "cabeza":{
+                                     "fields":{
+                                       "dolor":{
+                                         "fields":{
+                                           "intensidad":{
+                                             "type":"radio",
+                                             "vertical":false
+                                           },
+                                           "periodo":{
+                                             "type":"radio",
+                                             "vertical":false
+                                           },
+                                           "tipo":{
+                                             "type":"radio",
+                                             "vertical":false
+                                           }
+                                         }
+                                       }
+                                     }
+                                   }
+                                 }
+                               },
+                               "sesiones":{//tratamientos_0_sesiones_0_pulsoDerecho_profundidad, funciona
+                                   "items":{
+                                     "fields":{
+                                       "pulso":{
+                                        "type":"table"
+                                      },
+                                      "acupuntura":{
+                                        "toolbarSticky": true,
+                                        "actionbarStyle":"bottom",
+                                        "type": "table",
+                                           "items":{
+                                             "fields":{
+                                               "nombre":{
+                                                 "type":"text",
+                                                 "events":{
+                                                   "focus":function(){ //no parece funcionar
+                                                     alert("Tomando el foco");
+                                                   },
+                                                   "click":function(){ //funciona
+
+                                                     var divDisplay = document.createElement('div');
+                                                     divDisplay.className="modal fade";
+                                                     var mod=document.createElement('div');
+                                                     mod.className="modal-dialog";
+                                                     var modCont=document.createElement('div');
+                                                     modCont.className="modal-content";
+                                                     var modText=document.createElement('div');
+                                                        modText.className="modal-title";
+                                                      var modTitle=document.createTextNode("Ventana modal");
+                                                     modText.appendChild(modTitle);
+                                                     modCont.appendChild(modText);
+                                                     mod.appendChild(modCont);
+                                                     divDisplay.appendChild(mod);
+
+
+                                                     console.log(divDisplay);
+                                                     //alert(divDisplay);
+                                                   }
+
+                                                 },
+                                                 //"fieldClass":"dropdown",
+                                                 /*"fieldClass":"js-example-data-array" Select2 no funciona, no se rellena el campo */
+
+                                                 /*//aqui se comenta el typeahead
+                                                 "typeahead": {
+                                                   "config": {
+                                                     //"autoselect": true,
+                                                     "highlight": true,
+                                                     //"hint": true,
+                                                     "minLength": 1
+                                                     },
+                                                   "datasets": {
+                                                         "display":'value',
+                                                         //"source": substrMatcher(lpuntos),
+                                                         "type": "local",
+                                                         "async":true,
+                                                         "source":function(query) { //
+
+                                                              var companies = lpuntos;
+                                                              var results = [];
+
+                                                              for (var i = 0; i < companies.length; i++) {
+                                                                  var add = true;
+                                                                  if (query) {
+                                                                      add = (companies[i].indexOf(query) === 0);
+                                                                  }
+                                                                  if (add) {
+                                                                      results.push({
+                                                                          "value": companies[i]
+                                                                      });
+                                                                  }
+                                                              }
+                                                              return results;
+                                                          },
+
+                                                         //"type":"prefetch",
+                                                         //"source":"data/puntos.json",
+                                                         "templates": {
+                                                           "suggestion": "<p style='color: blue'>{{value}}</p>"
+                                                         }
+                                                     }
+                                               }//typeahead */
+                                             },
+                                             "accion":{
+                                               "type":"select"
+                                             },
+                                             "tecnica":{
+                                               "type":"select"
+                                             }
+                                             }
+                                           }
+
+                                      },
+                                      "evolucion":{
+                                        "fields":{
+                                          "detalle":{ //tratamientos_0_sesiones_0_evolucion_detalle, funciona
+                                            "type": "textarea",
+                                            "rows": 3,
+                                            "cols": 20
+                                          } //tratamientos_0_medicamentos_0_nombre
+                                        }
+                                      }
+                                     }
+                                   }
+                               }
+                             }
+                         }
+                       }
+                  },
+                    "talla":{
+                      "type":"text",
+                      "size":4
+                    }
+                 }
+               };
+               function colapsar(){
+                 /*
+                 $('.collapse.in').each(function() {
+                    $(this).collapse("hide");  //Hay problemas con el Collapse para mostrar los datos.
+                  })
+                  */
+                  $('.collapse').each(function() {
+                     $(this).collapse("hide");  //Hay problemas con el Collapse para mostrar los datos.
+                   })
+               }
+               function expandir(){
+
+                 $('.collapse').each(function() {
+                  // var paraExpandir=$(this).parent();
+                  //$paraExpandir.collapse("show");  //Hay problemas con el Collapse para mostrar los datos.
+                    $(this).collapse("show");
+                  })
+               }
+              </script>
+
+        <div id="bcolapsar"><button id="buttonColapsar" onclick="colapsar()" class="glyphicon glyphicon-collapse-down" >Colapsar</button></div>
+        <div id="bexpandir"><button id="buttonExpandir" onclick="expandir()" class="glyphicon glyphicon-collapse-up" >Expandir</button></div>
+
+        <div id="field1"></div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+              function miAlpaca(miJson){
+
+                           $("#field1").alpaca({
+                             //  "dataSource": "./ficha_data.json",
+                             "dataSource":miJson,
+                             "schemaSource": "./ficha_nest_schema_curso002.json",
+                             "options": misOpciones,
+                             "form": {
+                             },
+                             "view":{
+                               "parent": "bootstrap-edit-horizontal",
+                                "wizard":{
+                                    "title": "Welcome to the Wizard",
+                                    "description": "Please fill things in as you wish",
+                                    "bindings": {
+                                        "_id":1,
+                                        "_rev":1,
+                                        "terapeuta":1,
+                                        "rut":1,
+                                        "clinica":1,
+                                        "datosPersonales": 1,
+                                        "datosContacto":1,
+                                        "familia":2,
+                                        "ocupacion":2,
+                                        "historia": 3,
+                                        "tratamientos":4
+                                    },
+                                    "steps": [{
+                                        "title": "Informaci&oacute;n Persona",
+                                        "description": "Datos del Paciente"
+                                    }, {
+                                        "title": "Familia - Ocupaci&oacute;n",
+                                        "description": "Antecedentes"
+                                    }, {
+                                        "title": "Historia",
+                                        "description": "Historia Cl&iacute;nica"
+                                    },{
+                                        "title":"Tratamientos",
+                                        "description":"Tratamientos"
+                                    }
+                                  ],
+                                  "markAllStepsVisited":true,
+                                  "buttons": {
+                                    "submit": {
+                                      "title": "Grabar",
+                                      "click": function() {
+                                        var value = this.getValue();
+                                        console.log(JSON.stringify(value, null, "  "));
+                                        alert("Grabando");
+                                        addFicha(value);
+
+                                      }
+                                    }
+                                  }
+                                },
+                                "horizontal":true
+                             },
+                             "postRender": function(control) {
+
+                              // control.childrenByPropertyId["rut"].getFieldEl().css("background-color", "lightgreen");
+                              // control.childrenByPropertyId["datosPersonales"].getFieldEl().css("background-color", "lightgreen");
+                              // control.childrenByPropertyId["fechnac"].getFieldEl().css("background-color", "lightgreen");
+                              // control.childrenByPropertyId["genero"].getFieldEl().css("background-color", "lightgreen");
+                              // control.childrenByPropertyId["talla"].getFieldEl().css("background-color", "lightgreen");
+
+                               // find all controls with data-collapsed set to true and collapse their data-target
+
+                              //Colapsamos los objetos para simplificar la visualización
+
+                              colapsar();
+
+                              /* selct2 no funciona, rellena el campo
+                            var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+                            $(".js-example-data-array").select2({
+                              data: data
+                            })
+                            $(".js-example-data-array-selected").select2({
+                              data: data
+                            })
+                          */
+
+                               //control.childrenByPropertyId["antecedentes"].getFieldEl().css("background-color", "lightblue");
+
+                               //control.childrenByPropertyId["habitos"].getFieldEl().css("background-color", "lightblue");
+
+                               //control.childrenByPropertyId["sintomas"].getFieldEl().css("background-color", "lightyellow");
+
+                              // $('input[name=datosPersonales_amat]').css("background-color", "lightgreen"); //referencia por nombre
+
+                              //NO OLVIDAR: Importante separ el tto. de la evolución, un paciente puede tener varios tto. cada uno con evoluciones.
+                             }
+                           });
+                     };
+                     miAlpaca(miTodo);
+                         $('#bMostrar1').click(function(event) {
+                           console.log("Click en mostrar1");
+                           console.log(miTodo);
+                           if ($("#field1").alpaca("exists"))
+                              $("#field1").alpaca("destroy");
+                           miAlpaca(miTodo);
+                         });
+
+                     //
+            });
+        </script>
+
+    </body>
+</html>
