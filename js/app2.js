@@ -7,7 +7,6 @@
   'use strict';
 
   var ENTER_KEY = 13;
-  var newTodoDom = document.getElementById('new-todo');
   var syncDom = document.getElementById('sync-wrapper');
 
   // EDITING STARTS HERE (you dont need to edit anything above this line)
@@ -97,7 +96,12 @@
 
   // User pressed the delete button for a todo, delete it
   function deleteButtonPressed(todo) {
-    db.remove(todo);
+    var result = confirm("Desea borrar a: "+todo.datosPersonales.nombres+" "+todo.datosPersonales.apat);
+    if (result) {
+      db.remove(todo);
+      //alert("borrado");
+    }
+
   }
 
   function showButtonPressed(todo) {
@@ -182,7 +186,7 @@
 
   // Given an object representing a todo, this will create a list item
   // to display it.
-  function createTodoListItem(todo) {
+  function createTodoListItem0(todo) {
 
     console.log(todo);
 
@@ -237,7 +241,7 @@
     return li;
   }
 
-  function redrawTodosUI(todos) {
+  function redrawTodosUI0(todos) {
     var ul = document.getElementById('todo-list');
     ul.innerHTML = '';
     todos.forEach(function(todo) {
@@ -245,18 +249,121 @@
     });
   }
 
-  function newTodoKeyPressHandler( event ) {
-    if (event.keyCode === ENTER_KEY) {
-      addTodo(newTodoDom.value);
-      newTodoDom.value = '';
+  // Given an object representing a todo, this will create a list item
+  // to display it.
+  function createTodoListItem(todo) {
+
+    console.log(todo);
+
+
+    var clabel=document.createElement("td");
+    var label = document.createElement('label');
+    label.appendChild( document.createTextNode(todo._id+" : "+todo.datosPersonales.apat+" "+todo.datosPersonales.amat+", "+todo.datosPersonales.nombres));
+    label.addEventListener('dblclick', todoDblClicked.bind(this, todo));
+    //clabel.appendChild(label);
+
+    capat=document.createElement("td");
+    capat.appendChild(document.createTextNode(todo.datosPersonales.apat));
+
+    camat=document.createElement("td");
+    camat.appendChild(document.createTextNode(todo.datosPersonales.amat));
+
+    cnombres=document.createElement("td");
+    cnombres.appendChild(document.createTextNode(todo.datosPersonales.nombres));
+
+
+    var caccion=document.createElement("td");
+    var deleteLink = document.createElement('button');
+    deleteLink.className = "glyphicon glyphicon-trash";
+    deleteLink.addEventListener( 'click', deleteButtonPressed.bind(this, todo));
+    var tborrar=document.createTextNode("");
+    deleteLink.appendChild(tborrar);
+    caccion.appendChild(deleteLink);
+
+    //var cshow=document.createElement("td");
+    var showLink = document.createElement('button');
+    showLink.className = 'glyphicon glyphicon-pencil';
+    showLink.addEventListener( 'click', showButtonPressed.bind(this, todo));
+    var t = document.createTextNode("");
+    showLink.appendChild(t);
+    caccion.appendChild(showLink);
+
+    var divDisplay = document.createElement('div');
+    divDisplay.className = 'view';
+    //divDisplay.appendChild(checkbox);
+    divDisplay.appendChild(label);
+
+  //  if (puedeBorrar){  divDisplay.appendChild(deleteLink);}
+
+    //divDisplay.appendChild(showLink);
+    clabel.appendChild(divDisplay);
+
+    var fila=document.createElement("tr");
+    fila.appendChild(capat);
+    fila.appendChild(camat);
+    fila.appendChild(cnombres);
+    fila.appendChild(caccion);
+    //fila.appendChild(cshow);
+    //var celda=document.createElement("td");
+    //celda.appendChild(divDisplay);
+    //fila.appendChild(celda)
+
+    //var li = document.createElement('li');
+    //li.id = 'li_' + todo._id;
+    //li.appendChild(divDisplay);
+    //li.appendChild(inputEditTodo);
+
+    if (todo.completed) {
+      li.className += 'complete';
+      checkbox.checked = true;
     }
+
+    return fila;
   }
 
-  function addEventListeners() {
-    newTodoDom.addEventListener('keypress', newTodoKeyPressHandler, false);
+
+  function redrawTodosUI(todos) {
+    var tb = document.getElementById('todo-list');
+    tb.setAttribute("data-toggle","table");
+    tb.className="table table-striped table-bordered table-condensed";
+    tb.setAttribute("data-pagination","true");
+
+    var thead=document.createElement("thead");
+    var tr=document.createElement("tr");
+
+    var th1=document.createElement("th");
+    th1.setAttribute("data-field","apat");
+    th1.appendChild(document.createTextNode("Apat"));
+
+    var th2=document.createElement("th");
+    th2.setAttribute("data-field","amat");
+    th2.appendChild(document.createTextNode("Amat"));
+
+    var th3=document.createElement("th");
+    th3.setAttribute("data-field","nombres");
+    th3.appendChild(document.createTextNode("Nombres"));
+
+    var th4=document.createElement("th");
+    th4.setAttribute("data-field","acciones");
+    th4.appendChild(document.createTextNode("Acciones"));
+
+    tr.appendChild(th1);
+    tr.appendChild(th2);
+    tr.appendChild(th3);
+    tr.appendChild(th4);
+
+    thead.appendChild(tr);
+
+    tb.appendChild(thead);
+
+    //ul.innerHTML = '';
+    todos.forEach(function(todo) {
+      //ul.appendChild(createTodoListItem(todo.doc));
+      tb.appendChild(createTodoListItem(todo.doc))
+    });
   }
 
-  addEventListeners();
+
   showTodos();
 
   if (remoteCouch) {
