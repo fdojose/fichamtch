@@ -1,5 +1,8 @@
 
-  var miTodo={"_terapeuta":"0000","rut":"111111","datosPersonales":{"nombres":"Juanito","apat":"Alguien","amat":"Algo"},"genero":"Masculino"};
+  //var miTodo={"_terapeuta":"0000","rut":"111111","datosPersonales":{"nombres":"Juanito","apat":"Alguien","amat":"Algo"},"genero":"Masculino"};
+  var rutTerapeuta="125851940";
+  var puedeBorrar=true;
+  var soloTerapeuta=true;
 
   'use strict';
 
@@ -25,7 +28,7 @@
  function addFicha(fichaJson){
    var miFicha=fichaJson;
 
-   var miId=hashFnv32a(miFicha.rut,true);
+   var miId=hashFnv32a(miFicha.rut,true); //Debe haber sólo una ficha por paciente, el identificador es el RUT, pero se hace un HASH por privacidad
 
    console.log("miId:"+miId);
 
@@ -68,9 +71,21 @@
 
   // Show the current list of todos by reading them from the database
   function showTodos() {
-    db.allDocs({include_docs: true, descending: true}, function(err, doc) {
+
+    db.allDocs({include_docs: true,
+                descending: true,
+                attachments: true
+                }, function(err, doc) {
       redrawTodosUI(doc.rows);
-    });
+    });//*/
+
+/*
+    db.allDocs({include_docs: true,
+                descending: true,
+                attachments: true
+                }, function(err, doc) {
+      redrawTodosUI(doc.rows);
+    });*/
   }
 
   function checkboxChanged(todo, event) {
@@ -86,9 +101,11 @@
   }
 
   function showButtonPressed(todo) {
-    miTodo=todo; //convierte el Json en una variable global, no es bonito
-    console.log(miTodo);
+    //miTodo=todo; //convierte el Json en una variable global, no es bonito
+
     $("#inputIDBd").val(todo.datosPersonales.apat+" "+todo.datosPersonales.amat+", "+todo.datosPersonales.nombres);
+
+    miAlpaca(todo); //despliega la ficha
   }
 
   // The input box when editing a todo has blurred, we should save
@@ -106,9 +123,37 @@
   // Initialise a sync with the remote server
   function sync() {
     syncDom.setAttribute('data-sync-state', 'syncing');
-    var opts = {live: true};
+
+    /*
+    var filtro={
+        _id: '_design/mydesign',
+        filters: {
+          myfilter: function (doc) {
+            return doc.terapeuta === rutTerapeuta;
+          }.toString()
+        }
+      };
+
+
+
+    db.put(filtro).then(function(respuesta) {
+      opts = {live: true, filter:'mydesign/myfilter'};
+    }).catch(function(err){
+      console.log(err);
+    });
+*/
+
+    //db.remove("_design/mydesign", "1-cb7511e99e8b37432f293b3c43b274f2");
+    var opts = {
+        live: true,
+        filter: function (doc) {
+            return doc.terapeuta === rutTerapeuta; //sincronizamos sólo las fichas de este terapeuta
+          }
+        };
+
     db.replicate.to(remoteCouch, opts, syncError);
     db.replicate.from(remoteCouch, opts, syncError);
+
   }
 
   // EDITING STARTS HERE (you dont need to edit anything below this line)
@@ -138,6 +183,9 @@
   // Given an object representing a todo, this will create a list item
   // to display it.
   function createTodoListItem(todo) {
+
+    console.log(todo);
+
     var checkbox = document.createElement('input');
     checkbox.className = 'toggle';
     checkbox.type = 'checkbox';
@@ -150,6 +198,8 @@
     var deleteLink = document.createElement('button');
     deleteLink.className = 'destroy';
     deleteLink.addEventListener( 'click', deleteButtonPressed.bind(this, todo));
+    var tborrar=document.createTextNode("Borrar");
+    deleteLink.appendChild(tborrar)
 
     var showLink = document.createElement('button');
     showLink.className = 'destroy';
@@ -161,7 +211,9 @@
     divDisplay.className = 'view';
     //divDisplay.appendChild(checkbox);
     divDisplay.appendChild(label);
-    //divDisplay.appendChild(deleteLink);
+
+    if (puedeBorrar){  divDisplay.appendChild(deleteLink);}
+
     divDisplay.appendChild(showLink);
 
 
