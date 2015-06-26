@@ -23,6 +23,11 @@
       "type": "string",
       "readonly": false
     },
+    "fechaCreacion":{
+      "title":"Fecha Creación",
+      "type":"string",
+      "readonly":true
+    },
     "rut": {
       "title": "RUT",
       "description": "Por favor ingrese su RUT",
