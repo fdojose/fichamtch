@@ -1,0 +1,8 @@
+Instalar npm o actualizar npm (sudo npm install -g npm ,  luego actualizar los paquetes npm update -g)
+Dar permisos a /usr/local/lib/node_modules
+Instalar bower (debe tener permisos para crear un link en usr/lib/bin)
+bower install alpaca
+bower install pouchdb
+bower install moment
+bower install eonasdan-bootstrap-datetimepicker
+bower install pouchdb-find
