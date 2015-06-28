@@ -107,9 +107,9 @@
   function showButtonPressed(todo) {
     //miTodo=todo; //convierte el Json en una variable global, no es bonito
 
-    $("#inputIDBd").val(todo.datosPersonales.apat+" "+todo.datosPersonales.amat+", "+todo.datosPersonales.nombres);
-
+    //$("#inputIDBd").val(todo.datosPersonales.apat+" "+todo.datosPersonales.amat+", "+todo.datosPersonales.nombres)
     miAlpaca(todo); //despliega la ficha
+    //$('#listadoPacientes').collapse("hide");
   }
 
   // The input box when editing a todo has blurred, we should save
@@ -282,7 +282,7 @@
 
     //var cshow=document.createElement("td");
     var showLink = document.createElement('button');
-    showLink.className = 'glyphicon glyphicon-pencil';
+    showLink.className = 'glyphicon glyphicon-list-alt';
     showLink.addEventListener( 'click', showButtonPressed.bind(this, todo));
     var t = document.createTextNode("");
     showLink.appendChild(t);

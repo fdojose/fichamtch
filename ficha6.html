@@ -29,24 +29,44 @@
     </head>
     <body>
 
+    <button class="btn btn-primary glyphicon glyphicon-list-alt" type="button" data-toggle="collapse" data-target="#listadoPacientes" aria-expanded="true" aria-controls="listadoPacientes">
+      Listado de Pacientes
+    </button>
+    <div class="collapse in" id="listadoPacientes">
+      <div class="well">
+        <section id="todoapp">
+          <header id="header">
+             <h1>Fichas</h1>
+          </header>
 
-              <section id="todoapp">
-                <header id="header">
-          	<h1>Fichas</h1>
-                </header>
-
-                <section id="main">
-
+          <section id="main">
             <table id="todo-list"></table>
-                </section>
-                <footer id="footer">
-          	<span id="todo-count"></span>
-                  <div id="sync-wrapper">
-                    <div id="sync-success">Sincronizado</div>
-                    <div id="sync-error">Hubo problemas se sincronización</div>
-                  </div>
-                </footer>
-              </section>
+          </section>
+
+          <footer id="footer">
+             <span id="todo-count"></span>
+            <div id="sync-wrapper">
+              <div id="sync-success">Sincronizado</div>
+              <div id="sync-error">Hubo problemas se sincronizaci&oacute;n</div>
+            </div>
+            <div id="bexpandir"><button id="buttonExpandir" onclick="nuevaFicha()" class="btn btn-primary glyphicon glyphicon-plus">Agregar Paciente</button></div>
+          </footer>
+        </section>
+      </div>
+    </div>
+    <div id="btnExpandir">
+      <table>
+        <tr>
+          <td>
+              <div id="bcolapsar"><button id="buttonColapsar" onclick="colapsar()" class="glyphicon glyphicon-collapse-up" >Colapsar</button></div>
+          </td>
+          <td>
+              <div id="bexpandir"><button id="buttonExpandir" onclick="expandir()" class="glyphicon glyphicon-collapse-down" >Expandir</button></div>
+            </td>
+        </tr>
+      </table>
+    </div>
+    <div id="field1"></div>
 
 <!--
               <script src="http://cdn.jsdelivr.net/pouchdb/3.5.0/pouchdb.min.js"></script>
@@ -54,6 +74,7 @@
 
               <script src="./js/base.js"></script>
               <script src="./js/app2.js"></script>
+              <script src="./js/alpaca_options.js"></script>
               <script src="./data/puntos_nombres.js"></script>
               <script type="text/javascript">
 
@@ -79,307 +100,20 @@
                       //return matches;
                     };
                 };
-
-              var misOpciones={
-                  "fields":{
-                    "historia":{
-                      "fields":{
-                        "hipertension":{
-                           "fields":{
-                             "sino":{
-                               "type": "radio",
-                               "vertical":false
-                             }
-                           },
-                           "collapsible":true,
-                           "collapsed": true
-                        },
-                        "tiroidismo":{
-                           "fields":{
-                             "sino":{
-                               "type": "radio",
-                               "vertical":false
-                             }
-                           }
-                        },
-                        "diabetes":{
-                           "fields":{
-                             "sino":{
-                               "type": "radio",
-                               "vertical":false
-                             }
-                           }
-                        },
-                        "ets":{
-                           "fields":{
-                             "sino":{
-                               "type": "radio",
-                               "vertical":false
-                             }
-                           }
-                        },
-                        "hepatitis":{
-                           "fields":{
-                             "sino":{
-                               "type": "radio",
-                               "vertical":false
-                             }
-                           }
-                        },
-                        "cancer":{
-                           "fields":{
-                             "sino":{
-                               "type": "radio",
-                               "vertical":false
-                             }
-                           }
-                        },
-                        "cirugias":{
-                           "fields":{
-                             "sino":{
-                               "type": "radio",
-                               "vertical":false
-                             }
-                           }
-                        },
-                        "otras":{
-                           "fields":{
-                             "sino":{
-                               "type": "radio",
-                               "vertical":false
-                             }
-                           }
-                        }
-
-                      }
-                    },
-                    "tratamientos":{
-                        "fields":{
-                          "item":{ //tratamientos_0_habitos_sueño_concilacion
-                            "fields":{
-                              "motivo":{//funciona //tratamientos_0_motivo
-                                    "type": "textarea",
-                                    "rows": 5,
-                                    "cols": 40,
-                                    "helper": "Por favor ingrese el motivo principal de su consulta actual"
-                               },
-                               "motivoSecundario":{//funciona
-                                     "rows": 5,
-                                     "cols": 40,
-                                     "helper": "Por favor ingresar los motivos secundarios de su consulta actual"
-                                },
-                              "medicamentos":{
-                                "type":"table"
-                              },
-                               "habitos":{
-                                 "fields":{
-                                   "drogas":{
-                                     "type":"table"
-                                   },
-                                   "sueno":{ //funciona
-                                     "fields":{
-                                       "concilacion":{
-                                         "type": "radio",
-                                         "vertical":false
-                                       },
-                                       "calidad":{
-                                         "type":"radio",
-                                         "vertical":false
-                                       },
-                                       "tipo":{
-                                         "type":"radio",
-                                         "vertical":false
-                                       },
-                                       "suenos":{
-                                         "type":"radio",
-                                         "vertical":false
-                                       },
-                                     }
-                                   }
-                                 }
-                               },
-                               "signos":{
-                                 "fields":{
-                                   "emociones":{
-                                     "fields":{
-                                       "emocion":{
-                                         "type":"checkbox"
-                                       }
-                                     }
-                                   },
-                                   "piel":{
-                                     "fields":{
-                                       "piel":{
-                                         "type":"checkbox"
-                                       },
-                                       "unas":{
-                                         "type":"checkbox"
-                                       },
-                                       "pelo":{
-                                         "type":"checkbox"
-                                       }
-                                     }
-                                   },
-                                   "sudor":{
-                                     "fields":{
-                                       "tipo":{
-                                         "type":"checkbox"
-                                       },
-                                       "localizacion":{
-                                         "type":"checkbox"
-                                       }
-                                     }
-                                   },
-                                   "cabeza":{
-                                     "fields":{
-                                       "dolor":{
-                                         "fields":{
-                                           "intensidad":{
-                                             "type":"radio",
-                                             "vertical":false
-                                           },
-                                           "periodo":{
-                                             "type":"radio",
-                                             "vertical":false
-                                           },
-                                           "tipo":{
-                                             "type":"radio",
-                                             "vertical":false
-                                           }
-                                         }
-                                       }
-                                     }
-                                   }
-                                 }
-                               },
-                               "sesiones":{//tratamientos_0_sesiones_0_pulsoDerecho_profundidad, funciona
-                                   "items":{
-                                     "fields":{
-                                       "pulso":{
-                                        "type":"table"
-                                      },
-                                      "acupuntura":{
-                                        "toolbarSticky": true,
-                                        "actionbarStyle":"bottom",
-                                        "type": "table",
-                                           "items":{
-                                             "fields":{
-                                               "nombre":{
-                                                 "type":"text",
-                                                 "events":{
-                                                   "focus":function(){ //no parece funcionar
-                                                     alert("Tomando el foco");
-                                                   },
-                                                   "click":function(){ //funciona
-
-                                                     var divDisplay = document.createElement('div');
-                                                     divDisplay.className="modal fade";
-                                                     var mod=document.createElement('div');
-                                                     mod.className="modal-dialog";
-                                                     var modCont=document.createElement('div');
-                                                     modCont.className="modal-content";
-                                                     var modText=document.createElement('div');
-                                                        modText.className="modal-title";
-                                                      var modTitle=document.createTextNode("Ventana modal");
-                                                     modText.appendChild(modTitle);
-                                                     modCont.appendChild(modText);
-                                                     mod.appendChild(modCont);
-                                                     divDisplay.appendChild(mod);
-
-
-                                                     console.log(divDisplay);
-                                                     //alert(divDisplay);
-                                                   }
-
-                                                 },
-                                                 //"fieldClass":"dropdown",
-                                                 /*"fieldClass":"js-example-data-array" Select2 no funciona, no se rellena el campo */
-
-                                                 /*//aqui se comenta el typeahead
-                                                 "typeahead": {
-                                                   "config": {
-                                                     //"autoselect": true,
-                                                     "highlight": true,
-                                                     //"hint": true,
-                                                     "minLength": 1
-                                                     },
-                                                   "datasets": {
-                                                         "display":'value',
-                                                         //"source": substrMatcher(lpuntos),
-                                                         "type": "local",
-                                                         "async":true,
-                                                         "source":function(query) { //
-
-                                                              var companies = lpuntos;
-                                                              var results = [];
-
-                                                              for (var i = 0; i < companies.length; i++) {
-                                                                  var add = true;
-                                                                  if (query) {
-                                                                      add = (companies[i].indexOf(query) === 0);
-                                                                  }
-                                                                  if (add) {
-                                                                      results.push({
-                                                                          "value": companies[i]
-                                                                      });
-                                                                  }
-                                                              }
-                                                              return results;
-                                                          },
-
-                                                         //"type":"prefetch",
-                                                         //"source":"data/puntos.json",
-                                                         "templates": {
-                                                           "suggestion": "<p style='color: blue'>{{value}}</p>"
-                                                         }
-                                                     }
-                                               }//typeahead */
-                                             },
-                                             "accion":{
-                                               "type":"select"
-                                             },
-                                             "tecnica":{
-                                               "type":"select"
-                                             }
-                                             }
-                                           }
-
-                                      },
-                                      "evolucion":{
-                                        "fields":{
-                                          "detalle":{ //tratamientos_0_sesiones_0_evolucion_detalle, funciona
-                                            "type": "textarea",
-                                            "rows": 3,
-                                            "cols": 20
-                                          } //tratamientos_0_medicamentos_0_nombre
-                                        }
-                                      }
-                                     }
-                                   }
-                               }
-                             }
-                         }
-                       }
-                  },
-                    "talla":{
-                      "type":"text",
-                      "size":4
-                    }
-                 }
-               };
                function colapsar(){
                  /*
                  $('.collapse.in').each(function() {
                     $(this).collapse("hide");  //Hay problemas con el Collapse para mostrar los datos.
                   })
                   */
-                  $('.collapse').each(function() {
+                  $('#field1 .collapse').each(function() {
                      $(this).collapse("hide");  //Hay problemas con el Collapse para mostrar los datos.
                    })
                }
+
                function expandir(){
 
-                 $('.collapse').each(function() {
+                 $('#field1 .collapse').each(function() {
                   // var paraExpandir=$(this).parent();
                   //$paraExpandir.collapse("show");  //Hay problemas con el Collapse para mostrar los datos.
                     $(this).collapse("show");
@@ -396,15 +130,17 @@
 
                  var miTodo={"terapeuta":rutTerapeuta,"rut":"11111111","fechaCreacion":fecha,"datosPersonales":{"nombres":"Juanito","apat":"Alguien","amat":"Algo","genero":"Masculino"}};
 
-
-
+                 //console.log(JSON.stringify($('#field1').alpaca("gets"), null, "  "));
                  miAlpaca(miTodo);
                }
 
                function miAlpaca(miJson){
 
-                 if ($("#field1").alpaca("exists")) //si existe ya una ficha deplegada, la borra
-                    $("#field1").alpaca("destroy");
+                 if ($('#field1').alpaca("exists")) //si existe ya una ficha desplegada, la borra
+                    {
+                      //alert("ya existe una ficha");
+                      $('#field1').alpaca("destroy");
+                   }
 
                             $("#field1").alpaca({
                               //  "dataSource": "./ficha_data.json",
@@ -500,20 +236,6 @@
                       };
               </script>
 
-<table>
-  <tr>
-    <td>
-        <div id="bcolapsar"><button id="buttonColapsar" onclick="colapsar()" class="glyphicon glyphicon-collapse-down" >Colapsar</button></div>
-    </td>
-    <td>
-        <div id="bexpandir"><button id="buttonExpandir" onclick="expandir()" class="glyphicon glyphicon-collapse-up" >Expandir</button></div>
-      </td>
-      <td>
-        <div id="bexpandir"><button id="buttonExpandir" onclick="nuevaFicha()" class="glyphicon glyphicon-collapse-up">Nueva</button></div>
-      </td>    
-  </tr>
-</table>
-        <div id="field1"></div>
         <script type="text/javascript">
             $(document).ready(function() {
                     // miAlpaca(miTodo);
