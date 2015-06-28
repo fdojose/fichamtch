@@ -109,7 +109,7 @@
 
     //$("#inputIDBd").val(todo.datosPersonales.apat+" "+todo.datosPersonales.amat+", "+todo.datosPersonales.nombres)
     miAlpaca(todo); //despliega la ficha
-    //$('#listadoPacientes').collapse("hide");
+    $('#listadoPacientes').collapse("hide");
   }
 
   // The input box when editing a todo has blurred, we should save
