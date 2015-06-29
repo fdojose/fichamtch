@@ -11,8 +11,8 @@
 
         <script type="text/javascript" src="./bower_components/handlebars/handlebars.min.js"></script>
 
-        <link type="text/css" href="http://code.cloudcms.com/alpaca/1.5.9/bootstrap/alpaca.min.css" rel="stylesheet" />
-        <script type="text/javascript" src="http://code.cloudcms.com/alpaca/1.5.9/bootstrap/alpaca.min.js"></script>
+        <link type="text/css" href="./bower_components/alpaca/dist/alpaca/bootstrap/alpaca.min.css" rel="stylesheet" />
+        <script type="text/javascript" src="./bower_components/alpaca/dist/alpaca/bootstrap/alpaca.min.js"></script>
 
         <script type="text/javascript" src="./bower_components/typeahead.js/dist/bloodhound.js"></script>
         <script type="text/javascript" src="./bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
@@ -201,16 +201,64 @@
                               "postRender": function(control) {
 
                                // control.childrenByPropertyId["rut"].getFieldEl().css("background-color", "lightgreen");
-                               // control.childrenByPropertyId["datosPersonales"].getFieldEl().css("background-color", "lightgreen");
+                              // control.childrenByPropertyId["datosPersonales"].getFieldEl().css("background-color", "lightgreen");
                                // control.childrenByPropertyId["fechnac"].getFieldEl().css("background-color", "lightgreen");
                                // control.childrenByPropertyId["genero"].getFieldEl().css("background-color", "lightgreen");
                                // control.childrenByPropertyId["talla"].getFieldEl().css("background-color", "lightgreen");
+
+                               var colapsables=["datosContacto","familia","ocupacion"];
+                               colapsables.forEach(function(entrey){
+                                 var value=control.childrenByPropertyId[entrey];
+                                 if (typeof value.container != "undefined")
+                                    value.container.collapse("hide");
+                               });
+
+                               //colapsamos todas las historias, que es un conjunto de objetos
+                              var historia=control.childrenByPropertyId["historia"].children;
+                              $.each(historia, function(index, value) {
+                                if (typeof value.container != "undefined")
+                                  value.container.collapse("hide");
+                              });
+
+                              //colapasamos los ttos.
+                              var ttos=control.childrenByPropertyId["tratamientos"].children;
+                              //console.log(ttos); //ttos es un arreglo de objetos
+                              ttos.forEach(function(entrey){
+                                var contenidos=entrey.children;
+                                //console.log(contenidos);
+                                $.each(contenidos, function(index, value) {
+                                  console.log(value);
+                                  console.log(value.type);
+
+                                   if (typeof value.container != "undefined") { //evaluar hacer una funcion recursiva
+                                     //if (value.type!="array")
+                                        value.container.collapse("hide");
+
+                                     var subcontenidos=value.children;
+                                     $.each(subcontenidos,function(index2,value2){
+                                       if (typeof value2.container != "undefined")
+                                          if (value.type!="array") //No lo colapsamos si es un elemento de un array
+                                              value2.container.collapse("hide");
+                                     });
+                                   }
+
+                                });
+                              });
+
+//OJO sacar la funcion y cambiar el colapsar.
+
+                               //var colapsaContacto=control.childrenByPropertyId["datosContacto"];
+                               //colapsaContacto.container.collapse("hide"); //funciona
+
+                               //var ca=control.childrenByPropertyId["familia"];
+                               //datosContacto.container.collapse("hide");
+
 
                                 // find all controls with data-collapsed set to true and collapse their data-target
 
                                //Colapsamos los objetos para simplificar la visualización
 
-                               colapsar();
+                               //colapsar();
 
                                /* selct2 no funciona, rellena el campo
                              var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];

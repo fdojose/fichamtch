@@ -75,6 +75,7 @@ var misOpciones={
         }
       },
       "tratamientos":{
+
           "fields":{
             "item":{ //tratamientos_0_habitos_sueño_concilacion
               "fields":{
@@ -174,11 +175,12 @@ var misOpciones={
                    }
                  },
                  "sesiones":{//tratamientos_0_sesiones_0_pulsoDerecho_profundidad, funciona
-                     "items":{
+                   "toolbarSticky": true,
+                     "items":{ //tratamientos_0_sesiones_0_evolucion_evolucionPrincipal
                        "fields":{
-                         "pulso":{
-                          "type":"table"
-                        },
+                        "pulso":{
+                           "type":"table"
+                          },
                         "acupuntura":{
                           "toolbarSticky": true,
                           "actionbarStyle":"bottom",
@@ -256,8 +258,12 @@ var misOpciones={
                                        }
                                  }//typeahead */
                                },
-                               "accion":{
+                               "zona":{
                                  "type":"select"
+                               },
+                               "accion":{
+                                 "type":"radio",
+                                 "vertical":false
                                },
                                "tecnica":{
                                  "type":"select"
@@ -272,6 +278,14 @@ var misOpciones={
                               "type": "textarea",
                               "rows": 3,
                               "cols": 20
+                            },
+                            "evolucionPrincipal":{
+                              "type":"radio",
+                              "vertical":false
+                            },
+                            "evolucionSecundaria":{
+                              "type":"radio",
+                              "vertical":false
                             } //tratamientos_0_medicamentos_0_nombre
                           }
                         }
