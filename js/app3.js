@@ -356,7 +356,7 @@
 
     tb.appendChild(thead);
 
-    //ul.innerHTML = '';
+    tb.innerHTML = ''; //limpia la tabla
     todos.forEach(function(todo) {
       //ul.appendChild(createTodoListItem(todo.doc));
       tb.appendChild(createTodoListItem(todo.doc))
