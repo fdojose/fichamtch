@@ -1,0 +1,15 @@
+./bower_components/bootstrap/dist/
+./bower_components/eonasdan-bootstrap-datetimepicker/build/
+./bower_components/jquery/dist/
+./bower_components/moment/min/
+./bower_components/eonasdan-bootstrap-datetimepicker/build/
+./bower_components/handlebars/
+./bower_components/alpaca/dist/
+./bower_components/pouchdb/dist/
+./bower_components/pouchdb-find/dist/
+./bower_components/typeahead.js/dist/
+./data/
+./js
+./css
+./ficha6.html
+./ficha_nest_schema_curso002.json
