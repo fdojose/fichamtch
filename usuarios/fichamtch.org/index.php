@@ -31,7 +31,7 @@
             $app->notFound();
         }
 
-        $app->render('fichamtch/ficha7.html', [
+        $app->render('ficha_template.html', [
             'page' => [
                 'author' =>         $app->site->author,
                 'title' =>          "Ficha",
