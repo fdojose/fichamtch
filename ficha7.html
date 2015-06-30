@@ -1,0 +1,296 @@
+<html>
+    <head>
+
+
+        <link type="text/css" rel="stylesheet" href="./css/ficha.css" />
+
+        <script type="text/javascript" src="./bower_components/jquery/dist/jquery.js"></script>
+
+        <link type="text/css" rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="./bower_components/handlebars/handlebars.min.js"></script>
+
+        <link type="text/css" href="./bower_components/alpaca/dist/alpaca/bootstrap/alpaca.min.css" rel="stylesheet" />
+        <script type="text/javascript" src="./bower_components/alpaca/dist/alpaca/bootstrap/alpaca.min.js"></script>
+
+        <script type="text/javascript" src="./bower_components/typeahead.js/dist/bloodhound.js"></script>
+        <script type="text/javascript" src="./bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+
+        <script type="text/javascript" src="./bower_components/moment/min/moment-with-locales.min.js"></script>
+        <link type="text/css" rel="stylesheet" href="./bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+        <script type="text/javascript" src="./bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+        <script type="text/javascript" src="./bower_components/pouchdb/dist/pouchdb.min.js"></script>
+        <script type="text/javascript" src="./bower_components/pouchdb-find/dist/pouchdb.find.js"></script>
+
+        <script type="text/javascript" src="./js/hashfvn1.js"></script>
+
+    </head>
+    <body>
+
+    <button class="btn btn-primary glyphicon glyphicon-list-alt" type="button" data-toggle="collapse" data-target="#listadoPacientes" aria-expanded="true" aria-controls="listadoPacientes">
+      Listado de Pacientes
+    </button>
+    <div class="collapse in" id="listadoPacientes">
+      <div class="well">
+        <section id="todoapp">
+          <header id="header">
+             <h1>Fichas</h1>
+          </header>
+
+          <section id="main">
+            <table id="todo-list"></table>
+          </section>
+
+          <footer id="footer">
+             <span id="todo-count"></span>
+            <div id="sync-wrapper">
+              <div id="sync-success">Sincronizado</div>
+              <div id="sync-error">Hubo problemas se sincronizaci&oacute;n</div>
+            </div>
+            <div id="bexpandir"><button id="buttonExpandir" onclick="nuevaFicha()" class="btn btn-primary glyphicon glyphicon-plus">Agregar Paciente</button></div>
+          </footer>
+        </section>
+      </div>
+    </div>
+    <div id="btnExpandir">
+      <table>
+        <tr>
+          <td>
+              <div id="bcolapsar"><button id="buttonColapsar" onclick="colapsar()" class="glyphicon glyphicon-collapse-up" >Colapsar</button></div>
+          </td>
+          <td>
+              <div id="bexpandir"><button id="buttonExpandir" onclick="expandir()" class="glyphicon glyphicon-collapse-down" >Expandir</button></div>
+            </td>
+        </tr>
+      </table>
+    </div>
+    <div id="field1"></div>
+
+<!--
+              <script src="http://cdn.jsdelivr.net/pouchdb/3.5.0/pouchdb.min.js"></script>
+-->
+
+              <script src="./js/base.js"></script>
+              <script src="./js/app3.js"></script>
+              <script src="./js/alpaca_options.js"></script>
+              <script src="./data/puntos_nombres.js"></script>
+              <script type="text/javascript">
+
+                var substrMatcher= function(strs) {  //no la estamos usando de momento.
+
+                  return function findMatches(q, cb) {
+                    var matches, substrRegex;
+
+                    // an array that will be populated with substring matches
+                    matches = [];
+
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, str) {
+                      if (substrRegex.test(str)) {
+                        matches.push(str);
+                      }
+                    });
+                      cb(matches);
+                      //return matches;
+                    };
+                };
+               function colapsar(){
+                 /*
+                 $('.collapse.in').each(function() {
+                    $(this).collapse("hide");  //Hay problemas con el Collapse para mostrar los datos.
+                  })
+                  */
+                  $('#field1 .collapse').each(function() {
+                     $(this).collapse("hide");  //Hay problemas con el Collapse para mostrar los datos.
+                   })
+               }
+
+               function expandir(){
+
+                 $('#field1 .collapse').each(function() {
+                  // var paraExpandir=$(this).parent();
+                  //$paraExpandir.collapse("show");  //Hay problemas con el Collapse para mostrar los datos.
+                    $(this).collapse("show");
+                  })
+               }
+
+               function nuevaFicha(){
+
+                 var currentTime = new Date();
+                 var month = currentTime.getMonth() + 1;
+                 var day = currentTime.getDate();
+                 var year = currentTime.getFullYear();
+                 var fecha=year+"-"+month+"-"+day;
+
+                 var miTodo={"terapeuta":rutTerapeuta,"rut":"11111111","fechaCreacion":fecha,"datosPersonales":{"nombres":"Juanito","apat":"Alguien","amat":"Algo","genero":"Masculino"}};
+
+                 //console.log(JSON.stringify($('#field1').alpaca("gets"), null, "  "));
+                 miAlpaca(miTodo);
+               }
+
+               function miAlpaca(miJson){
+
+                 if ($('#field1').alpaca("exists")) //si existe ya una ficha desplegada, la borra
+                    {
+                      //alert("ya existe una ficha");
+                      $('#field1').alpaca("destroy");
+                   }
+
+                            $("#field1").alpaca({
+                              //  "dataSource": "./ficha_data.json",
+                              "dataSource":miJson,
+                              "schemaSource": "./ficha_nest_schema_curso002.json",
+                              "options": misOpciones,
+                              "form": {
+                              },
+                              "view":{
+                                "parent": "bootstrap-edit-horizontal",
+                                 "wizard":{
+                                     "title": "Welcome to the Wizard",
+                                     "description": "Please fill things in as you wish",
+                                     "bindings": {
+                                         "_id":1,
+                                         "_rev":1,
+                                         "terapeuta":1,
+                                         "rut":1,
+                                         "clinica":1,
+                                         "fechaCreacion":1,
+                                         "datosPersonales": 1,
+                                         "datosContacto":1,
+                                         "familia":2,
+                                         "ocupacion":2,
+                                         "historia": 3,
+                                         "tratamientos":4
+                                     },
+                                     "steps": [{
+                                         "title": "Informaci&oacute;n Persona",
+                                         "description": "Datos del Paciente"
+                                     }, {
+                                         "title": "Familia - Ocupaci&oacute;n",
+                                         "description": "Antecedentes"
+                                     }, {
+                                         "title": "Historia",
+                                         "description": "Historia Cl&iacute;nica"
+                                     },{
+                                         "title":"Tratamientos",
+                                         "description":"Tratamientos"
+                                     }
+                                   ],
+                                   "markAllStepsVisited":true,
+                                   "buttons": {
+                                     "submit": {
+                                       "title": "Grabar",
+                                       "click": function() {
+                                         var value = this.getValue();
+                                         console.log(JSON.stringify(value, null, "  "));
+                                         alert("Grabando");
+                                         addFicha(value);
+
+                                       }
+                                     }
+                                   }
+                                 },
+                                 "horizontal":true
+                              },
+                              "postRender": function(control) {
+
+                               // control.childrenByPropertyId["rut"].getFieldEl().css("background-color", "lightgreen");
+                              // control.childrenByPropertyId["datosPersonales"].getFieldEl().css("background-color", "lightgreen");
+                               // control.childrenByPropertyId["fechnac"].getFieldEl().css("background-color", "lightgreen");
+                               // control.childrenByPropertyId["genero"].getFieldEl().css("background-color", "lightgreen");
+                               // control.childrenByPropertyId["talla"].getFieldEl().css("background-color", "lightgreen");
+
+                               var colapsables=["datosContacto","familia","ocupacion"];
+                               colapsables.forEach(function(entrey){
+                                 var value=control.childrenByPropertyId[entrey];
+                                 if (typeof value.container != "undefined")
+                                    value.container.collapse("hide");
+                               });
+
+                               //colapsamos todas las historias, que es un conjunto de objetos
+                              var historia=control.childrenByPropertyId["historia"].children;
+                              $.each(historia, function(index, value) {
+                                if (typeof value.container != "undefined")
+                                  value.container.collapse("hide");
+                              });
+
+                              //colapasamos los ttos.
+                              var ttos=control.childrenByPropertyId["tratamientos"].children;
+                              //console.log(ttos); //ttos es un arreglo de objetos
+                              ttos.forEach(function(entrey){
+                                var contenidos=entrey.children;
+                                //console.log(contenidos);
+                                $.each(contenidos, function(index, value) {
+                                  console.log(value);
+                                  console.log(value.type);
+
+                                   if (typeof value.container != "undefined") { //evaluar hacer una funcion recursiva
+                                     //if (value.type!="array")
+                                        value.container.collapse("hide");
+
+                                     var subcontenidos=value.children;
+                                     $.each(subcontenidos,function(index2,value2){
+                                       if (typeof value2.container != "undefined")
+                                          if (value.type!="array") //No lo colapsamos si es un elemento de un array
+                                              value2.container.collapse("hide");
+                                     });
+                                   }
+
+                                });
+                              });
+
+//OJO sacar la funcion y cambiar el colapsar.
+
+                               //var colapsaContacto=control.childrenByPropertyId["datosContacto"];
+                               //colapsaContacto.container.collapse("hide"); //funciona
+
+                               //var ca=control.childrenByPropertyId["familia"];
+                               //datosContacto.container.collapse("hide");
+
+
+                                // find all controls with data-collapsed set to true and collapse their data-target
+
+                               //Colapsamos los objetos para simplificar la visualización
+
+                               //colapsar();
+
+                               /* selct2 no funciona, rellena el campo
+                             var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+                             $(".js-example-data-array").select2({
+                               data: data
+                             })
+                             $(".js-example-data-array-selected").select2({
+                               data: data
+                             })
+                           */
+
+                                //control.childrenByPropertyId["antecedentes"].getFieldEl().css("background-color", "lightblue");
+
+                                //control.childrenByPropertyId["habitos"].getFieldEl().css("background-color", "lightblue");
+
+                                //control.childrenByPropertyId["sintomas"].getFieldEl().css("background-color", "lightyellow");
+
+                               // $('input[name=datosPersonales_amat]').css("background-color", "lightgreen"); //referencia por nombre
+
+                               //NO OLVIDAR: Importante separ el tto. de la evolución, un paciente puede tener varios tto. cada uno con evoluciones.
+                              }
+                            });
+                      };
+              </script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                    // miAlpaca(miTodo);
+
+                     //
+            });
+        </script>
+
+    </body>
+</html>
