@@ -19,6 +19,7 @@
   // Replace with remote instance, this just replicates to another local instance.
   var remoteCouch = 'http://tdc.iriscouch.com:5984/fichamtchtest';
 
+  var intervaloSync = setInterval(function () {sync()}, 60000); //tratamos de sincronizar cada 60 segundos
   db.changes({
     since: 'now',
     live: true,
