@@ -373,6 +373,7 @@
       "properties": {
         "tipo": {
           "type": "string",
+          "title":"Ocupacion",
           "enum": [
             "Estudiante",
             "Empleado",

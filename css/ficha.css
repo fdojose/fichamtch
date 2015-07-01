@@ -1,5 +1,56 @@
-#sync-error, #sync-success {
+body {
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.4em;
+  background: #ede9d7 url('bg.png');
+  color: #4d4d4d;
+  width: 800px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+#todoapp {
+  background: #ede9d7;
+  /*background-color: #f6f46c;*/
+  /*background: rgba(255, 255, 255, 0.9);*/
+  /*margin: 130px 0 40px 0;*/
+  padding-left: 20px
+  border: 1px solid #f6f46c;
+  position: relative;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+/*  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2),
+				0 5px 10px 0 rgba(0, 0, 0, 0.15);*/
+}
+
+.alpaca-container-label{
+  background-color: #f6f46c;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: 1px solid #ccc;
+  padding-left: 10px;
+}
+
+thead{
+  font: 12px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.alpaca-field-radio{
+  font: 12px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.container-fluid.alpaca-wizard-back{
+  background-color: #f6f46c; /*no funciona*/
+}
+
+#sync-error, #sync-success, #sync-process {
   display: none;
+}
+
+[data-sync-state=process] #sync-process {
+  display: block;
 }
 
 [data-sync-state=syncing] #sync-success {
