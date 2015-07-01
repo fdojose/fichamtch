@@ -21,7 +21,10 @@
 
   db.changes({
     since: 'now',
-    live: true
+    live: true,
+    filter: function (doc) { //parece que no funciona
+          return doc.terapeuta === rutTerapeuta; //sincronizamos sólo las fichas de este terapeuta
+        }
   }).on('change', showTodos);
 
  function addFicha(fichaJson){
@@ -71,10 +74,16 @@
   // Show the current list of todos by reading them from the database
   function showTodos() {
 
-    db.allDocs({include_docs: true,
-                descending: true,
-                attachments: true
-                }, function(err, doc) {
+    var opts = {
+      include_docs: true,
+      descending: true,
+      attachments: true,
+      filter: function (doc) { //parece que no funciona
+            return doc.terapeuta === rutTerapeuta; //sincronizamos sólo las fichas de este terapeuta
+          }
+        };
+
+    db.allDocs(opts, function(err, doc) {
       redrawTodosUI(doc.rows);
     });//*/
 
@@ -126,7 +135,7 @@
 
   // Initialise a sync with the remote server
   function sync() {
-    syncDom.setAttribute('data-sync-state', 'syncing');
+    syncDom.setAttribute('data-sync-state', 'process');
 
     /*
     var filtro={
@@ -155,16 +164,35 @@
           }
         };
 
-    db.replicate.to(remoteCouch, opts, syncError);
-    db.replicate.from(remoteCouch, opts, syncError);
+    //db.replicate.to(remoteCouch, opts, syncError(err));
+    //db.replicate.from(remoteCouch, opts, syncError(err));
+
+    db.replicate.to(remoteCouch,opts).then(function (result) {
+        // handle 'completed' result
+        syncCompleted(result);
+      }).catch(function (err) {
+        syncError(err);
+    });
+
+    db.replicate.from(remoteCouch,opts).then(function (result) {
+        // handle 'completed' result
+        syncCompleted(result);
+      }).catch(function (err) {
+        syncError(err);
+    });
 
   }
 
   // EDITING STARTS HERE (you dont need to edit anything below this line)
 
   // There was some form or error syncing
-  function syncError() {
+  function syncError(err) {
     syncDom.setAttribute('data-sync-state', 'error');
+    console.log("syncError:"+err);
+  }
+  function syncCompleted(result) {
+    syncDom.setAttribute('data-sync-state', 'success');
+    console.log("syncCompleted:"+result);
   }
 
   // User has double clicked a todo, display an input so they can edit the title
@@ -253,8 +281,7 @@
   // to display it.
   function createTodoListItem(todo) {
 
-    console.log(todo);
-
+    //console.log(todo);
 
     var clabel=document.createElement("td");
     var label = document.createElement('label');

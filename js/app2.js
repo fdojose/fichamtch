@@ -138,8 +138,6 @@
         }
       };
 
-
-
     db.put(filtro).then(function(respuesta) {
       opts = {live: true, filter:'mydesign/myfilter'};
     }).catch(function(err){

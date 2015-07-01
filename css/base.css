@@ -411,14 +411,18 @@ label[for='toggle-all'] {
     display:none;
 }
 
-#sync-error, #sync-success {
+#sync-error, #sync-success, #sync-process{
   display: none;
 }
 
-[data-sync-state=syncing] #sync-success {
+[data-sync-state=syncing] #sync-process {
   display: block;
 }
 
 [data-sync-state=error] #sync-error {
+  display: block;
+}
+
+[data-sync-state=success] #sync-success {
   display: block;
 }
