@@ -2,16 +2,22 @@
 <!DOCTYPE html>
                <html lang="es">
                {% include 'components/head.html' %}
-
+               <script type="text/javascript" src="./bower_components/jquery/dist/jquery.js"></script>
                <body>
+                 <script type="text/javascript">
+                    var rutTerapeuta="{{user.user_name}}"
+                 </script>
                    <div id="wrapper">
-                       {% include 'components/nav-account.html' %}
+                     {% include 'components/nav-account.html' %}
                        <div id="page-wrapper">
-                           {% include 'components/alerts.html' %}
+                         <div id="laficha"></div>
 
-                           <iframe src='/fichamtch/ficha7.html' width="900" height="1024"><iframe>
+                           <script type="text/javascript">
+                               $(document).ready(function() {
+                                 $("#laficha").load('../../../../ficha7.html');
+                               });
+                           </script>
 
-                           {% include 'components/footer.html' %}
                        </div>
                    </div>
                </body>

@@ -1,6 +1,12 @@
 var misOpciones={
     "fields":{
+      "_id":{
+        "hidden":true
+      },
       "_rev":{
+        "hidden":true
+      },
+      "terapeuta":{
         "hidden":true
       },
       "historia":{

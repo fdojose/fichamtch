@@ -1,6 +1,11 @@
 
   //var miTodo={"_terapeuta":"0000","rut":"111111","datosPersonales":{"nombres":"Juanito","apat":"Alguien","amat":"Algo"},"genero":"Masculino"};
-  var rutTerapeuta="125851940";
+  //var rutTerapeuta="125851940";
+  if (typeof rutTerapeuta == 'undefined'){
+    rutTerapeuta="111111";
+    alert("No hay un usuario identificado, usando base de prueba:"+rutTerapeuta);
+
+  }
   var puedeBorrar=true;
   var soloTerapeuta=true;
 
@@ -45,9 +50,11 @@
      if (!err) {
        console.log('Exitosamente grabado en '+nomDB+' !');
        sync();
-       muestraFicha();
+       showTodos();
+       alert("Grabado exitosamente.");
      }else{
        console.log('Error al escribir en '+nomDB+' ! '+err+":"+result);
+       alert("Error al grabar");
      }
    });
  }
@@ -78,10 +85,7 @@
     var opts = {
       include_docs: true,
       descending: true,
-      attachments: true,
-      filter: function (doc) { //parece que no funciona
-            return doc.terapeuta === rutTerapeuta; //sincronizamos sólo las fichas de este terapeuta
-          }
+      attachments: true
         };
 
     db.allDocs(opts, function(err, doc) {
@@ -138,26 +142,6 @@
   function sync() {
     syncDom.setAttribute('data-sync-state', 'process');
 
-    /*
-    var filtro={
-        _id: '_design/mydesign',
-        filters: {
-          myfilter: function (doc) {
-            return doc.terapeuta === rutTerapeuta;
-          }.toString()
-        }
-      };
-
-
-
-    db.put(filtro).then(function(respuesta) {
-      opts = {live: true, filter:'mydesign/myfilter'};
-    }).catch(function(err){
-      console.log(err);
-    });
-*/
-
-    //db.remove("_design/mydesign", "1-cb7511e99e8b37432f293b3c43b274f2");
     var opts = {
         live: true,
         filter: function (doc) {
@@ -165,8 +149,6 @@
           }
         };
 
-    //db.replicate.to(remoteCouch, opts, syncError(err));
-    //db.replicate.from(remoteCouch, opts, syncError(err));
 
     db.replicate.to(remoteCouch,opts).then(function (result) {
         // handle 'completed' result

@@ -3,7 +3,7 @@ body {
   line-height: 1.4em;
   background: #ede9d7 url('bg.png');
   color: #4d4d4d;
-  width: 800px;
+  max-width: 800px;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -14,17 +14,13 @@ body {
 
 #todoapp {
   background: #ede9d7;
-  /*background-color: #f6f46c;*/
-  /*background: rgba(255, 255, 255, 0.9);*/
-  /*margin: 130px 0 40px 0;*/
-  padding-left: 20px
-  border: 1px solid #f6f46c;
+  padding-left: 10px;
+  border: 3px solid #ccc;
   position: relative;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-/*  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2),
-				0 5px 10px 0 rgba(0, 0, 0, 0.15);*/
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
+
 
 .alpaca-container-label{
   background-color: #f6f46c;

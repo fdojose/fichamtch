@@ -33,14 +33,14 @@
       Listado de Pacientes
     </button>
     <div class="collapse in" id="listadoPacientes">
-      <div class="well">
+      <div class="wellnomquedaclaroparaque">
         <section id="todoapp">
           <header id="header">
-             <h1>Fichas</h1>
+             <h2>Fichas</h2>
           </header>
 
           <section id="main">
-            <table id="todo-list"></table>
+            <table id="todo-list" data-toggle="table"></table>
           </section>
 
           <footer id="footer">
@@ -56,23 +56,18 @@
       </div>
     </div>
     <div id="btnExpandir">
-      <table>
+      <table cellpadding="10">
         <tr>
           <td>
-              <div id="bcolapsar"><button id="buttonColapsar" onclick="colapsar()" class="glyphicon glyphicon-collapse-up" >Colapsar</button></div>
+              <div id="bcolapsar"><button id="buttonColapsar" onclick="colapsar()" class="btn btn-primary glyphicon glyphicon-collapse-up" >Colapsar</button></div>
           </td>
           <td>
-              <div id="bexpandir"><button id="buttonExpandir" onclick="expandir()" class="glyphicon glyphicon-collapse-down" >Expandir</button></div>
+              <div id="bexpandir"><button id="buttonExpandir" onclick="expandir()" class="btn btn-primary glyphicon glyphicon-collapse-down" >Expandir</button></div>
             </td>
         </tr>
       </table>
     </div>
     <div id="field1"></div>
-
-<!--
-              <script src="http://cdn.jsdelivr.net/pouchdb/3.5.0/pouchdb.min.js"></script>
--->
-
               <script src="./js/base.js"></script>
               <script src="./js/app3.js"></script>
               <script src="./js/alpaca_options.js"></script>
@@ -129,7 +124,7 @@
                  var year = currentTime.getFullYear();
                  var fecha=year+"-"+month+"-"+day;
 
-                 var miTodo={"terapeuta":rutTerapeuta,"rut":"11111111","fechaCreacion":fecha,"datosPersonales":{"nombres":"Juanito","apat":"Alguien","amat":"Algo","genero":"Masculino"}};
+                 var miTodo={"terapeuta":rutTerapeuta,"fechaCreacion":fecha};
 
                  //console.log(JSON.stringify($('#field1').alpaca("gets"), null, "  "));
                  miAlpaca(miTodo);
@@ -190,7 +185,6 @@
                                        "click": function() {
                                          var value = this.getValue();
                                          console.log(JSON.stringify(value, null, "  "));
-                                         alert("Grabando");
                                          addFicha(value);
 
                                        }
