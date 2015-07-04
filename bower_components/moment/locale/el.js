@@ -1,15 +1,17 @@
-//! moment.js locale configuration
-//! locale : modern greek (el)
-//! author : Aggelos Karalias : https://github.com/mehiel
+// moment.js locale configuration
+// locale : modern greek (el)
+// author : Aggelos Karalias : https://github.com/mehiel
 
-(function (global, factory) {
-   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../moment')) :
-   typeof define === 'function' && define.amd ? define(['moment'], factory) :
-   factory(global.moment)
-}(this, function (moment) { 'use strict';
-
-
-    var el = moment.defineLocale('el', {
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['moment'], factory); // AMD
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('../moment')); // Node
+    } else {
+        factory(window.moment); // Browser global
+    }
+}(function (moment) {
+    return moment.defineLocale('el', {
         monthsNominativeEl : 'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split('_'),
         monthsGenitiveEl : 'Ιανουαρίου_Φεβρουαρίου_Μαρτίου_Απριλίου_Μαΐου_Ιουνίου_Ιουλίου_Αυγούστου_Σεπτεμβρίου_Οκτωβρίου_Νοεμβρίου_Δεκεμβρίου'.split('_'),
         months : function (momentToFormat, format) {
@@ -36,7 +38,6 @@
         meridiemParse : /[ΠΜ]\.?Μ?\.?/i,
         longDateFormat : {
             LT : 'h:mm A',
-            LTS : 'h:mm:ss A',
             L : 'DD/MM/YYYY',
             LL : 'D MMMM YYYY',
             LLL : 'D MMMM YYYY LT',
@@ -60,15 +61,17 @@
         calendar : function (key, mom) {
             var output = this._calendarEl[key],
                 hours = mom && mom.hours();
+
             if (typeof output === 'function') {
                 output = output.apply(mom);
             }
+
             return output.replace('{}', (hours % 12 === 1 ? 'στη' : 'στις'));
         },
         relativeTime : {
             future : 'σε %s',
             past : '%s πριν',
-            s : 'λίγα δευτερόλεπτα',
+            s : 'δευτερόλεπτα',
             m : 'ένα λεπτό',
             mm : '%d λεπτά',
             h : 'μία ώρα',
@@ -80,14 +83,12 @@
             y : 'ένας χρόνος',
             yy : '%d χρόνια'
         },
-        ordinalParse: /\d{1,2}η/,
-        ordinal: '%dη',
+        ordinal : function (number) {
+            return number + 'η';
+        },
         week : {
             dow : 1, // Monday is the first day of the week.
             doy : 4  // The week that contains Jan 4st is the first week of the year.
         }
     });
-
-    return el;
-
 }));
