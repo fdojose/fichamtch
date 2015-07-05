@@ -48,6 +48,12 @@ thead{
   bottom: 1px;
 }
 
+.ficha-checkbox{
+  /*float:left;*/
+  vertical-align: middle;
+  position: relative;
+  bottom: 1px;
+}
 
 
 #sync-error, #sync-success, #sync-process {

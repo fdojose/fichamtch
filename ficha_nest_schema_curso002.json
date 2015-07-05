@@ -820,11 +820,24 @@
                 "properties": {
                   "forma": {
                     "type": "string",
-                    "title": "Forma"
+                    "title": "Forma",
+                    "enum":["Normal","Rigida","Flacida","Hinchada","Grande","Martillada","Corta","Larga","Delgada"]
                   },
                   "color": {
                     "type": "string",
-                    "title": "Color"
+                    "title": "Color",
+                    "enum":["Normal","Púrpura","Rojo","Rojo Intenso","Rojo Obscuro","Pálida","Verde"]
+
+                  },
+                  "textura":{
+                    "type":"string",
+                    "title":"Textura",
+                    "enum":["Normal","Tierna","Dura","Puntos Rojos","Puntos Blacos","Ulceras","Desviada","Temblorosa","Marcas Dentarias"]
+                  },
+                  "humedad":{
+                    "type":"string",
+                    "title":"Humedad",
+                    "enum":["Normal","Humeda","Seca","Ligeramente Seca"]
                   }
                 }
               },
@@ -833,11 +846,18 @@
                 "properties": {
                   "consistencia": {
                     "type": "string",
-                    "title": "Consistencia"
+                    "title": "Consistencia",
+                    "enum":["Normal","Delgada","Gruesa","Pelada","Geográfica"]
                   },
                   "color": {
                     "type": "string",
-                    "title": "Color"
+                    "title": "Color",
+                    "enum":["Normal","Blanca","Empolvada","Nevada","Amarilla","Amarilla Obscura","Gris","Negra"]
+                  },
+                  "raiz":{
+                    "type":"string",
+                    "title":"Raíz",
+                    "enum":["Con Raíz","Sin Raíz"]
                   }
                 }
               }
