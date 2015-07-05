@@ -126,7 +126,7 @@ var misOpciones={
                      }
                    }
                  },
-                 "signos":{
+                 "sintomas":{
                    "fields":{
                      "emociones":{
                        "fields":{
@@ -135,7 +135,11 @@ var misOpciones={
                            "fieldClass":"ficha-checkbox"
                          }
                        }
-                     },
+                     }
+                   }
+                 },
+                 "signos":{
+                   "fields":{
                      "piel":{
                        "fields":{
                          "piel":{
@@ -159,26 +163,6 @@ var misOpciones={
                          },
                          "localizacion":{
                            "type":"checkbox"
-                         }
-                       }
-                     },
-                     "cabeza":{
-                       "fields":{
-                         "dolor":{
-                           "fields":{
-                             "intensidad":{
-                               "type":"radio",
-                               "vertical":false
-                             },
-                             "periodo":{
-                               "type":"radio",
-                               "vertical":false
-                             },
-                             "tipo":{
-                               "type":"radio",
-                               "vertical":false
-                             }
-                           }
                          }
                        }
                      }

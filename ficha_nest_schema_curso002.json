@@ -1,6 +1,6 @@
 {
   "title": "Datos del Paciente",
-  "description": "Por favor ingresar sus datos correctametne.",
+  "description": "Por favor ingresar sus datos correctamente.",
   "type": "object",
   "properties": {
     "_id": {
@@ -23,10 +23,10 @@
       "type": "string",
       "readonly": false
     },
-    "fechaCreacion":{
-      "title":"Fecha Creación",
-      "type":"string",
-      "readonly":true
+    "fechaCreacion": {
+      "title": "Fecha Creación",
+      "type": "string",
+      "readonly": true
     },
     "rut": {
       "title": "RUT",
@@ -373,7 +373,7 @@
       "properties": {
         "tipo": {
           "type": "string",
-          "title":"Ocupacion",
+          "title": "Ocupacion",
           "enum": [
             "Estudiante",
             "Empleado",
@@ -509,9 +509,224 @@
               }
             }
           },
+          "sintomas": {
+            "type": "object",
+            "title": "Síntomas",
+            "properties": {
+              "dolores": {
+                "type": "array",
+                "title": "Dolores",
+                "items": {
+                  "$ref": "#/definitions/dolor"
+                }
+              },
+              "emociones": {
+                "type": "object",
+                "title": "Emociones",
+                "properties": {
+                  "emocion": {
+                    "title": "Emoción Principal",
+                    "type": "string",
+                    "enum": [
+                      "Alegría",
+                      "Ansiedad",
+                      "Ira",
+                      "Miedo",
+                      "Tristeza",
+                      "Pensamiento Obsesivo",
+                      "Duelo"
+                    ]
+                  }
+                }
+              },
+              "oido":{
+                "type":"object",
+                "title":"Oido",
+                "properties":{
+                  "audicion":{
+                    "title":"Audición",
+                    "type":"string",
+                    "enum":["Completa","Disminuida","Sordera en un oido","Sordera en ambos oidos"]
+                  },
+                  "vertigo":{
+                    "title":"Vértigo",
+                    "type":"string",
+                    "enum":["Sí"]
+                  },
+                  "condicionVertigo":{
+                    "title":"Cuándo",
+                    "type":"string",
+                    "enum":["Siembre","Al levantarse", "Al acostarse","Al caminar","Acostado","Parado"],
+                    "dependencies":"vertigo"
+                  },
+                  "tinitus":{
+                    "title":"Tinitus",
+                    "type":"string",
+                    "enum":["Sí"]
+                  },
+                  "tipoTinitus":{
+                    "title":"Tipo de Tinitus",
+                    "type":"string",
+                    "enum":["Sonido Agudo","Sonido Mar"],
+                    "dependencies":"tinitus"
+                  },
+                  "intensidaTinitus":{
+                    "title":"Intensidad",
+                    "type":"string",
+                    "enum":["0","1","2","3","4","5","6","7","8","9","10"],
+                    "dependencies":"tinitus"
+                  },
+                  "frecuenciaTinitus":{
+                    "title":"Cuándo",
+                    "type":"string",
+                    "enum":["Siembre","Al levantarse", "Al acostarse","Al caminar","Acostado","Parado"],
+                    "dependencies":"tinitus"
+                  }
+                }
+              },
+              "ojos":{
+                "type":"object",
+                "title":"Ojos",
+                "properties":{
+                  "lagrimas":{
+                    "type":"string",
+                    "title":"Lágrimas",
+                    "enum":["Ojo Secos","Lagrimeo"]
+                  },
+                  "secreciones":{
+                    "type":"string",
+                    "title":"Secreciones",
+                    "enum":["Sí"]
+                  },
+                  "conjuntiva":{
+                    "type":"string",
+                    "title":"Conjuntiva",
+                    "enum":["Roja","Amarilla","Pálida","Rosada"]
+                  }
+                }
+              },
+              "digestion":{
+                "type":"object",
+                "title":"Digestion",
+                "properties":{
+                  "halitosis":{
+                    "type":"string",
+                    "title":"Halitosis",
+                    "enum":["Sí"]
+                  },
+                  "labios":{
+                    "type":"string",
+                    "title":"Labios",
+                    "enum":["Secos","Partidos","Ulceras"]
+                  },
+                  "gustoBoca":{
+                    "type":"string",
+                    "title":"Gusto especial en la boca",
+                    "enum":["Amargo","Dulce","Ácido","Salado","Picante","Pegajoso","Pegajoso Grasiento"]
+                  },
+                  "prefiere":{
+                    "type":"string",
+                    "title":"Prefiere los sabores",
+                    "enum":["Amargo","Dulce","Ácido","Salado","Picante"]
+                  },
+                  "evita":{
+                    "type":"string",
+                    "title":"Evita los sabores",
+                    "enum":["Amargo","Dulce","Ácido","Salado","Picante"]
+                  },
+                  "encias":{
+                    "type":"string",
+                    "title":"Encías",
+                    "enum":["Sangramiento","Caída de dientes","Ulceras"]
+                  },
+                  "nauceas":{
+                    "type":"string",
+                    "title":"Nauceas",
+                    "enum":["En la mañana","En el día","En la noche","Después de comer","Siempre"]
+                  },
+                  "vomitos":{
+                    "type":"string",
+                    "title":"Vómitos",
+                    "enum":["Contenido alimenticio","Contenido bilioso"]
+                  },
+                  "apetito":{
+                    "type":"string",
+                    "title":"Apetito",
+                    "enum":["Normal","Mucho","Poco","Anorexia","Bulimia","Hambre sin deseos de comer"]
+                  },
+                  "acidez":{
+                    "type":"string",
+                    "title":"Acidez",
+                    "enum":["Acidez","Reflujo"]
+                  },
+                  "sensacionAbdominal":{
+                    "type":"string",
+                    "title":"Sensación Abdominal",
+                    "enum":["Plenitud","Vacío","Ardor","Frío","Eructos","Regurgitación","Hipo","Meteorismo","Borborismos","Distensión","Flatulencia"]
+                  },
+                  "evacuaciones":{
+                    "type":"object",
+                    "title":"Evacuaciones",
+                    "properties":{
+                      "frecuencia":{
+                        "type":"string",
+                        "title":"Frecuencia",
+                        "enum":["1 vez por día","2 veces por día","Más de 2 veces por día","Cada 2 días","Cada 3 días","Cada 4 días","Cada 5 días","Más de 5 días"]
+                      },
+                      "constitucion":{
+                        "type":"string",
+                        "title":"Constitución",
+                        "enum":["Diarreicas","Pastosas","Restos","Duras","Secas","Blancas","Lientéricas","Esteaotorrea","Mucosas","Sangre","Pujo","Tenesmo"]
+                      },
+                      "olor":{
+                        "type":"string",
+                        "title":"Olor",
+                        "enum":["Fétido","Podrido","Ácido"]
+                      },
+                      "hemorroides":{
+                        "type":"string",
+                        "title":"Hemorroides",
+                        "enum":["Internas","Externas"]
+                      },
+                      "pruritoRectal":{
+                        "type":"string",
+                        "title":"Prurito Rectal",
+                        "enum":["Sí"]
+                      }
+                    }
+                  },
+                  "liquidos":{
+                    "type":"object",
+                    "title":"Líquidos",
+                    "properties":{
+                      "condicion":{
+                        "type":"string",
+                        "title":"Sed",
+                        "enum":["Normal","Abundante","Escasa","Sed con poco líquido","Sed sin deseos de beber"]
+                      },
+                      "preferencia":{
+                        "type":"string",
+                        "title":"Preferencia por",
+                        "enum":["Bebidas frías","Bebidas Calientes"]
+                      },
+                      "principalFuente":{
+                        "type":"string",
+                        "title":"Principal fuente de líquidos",
+                        "enum":["Agua","Gaseosas","Té","Café","Infusiones"]
+                      },
+                      "litros":{
+                        "type":"string",
+                        "title":"Litros al día"
+                    }
+                  }
+                }
+              }
+            }
+            }
+          },
           "signos": {
             "type": "object",
-            "title": "Sintomas",
+            "title": "Signos",
             "properties": {
               "vitalidad": {
                 "type": "object",
@@ -545,25 +760,6 @@
                       "Exceso",
                       "Normal",
                       "Estancamiento"
-                    ]
-                  }
-                }
-              },
-              "emociones": {
-                "type": "object",
-                "title": "Emociones",
-                "properties": {
-                  "emocion": {
-                    "title": "Emoción Principal",
-                    "type": "string",
-                    "enum": [
-                      "Alegría",
-                      "Ansiedad",
-                      "Ira",
-                      "Miedo",
-                      "Tristeza",
-                      "Pensamiento Obsesivo",
-                      "Duelo"
                     ]
                   }
                 }
@@ -634,84 +830,6 @@
                   }
                 }
               },
-              "cabeza": {
-                "type": "object",
-                "title": "Cabeza",
-                "properties": {
-                  "dolor": {
-                    "type": "object",
-                    "properties": {
-                      "cefalea": {
-                        "title": "cefalea",
-                        "type": "string",
-                        "enum": [
-                          "si"
-                        ]
-                      },
-                      "frecuencia": {
-                        "type": "string",
-                        "title": "Frecuencia",
-                        "enum": [
-                          "Diaria",
-                          "Día por medio",
-                          "Semanal",
-                          "Quincenal",
-                          "Mensual"
-                        ],
-                        "dependencies": "cefalea"
-                      },
-                      "horario": {
-                        "type": "string",
-                        "title": "Horario",
-                        "enum": [
-                          "Mañana",
-                          "Medio Día",
-                          "Tarde",
-                          "Noche",
-                          "Madrugada"
-                        ],
-                        "dependencies": "cefalea"
-                      },
-                      "tipo": {
-                        "type": "string",
-                        "enum": [
-                          "Punzante",
-                          "Opresivo",
-                          "Quemante"
-                        ],
-                        "dependencies": "cefalea"
-                      },
-                      "intensidad": {
-                        "type": "string",
-                        "title": "Intensidad",
-                        "enum": [
-                          "1",
-                          "2",
-                          "3",
-                          "4",
-                          "5",
-                          "6",
-                          "7",
-                          "8",
-                          "9",
-                          "10"
-                        ],
-                        "dependencies": "cefalea"
-                      },
-                      "periodo": {
-                        "type": "sting",
-                        "title": "Asociado al Período Menstrual",
-                        "enum": [
-                          "Antes",
-                          "Durante",
-                          "Después"
-                        ],
-                        "dependencies": "cefalea"
-                      }
-                    }
-                  }
-                }
-              },
               "sudor": {
                 "type": "object",
                 "title": "Sudor",
@@ -743,10 +861,6 @@
                     ]
                   }
                 }
-              },
-              "sed": {
-                "type": "string",
-                "title": "Sed"
               }
             }
           },
@@ -821,23 +935,55 @@
                   "forma": {
                     "type": "string",
                     "title": "Forma",
-                    "enum":["Normal","Rigida","Flacida","Hinchada","Grande","Martillada","Corta","Larga","Delgada"]
+                    "enum": [
+                      "Normal",
+                      "Rigida",
+                      "Flacida",
+                      "Hinchada",
+                      "Grande",
+                      "Martillada",
+                      "Corta",
+                      "Larga",
+                      "Delgada"
+                    ]
                   },
                   "color": {
                     "type": "string",
                     "title": "Color",
-                    "enum":["Normal","Púrpura","Rojo","Rojo Intenso","Rojo Obscuro","Pálida","Verde"]
-
+                    "enum": [
+                      "Normal",
+                      "Púrpura",
+                      "Rojo",
+                      "Rojo Intenso",
+                      "Rojo Obscuro",
+                      "Pálida",
+                      "Verde"
+                    ]
                   },
-                  "textura":{
-                    "type":"string",
-                    "title":"Textura",
-                    "enum":["Normal","Tierna","Dura","Puntos Rojos","Puntos Blacos","Ulceras","Desviada","Temblorosa","Marcas Dentarias"]
+                  "textura": {
+                    "type": "string",
+                    "title": "Textura",
+                    "enum": [
+                      "Normal",
+                      "Tierna",
+                      "Dura",
+                      "Puntos Rojos",
+                      "Puntos Blacos",
+                      "Ulceras",
+                      "Desviada",
+                      "Temblorosa",
+                      "Marcas Dentarias"
+                    ]
                   },
-                  "humedad":{
-                    "type":"string",
-                    "title":"Humedad",
-                    "enum":["Normal","Humeda","Seca","Ligeramente Seca"]
+                  "humedad": {
+                    "type": "string",
+                    "title": "Humedad",
+                    "enum": [
+                      "Normal",
+                      "Humeda",
+                      "Seca",
+                      "Ligeramente Seca"
+                    ]
                   }
                 }
               },
@@ -847,17 +993,35 @@
                   "consistencia": {
                     "type": "string",
                     "title": "Consistencia",
-                    "enum":["Normal","Delgada","Gruesa","Pelada","Geográfica"]
+                    "enum": [
+                      "Normal",
+                      "Delgada",
+                      "Gruesa",
+                      "Pelada",
+                      "Geográfica"
+                    ]
                   },
                   "color": {
                     "type": "string",
                     "title": "Color",
-                    "enum":["Normal","Blanca","Empolvada","Nevada","Amarilla","Amarilla Obscura","Gris","Negra"]
+                    "enum": [
+                      "Normal",
+                      "Blanca",
+                      "Empolvada",
+                      "Nevada",
+                      "Amarilla",
+                      "Amarilla Obscura",
+                      "Gris",
+                      "Negra"
+                    ]
                   },
-                  "raiz":{
-                    "type":"string",
-                    "title":"Raíz",
-                    "enum":["Con Raíz","Sin Raíz"]
+                  "raiz": {
+                    "type": "string",
+                    "title": "Raíz",
+                    "enum": [
+                      "Con Raíz",
+                      "Sin Raíz"
+                    ]
                   }
                 }
               }
@@ -949,9 +1113,9 @@
           "acupuntura": {
             "type": "array",
             "title": "Acupuntura (Puntos)",
-              "items": {
-                "$ref": "#/definitions/punto"
-              }
+            "items": {
+              "$ref": "#/definitions/punto"
+            }
           },
           "ventosa": {
             "type": "string",
@@ -1103,25 +1267,66 @@
               "9",
               "10"
             ]
+          },
+          "frecuencia": {
+            "type": "string",
+            "title": "Frecuencia",
+            "enum": [
+              "Diaria",
+              "Día por medio",
+              "Semanal",
+              "Quincenal",
+              "Mensual"
+            ]
+          },
+          "horario": {
+            "type": "string",
+            "title": "Horario",
+            "enum": [
+              "Mañana",
+              "Medio Día",
+              "Tarde",
+              "Noche",
+              "Madrugada"
+            ]
+          },
+          "periodo": {
+            "type": "sting",
+            "title": "Asociado al Período Menstrual",
+            "enum": [
+              "Antes",
+              "Durante",
+              "Después"
+            ]
           }
         }
       },
-      "punto":{
-        "type":"object",
-        "properties":{
-          "nombre":{
-            "type":"string",
-            "title":"Punto"
+      "punto": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "title": "Punto"
           },
-          "accion":{
-            "type":"string",
-            "title":"Acción",
-            "enum":["Tonifica","Seda"]
+          "accion": {
+            "type": "string",
+            "title": "Acción",
+            "enum": [
+              "Tonifica",
+              "Seda"
+            ]
           },
-          "tecnica":{
-            "type":"string",
-            "title":"Técnica",
-            "enum":["Moxa","Electro","Moxa aguja","Lampara","A.fuego","otra"]
+          "tecnica": {
+            "type": "string",
+            "title": "Técnica",
+            "enum": [
+              "Moxa",
+              "Electro",
+              "Moxa aguja",
+              "Lampara",
+              "A.fuego",
+              "otra"
+            ]
           }
         }
       }
