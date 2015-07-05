@@ -41,6 +41,15 @@ thead{
   background-color: #f6f46c; /*no funciona*/
 }
 
+.alpaca-control.checkbox{
+  float:left;
+  vertical-align: middle;
+  position: relative;
+  bottom: 1px;
+}
+
+
+
 #sync-error, #sync-success, #sync-process {
   display: none;
 }

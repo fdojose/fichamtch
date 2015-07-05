@@ -131,20 +131,24 @@ var misOpciones={
                      "emociones":{
                        "fields":{
                          "emocion":{
-                           "type":"checkbox"
+                           "type":"checkbox",
+                           "fieldClass":"ficha-checkbox"
                          }
                        }
                      },
                      "piel":{
                        "fields":{
                          "piel":{
-                           "type":"checkbox"
+                           "type":"checkbox",
+                           "fieldClass":"ficha-checkbox"
                          },
                          "unas":{
-                           "type":"checkbox"
+                           "type":"checkbox",
+                           "fieldClass":"ficha-checkbox"
                          },
                          "pelo":{
-                           "type":"checkbox"
+                           "type":"checkbox",
+                           "fieldClass":"ficha-checkbox"
                          }
                        }
                      },
