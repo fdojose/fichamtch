@@ -721,6 +721,39 @@
                   }
                 }
               }
+            },
+            "respiratorio":{
+              "type":"object",
+              "title":"Sistema Respiratorio",
+              "properties":{
+                "nariz":{
+                  "type":"object",
+                  "title":"Nariz",
+                  "properties":{
+                    "obstruccion":{
+                      "type":"string",
+                      "title":"Obstruccion",
+                      "enum":["Sí"]
+                    },
+                    "mucocidad":{
+                      "type":"string",
+                      "title":"Mucosidad",
+                      "enum":["Fluida","Espesa","Clara","Amarilla","Verdosa"]
+                    },
+                    "olores":{
+                      "type":"string",
+                      "title":"Olores",
+                      "enum":["Normal","Anosmia"]
+                    },
+                    "epistaxis":{
+                      "type":"string",
+                      "title":"Epistaxis",
+                      "enum":["Sí"]
+                    }
+                  }
+                }
+              }
+
             }
             }
           },
