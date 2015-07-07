@@ -751,6 +751,54 @@
                       "enum":["Sí"]
                     }
                   }
+                },
+                "faringeLaringe":{
+                  "type":"object",
+                  "title":"Faringe-Laringe",
+                  "properties":{
+                    "inflamacion":{
+                      "type":"string",
+                      "title":"Inflamación",
+                      "enum":["Sí"]
+                    },
+                    "voz":{
+                      "type":"string",
+                      "title":"Voz",
+                      "enum":["Disfonía","Afonía","Voz Débil","Voz Fuerte"]
+                    }
+                  }
+                },
+                "tos":{
+                  "type":"object",
+                  "title":"Tos",
+                  "properties":{
+                    "expectoracion":{
+                      "type":"string",
+                      "title":"Expectoriación",
+                      "enum":["Productiva","Seca","Fluida","Espesa","Clara","Amarilla","Olor","Sangramiento"]
+                    },
+                    "hora":{
+                      "type":"string",
+                      "title":"Horario",
+                      "enum":["Mañana","Medio Día","Tarde","Noche","Madrugada"]
+                    }
+                  }
+                },
+                "respiracion":{
+                  "type":"object",
+                  "title":"Respiración",
+                  "properties":{
+                    "intensidad":{
+                      "type":"string",
+                      "title":"Intensidad",
+                      "enum":["Normal","Débil","Fuerte"]
+                    },
+                    "calidad":{
+                      "type":"string",
+                      "title":"Calidad",
+                      "enum":["Suspiros","Disnea","Entrecortada","Ruidosa","Lenta","Superficial"]
+                    }
+                  }
                 }
               }
 
