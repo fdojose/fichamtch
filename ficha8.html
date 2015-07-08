@@ -107,6 +107,33 @@
                    })
                }
 
+               function colapsa(objeto){
+
+                 objeto.forEach(function(entrey){
+                   var contenidos=entrey.children;
+                   //console.log(contenidos);
+                   $.each(contenidos, function(index, value) {
+                     console.log(value);
+                     console.log(value.type);
+
+                      if (typeof value.container != "undefined") { //evaluar hacer una funcion recursiva
+                        //if (value.type!="array")
+                           value.container.collapse("hide");
+
+                        var subcontenidos=value.children;
+                        colapsa(subcontenidos); //La recursion falla en los strings
+                        /*
+                        $.each(subcontenidos,function(index2,value2){
+                          if (typeof value2.container != "undefined")
+                             if (value.type!="array") //No lo colapsamos si es un elemento de un array
+                                 value2.container.collapse("hide");
+                        });*/
+                      }
+
+                   });
+                 });
+               }
+
                function expandir(){
 
                  $('#field1 .collapse').each(function() {
@@ -208,7 +235,10 @@
                                     value.container.collapse("hide");
                                });
 
+                               var ttos=control.childrenByPropertyId["tratamientos"].children;
+                               colapsa(ttos);
                                //colapsamos todas las historias, que es un conjunto de objetos
+                               /*
                               var historia=control.childrenByPropertyId["historia"].children;
                               $.each(historia, function(index, value) {
                                 if (typeof value.container != "undefined")
@@ -238,7 +268,9 @@
                                    }
 
                                 });
-                              });
+                              });*/
+
+
 
 //OJO sacar la funcion y cambiar el colapsar.
 
