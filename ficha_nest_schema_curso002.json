@@ -415,6 +415,11 @@
             "description": "Ingrese el secundario principal de la consulta",
             "type": "string"
           },
+          "descripcion": {
+            "title": "Describa el problema:",
+            "description": "Describa el problema",
+            "type": "string"
+          },
           "peso": {
             "title": "Peso",
             "description": "Ingrese su peso actual aproximado en kilogramos",
@@ -460,10 +465,6 @@
                     "dependencies": "sino"
                   }
                 }
-              },
-              "agua": {
-                "type": "string",
-                "title": "Ingesta de agua"
               },
               "sueno": {
                 "type": "object",
@@ -605,6 +606,22 @@
                   }
                 }
               },
+              "cardiovacular":{
+                "type":"object",
+                "title":"Cardiovacular",
+                "properties":{
+                  "circulatorio":{
+                    "type":"string",
+                    "title":"Venas y Arterias",
+                    "enum":["Telangestacia","Equimosis","Varices","Petequias","Edemas"]
+                  },
+                  "corazon":{
+                    "type":"string",
+                    "title":"Corazón",
+                    "enum":["Opresión en el pecho","Dolor pectoral","Palpitaciones"]
+                  }
+                }
+              },
               "digestion":{
                 "type":"object",
                 "title":"Digestion",
@@ -719,6 +736,32 @@
                         "title":"Litros al día"
                     }
                   }
+                },
+                "orina":{
+                  "type":"object",
+                  "title":"Orina",
+                  "properties":{
+                    "color":{
+                      "type":"string",
+                      "title":"Color",
+                      "enum":["Clara","Amarilla","Amarilla Obscura","Café","Rojiza"]
+                    },
+                    "cantidad":{
+                      "type":"string",
+                      "title":"Cantidad",
+                      "enum":["Normal","Abundante","Goteo","Eneuresis"]
+                    },
+                    "sensaciones":{
+                      "type":"string",
+                      "title":"Sensación",
+                      "enum":["Ardor","Dolor"]
+                    },
+                    "frecuencia":{
+                      "type":"string",
+                      "title":"Frecuencia",
+                      "enum":["Normal","Poliuria","Eneuresis"]
+                    }
+                  }
                 }
               }
             },
@@ -800,9 +843,100 @@
                     }
                   }
                 }
+
+
               }
 
-            }
+            },
+            "reproductor":{
+                "type":"object",
+                "title":"S. Reproductor",
+                "properties":{
+                  "menstruacion":{
+                    "type":"object",
+                    "title":"Menstruación",
+                    "properties":{
+                      "etapa":{
+                        "type":"string",
+                        "title":"Etapa",
+                        "enum":["Infantil","Metrorragia","Embarazo","Menopausia","Sin regla"]
+                      },
+                      "frecuencia":{
+                        "type":"string",
+                        "title":"Frecuencia",
+                        "enum":["Regurlar","Irregular"]
+                      },
+                      "volumen":{
+                        "type":"string",
+                        "title":"Volumen",
+                        "enum":["Ausente","Profusa","Escasa"]
+                      },
+                      "color":{
+                        "type":"string",
+                        "title":"Color",
+                        "enum":["Rojo Claro","Rojo Obscuro","Púrpura","Amarilla"]
+                      },
+                      "coagulos":{
+                        "type":"string",
+                        "title":"Coagulos",
+                        "enum":["Sí","No"]
+                      },
+                      "sangramiento":{
+                        "type":"string",
+                        "title":"Sangramiento intermenstrual",
+                        "enum":["Sí","No"]
+                      },
+                      "olor":{
+                        "type":"string",
+                        "title":"Olor",
+                        "enum":["Sí","No"]
+                      },
+                      "disminorrea":{
+                        "type":"string",
+                        "title":"Disminorrea (dolor)",
+                        "enum":["Sí","No"]
+                      },
+                      "spm":{
+                        "type":"string",
+                        "title":"Síndrome Premenstrual",
+                        "enum":["No","Antes","Durante"]
+                      },
+                      "duracion":{
+                          "type":"string",
+                          "title":"Duración",
+                          "enum":["1 a 3 días","4 a 7 días","7 a 10 días","11 o más días"]
+                        },
+                      "leucorrea":{
+                          "type":"string",
+                          "title":"Leucorrea",
+                          "enum":["No","Blanca","Amarilla","Rosada","Roja y Blanca","Con olor"]
+                        }
+                    }
+                  },
+                  "sexuales":{
+                    "type":"object",
+                    "title":"Problemas Sexuales",
+                    "properties":{
+                      "libido":{
+                        "type":"string",
+                        "title":"Líbido",
+                        "enum":["Normal","Mucha","Poca"]
+                      },
+                      "infertiliad":{
+                        "type":"string",
+                        "title":"Infertilidad",
+                        "enum":["Sí","No"]
+                      },
+                      "disfuncion":{
+                        "type":"string",
+                        "title":"Disfunción",
+                        "enum":["Disfunción eréctil","Espermatorrea","Frigidez","Eyaculación Precoz","Eyaculación Retardada","Dispareunia","Vaginismo"]
+                      }
+                    }
+                  }
+
+                }
+              }
             }
           },
           "signos": {
@@ -932,7 +1066,7 @@
                   },
                   "localizacion": {
                     "type": "string",
-                    "title": "Hubicación",
+                    "title": "Ubicación",
                     "enum": [
                       "Cara",
                       "Cuello",
@@ -940,6 +1074,16 @@
                       "Palmas",
                       "Plantas"
                     ]
+                  }
+                }
+              },
+              "palpacion":{
+                "type":"object",
+                "title":"Palpación",
+                "properties":{
+                  "palapcion":{
+                    "type":"string",
+                    "title":"Resultado Palapación"
                   }
                 }
               }

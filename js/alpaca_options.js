@@ -85,7 +85,7 @@ var misOpciones={
           "fields":{
             "item":{ //tratamientos_0_habitos_sueño_concilacion
               "fields":{
-                "motivo":{//funciona //tratamientos_0_motivo
+                "descripcion":{//funciona //tratamientos_0_motivo
                       "type": "textarea",
                       "rows": 5,
                       "cols": 40,
@@ -126,7 +126,7 @@ var misOpciones={
                      }
                    }
                  },
-                 "sintomas":{
+                 "signos":{
                    "fields":{
                      "emociones":{
                        "fields":{
@@ -135,11 +135,7 @@ var misOpciones={
                            "fieldClass":"ficha-checkbox"
                          }
                        }
-                     }
-                   }
-                 },
-                 "signos":{
-                   "fields":{
+                     },
                      "piel":{
                        "fields":{
                          "piel":{
@@ -163,6 +159,26 @@ var misOpciones={
                          },
                          "localizacion":{
                            "type":"checkbox"
+                         }
+                       }
+                     },
+                     "cabeza":{
+                       "fields":{
+                         "dolor":{
+                           "fields":{
+                             "intensidad":{
+                               "type":"radio",
+                               "vertical":false
+                             },
+                             "periodo":{
+                               "type":"radio",
+                               "vertical":false
+                             },
+                             "tipo":{
+                               "type":"radio",
+                               "vertical":false
+                             }
+                           }
                          }
                        }
                      }
