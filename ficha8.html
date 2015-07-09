@@ -108,30 +108,29 @@
                }
 
                function colapsa(objeto){
-
-                 objeto.forEach(function(entrey){
-                   var contenidos=entrey.children;
-                   //console.log(contenidos);
-                   $.each(contenidos, function(index, value) {
-                     console.log(value);
-                     console.log(value.type);
-
-                      if (typeof value.container != "undefined") { //evaluar hacer una funcion recursiva
-                        //if (value.type!="array")
-                           value.container.collapse("hide");
-
-                        var subcontenidos=value.children;
-                        colapsa(subcontenidos); //La recursion falla en los strings
-                        /*
-                        $.each(subcontenidos,function(index2,value2){
-                          if (typeof value2.container != "undefined")
-                             if (value.type!="array") //No lo colapsamos si es un elemento de un array
-                                 value2.container.collapse("hide");
-                        });*/
+                 console.log("El objeto es:"+typeof objeto);
+                 if (typeof objeto !="undefined"){
+                   if (typeof objeto != "array"){
+                     //console.log("No es un array");
+                     tieneHijos=objeto.children;
+                     if (typeof tieneHijos !="array"){
+                       if (typeof objeto.container != "undefined"){
+                         objeto.container.collapse("hide");
+                       }
+                     }
+                     if (typeof tieneHijos !="undefined"){
+                       tieneHijos.forEach(function(entrey){
+                          colapsa(entrey);
+                       });
                       }
+                   }else{//si es un array
+                     console.log("El objeto es un array");
+                     $.each(objeto, function(index, value) {
+                             //colapsa(value.children);
+                     });
+                   }
+                 }
 
-                   });
-                 });
                }
 
                function expandir(){
@@ -228,15 +227,15 @@
                                // control.childrenByPropertyId["genero"].getFieldEl().css("background-color", "lightgreen");
                                // control.childrenByPropertyId["talla"].getFieldEl().css("background-color", "lightgreen");
 
-                               var colapsables=["datosContacto","familia","ocupacion"];
+                               var colapsables=["datosContacto","familia","ocupacion","historia","medicamentos"];
                                colapsables.forEach(function(entrey){
+                                 console.log("Colapsando:"+entrey);
                                  var value=control.childrenByPropertyId[entrey];
-                                 if (typeof value.container != "undefined")
-                                    value.container.collapse("hide");
+                                 colapsa(value);
                                });
 
-                               var ttos=control.childrenByPropertyId["tratamientos"].children;
-                               colapsa(ttos);
+                               //var ttos=control.childrenByPropertyId["tratamientos"];
+                               //colapsa(ttos);
                                //colapsamos todas las historias, que es un conjunto de objetos
                                /*
                               var historia=control.childrenByPropertyId["historia"].children;
