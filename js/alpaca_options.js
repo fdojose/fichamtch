@@ -81,7 +81,24 @@ var misOpciones={
         }
       },
       "tratamientos":{
-
+        "actionbar": {
+          "showLabels": true,
+          "actions": [{
+              "label": "Nuevo Tratamiento",
+              "action": "add"
+          }, {
+              "label": "Eliminar Tratamiento",
+              "action": "remove"
+          }, {
+              "label": "Movin' on up",
+              "action": "up",
+              "enabled": false
+          }, {
+              "label": "Get down",
+              "action": "down",
+              "enabled": false
+          }]
+      },
           "fields":{
             "item":{ //tratamientos_0_habitos_sueño_concilacion
               "fields":{

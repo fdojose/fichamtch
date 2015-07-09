@@ -112,7 +112,7 @@
                  if (typeof objeto == "object"){
 
                      var tipoObjeto=objeto.getType();
-
+                     console.log("label:"+objeto.getTitle());
                      if (tipoObjeto != "array"){
                        //console.log("No es un array");
                        tieneHijos=objeto.children;
@@ -238,7 +238,7 @@
                                  console.log(">>>>>Colapsando:"+entrey+":"+value.getType());
                                  colapsa(value);
                                });
-                              
+
 
                                /* selct2 no funciona, rellena el campo
                              var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
