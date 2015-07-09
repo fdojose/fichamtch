@@ -404,6 +404,7 @@
     "definitions": {
       "curso": {
         "type": "object",
+        "title":"Tratamiento",
         "properties": {
           "motivo": {
             "title": "Motivo de Principal de Consulta",
@@ -1091,7 +1092,7 @@
           },
           "sesiones": {
             "type": "array",
-            "title": "Sesion",
+            "title": "Sesiones",
             "items": {
               "$ref": "#/definitions/sesion"
             }
@@ -1100,6 +1101,7 @@
       },
       "sesion": {
         "type": "object",
+        "title":"Sesion",
         "properties": {
           "fecha": {
             "type": "string",
@@ -1354,6 +1356,7 @@
       },
       "droga": {
         "type": "object",
+        "title":"Droga",
         "properties": {
           "tipo": {
             "type": "string",
@@ -1379,6 +1382,7 @@
       },
       "medicamento": {
         "type": "object",
+        "title":"Medicamento",
         "properties": {
           "nombre": {
             "type": "string",
@@ -1419,6 +1423,7 @@
       },
       "dolor": {
         "type": "object",
+        "title":"Dolor",
         "properties": {
           "area": {
             "type": "string",

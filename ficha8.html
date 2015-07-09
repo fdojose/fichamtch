@@ -108,27 +108,32 @@
                }
 
                function colapsa(objeto){
-                 console.log("El objeto es:"+typeof objeto);
-                 if (typeof objeto !="undefined"){
-                   if (typeof objeto != "array"){
-                     //console.log("No es un array");
-                     tieneHijos=objeto.children;
-                     if (typeof tieneHijos !="array"){
-                       if (typeof objeto.container != "undefined"){
-                         objeto.container.collapse("hide");
-                       }
-                     }
-                     if (typeof tieneHijos !="undefined"){
-                       tieneHijos.forEach(function(entrey){
-                          colapsa(entrey);
+                 //console.log("El objeto es:"+typeof objeto);
+                 if (typeof objeto == "object"){
+
+                     var tipoObjeto=objeto.getType();
+
+                     if (tipoObjeto != "array"){
+                       //console.log("No es un array");
+                       tieneHijos=objeto.children;
+
+                         if (typeof objeto.container != "undefined"){ //si el contenedor existe lo colapsa
+                           objeto.container.collapse("hide");
+                         }
+
+                         if (typeof tieneHijos !="undefined"){ //si tiene hijos los manda a colapsar
+                           tieneHijos.forEach(function(entrey){
+                              colapsa(entrey);
+                           });
+                          }
+
+
+                     }else{//si es un array, colapsamos los hijos, pero dejamos visibles los itmes
+                       var hijos=objeto.children;
+                       $.each(hijos, function(index, value) {
+                          colapsa(value);
                        });
-                      }
-                   }else{//si es un array
-                     console.log("El objeto es un array");
-                     $.each(objeto, function(index, value) {
-                             //colapsa(value.children);
-                     });
-                   }
+                     }
                  }
 
                }
@@ -227,64 +232,13 @@
                                // control.childrenByPropertyId["genero"].getFieldEl().css("background-color", "lightgreen");
                                // control.childrenByPropertyId["talla"].getFieldEl().css("background-color", "lightgreen");
 
-                               var colapsables=["datosContacto","familia","ocupacion","historia","medicamentos"];
+                               var colapsables=["datosContacto","familia","ocupacion","historia","tratamientos"];
                                colapsables.forEach(function(entrey){
-                                 console.log("Colapsando:"+entrey);
                                  var value=control.childrenByPropertyId[entrey];
+                                 console.log(">>>>>Colapsando:"+entrey+":"+value.getType());
                                  colapsa(value);
                                });
-
-                               //var ttos=control.childrenByPropertyId["tratamientos"];
-                               //colapsa(ttos);
-                               //colapsamos todas las historias, que es un conjunto de objetos
-                               /*
-                              var historia=control.childrenByPropertyId["historia"].children;
-                              $.each(historia, function(index, value) {
-                                if (typeof value.container != "undefined")
-                                  value.container.collapse("hide");
-                              });
-
-                              //colapasamos los ttos.
-                              var ttos=control.childrenByPropertyId["tratamientos"].children;
-                              //console.log(ttos); //ttos es un arreglo de objetos
-                              ttos.forEach(function(entrey){
-                                var contenidos=entrey.children;
-                                //console.log(contenidos);
-                                $.each(contenidos, function(index, value) {
-                                  console.log(value);
-                                  console.log(value.type);
-
-                                   if (typeof value.container != "undefined") { //evaluar hacer una funcion recursiva
-                                     //if (value.type!="array")
-                                        value.container.collapse("hide");
-
-                                     var subcontenidos=value.children;
-                                     $.each(subcontenidos,function(index2,value2){
-                                       if (typeof value2.container != "undefined")
-                                          if (value.type!="array") //No lo colapsamos si es un elemento de un array
-                                              value2.container.collapse("hide");
-                                     });
-                                   }
-
-                                });
-                              });*/
-
-
-
-//OJO sacar la funcion y cambiar el colapsar.
-
-                               //var colapsaContacto=control.childrenByPropertyId["datosContacto"];
-                               //colapsaContacto.container.collapse("hide"); //funciona
-
-                               //var ca=control.childrenByPropertyId["familia"];
-                               //datosContacto.container.collapse("hide");
-
-
-                                // find all controls with data-collapsed set to true and collapse their data-target
-
-                               //Colapsamos los objetos para simplificar la visualización
-
-                               //colapsar();
+                              
 
                                /* selct2 no funciona, rellena el campo
                              var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
