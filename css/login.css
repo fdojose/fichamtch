@@ -94,3 +94,11 @@ transition: opacity ease 0.5s;
 .login-help{
 font-size: 12px;
 }
+
+#usersAdmin{
+  display: none;
+}
+
+#ficha{
+  display:none;
+}

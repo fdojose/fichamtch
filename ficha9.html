@@ -24,23 +24,26 @@
 
         <script type="text/javascript" src="./bower_components/pouchdb/dist/pouchdb.min.js"></script>
         <script type="text/javascript" src="./bower_components/pouchdb-find/dist/pouchdb.find.js"></script>
+        <script type="text/javascript" src="./bower_components/pouchdb-authentication/dist/pouchdb.authentication.min.js"></script>
 
         <script type="text/javascript" src="./js/hashfvn1.js"></script>
+
 
     </head>
     <body>
       <div id="login">
 
-        <a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+        <a href="#" id="loginLink" data-toggle="modal" data-target="#login-modal">Login</a>
+        <a href="#" id="logout" data-toggle="modal" data-target="#login-modal">Logout</a>
 
         <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
             	  <div class="modal-dialog">
         				<div class="loginmodal-container">
         					<h1>Ingrese a su cuenta</h1><br>
         				  <form>
-        					<input type="text" name="user" placeholder="RUT/DNI">
-        					<input type="password" name="pass" placeholder="Clave">
-        					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
+        					<input type="text" id="usuario" name="user" placeholder="RUT/DNI">
+        					<input type="password" id="clave" name="pass" placeholder="Clave">
+        					<input type="button" id="submitLogin" name="login" class="btn btn-primary login loginmodal-submit" value="Login">
         				  </form>
 
         				  <div class="login-help">
@@ -49,8 +52,31 @@
         				</div>
         			</div>
         		  </div>
-
       </div>
+      <div id="usersAdmin">
+
+        <a href="#" id="adminLink" data-toggle="modal" data-target="#admin-modal">Admin</a>
+
+        <div class="modal fade" id="admin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            	  <div class="modal-dialog">
+        				<div class="loginmodal-container">
+        					<h1>Ingrese el nuevo usuario</h1><br>
+        				  <form>
+        					<input type="text" id="nusuario" name="nuser" placeholder="RUT/DNI">
+        					<input type="password" id="nclave" name="npass" placeholder="Clave">
+                  <input type="password" id="nclave2" name="npass2" placeholder="Confirme su clave">
+                  <input type="text" id="ncorreo" name="ncorreo" placeholder="Correo">
+                  <input type="text" id="nrole" name="nrol" placeholder="Rol">
+        					<input type="button" id="submitNuevo" name="nlogin" class="btn btn-primary login loginmodal-submit" value="Grabar">
+                  <input type="button" id="cancelarNuevo" name="nlogin" class="btn btn-primary login loginmodal-submit" value="Cancelar">
+        				  </form>
+        				  </div>
+        				</div>
+        			</div>
+        		  </div>
+      </div>
+
+<div id="ficha">
 
 <div id="pacientes">
     <button class="btn btn-primary glyphicon glyphicon-list-alt" type="button" data-toggle="collapse" data-target="#listadoPacientes" aria-expanded="true" aria-controls="listadoPacientes">
@@ -79,7 +105,8 @@
         </section>
       </div>
     </div>
-</div>   
+</div>
+
     <div id="btnExpandir">
       <table cellpadding="10">
         <tr>
@@ -93,11 +120,135 @@
       </table>
     </div>
     <div id="field1"></div>
-              <script src="./js/base.js"></script>
-              <script src="./js/app4.js"></script>
-              <script src="./js/alpaca_options.js"></script>
-              <script src="./data/puntos_nombres.js"></script>
+</ficha>
+    <script src="./js/base.js"></script>
+    <script src="./js/app5.js"></script>
+    <script src="./js/alpaca_options.js"></script>
+    <script src="./data/puntos_nombres.js"></script>
+
               <script type="text/javascript">
+
+              //Script de login
+              var ldb = new PouchDB(remoteCouch);
+
+              console.log("ldb:"+JSON.stringify(ldb));
+
+              //$("#login-modal").modal("show");
+
+              $( '#submitLogin' ).click(function( event ) {
+
+                var usuario=$('#usuario').val();
+                var clave=$('#clave').val();
+
+                console.log(usuario+":"+clave);
+
+                rutTerapeuta=usuario;
+
+                ldb.login(usuario,clave, function (err, response) {
+                  if (err) {
+                    if (err.name === 'unauthorized') {
+                      // name or password incorrect
+                    } else {
+                      // cosmic rays, a meteor, etc.
+
+                    }
+                  }else {
+                    if(response.ok){
+                      $("#login-modal").modal("hide");
+                      iniciaSesion();
+                    }
+                  }
+                  console.log("login:"+JSON.stringify(response));
+                });
+              });
+
+              function iniciaSesion(){
+                ldb.getSession(function (err, response) {
+
+                    if (err) {
+                      // network error
+                      alert("Problemas para contactar con el servidor.")
+
+                    } else if (!response.userCtx.name) {
+                      // nobody's logged in
+                      $("#login-modal").modal("show");
+                      $('#logout').hide();
+
+                    } else{
+                      // response.userCtx.name is the current user
+                      $('#logout').show();
+                      $('#logout').text("Logout: "+response.userCtx.name);
+                      $('#loginLink').hide();
+                      //asignamos el usuario
+                      rutTerapeuta=response.userCtx.name;
+
+                      $('#ficha').show();
+
+                      //revisamos si es administrador para mostrar el link
+                      if (response.userCtx.roles.indexOf("_admin")>(-1)){
+                        $('#usersAdmin').show();
+                      }else{
+                        $('#usersAdmin').hide();
+                      }
+                    }
+                    console.log("getSession:"+JSON.stringify(response));
+                  });
+              }
+
+
+                $( '#logout' ).click(function( event ) {
+                  //console.log( 'clicked', $( this ).text() );
+                  ldb.logout(function (err, response) {
+                      if (err) {
+                        // network error
+                        alert("No se pudo desconectar");
+                      }else{
+                        $('#loginLink').show();
+                        $('#logout').hide();
+                        $('#ficha').hide();
+                      }
+                      console.log("logout:"+JSON.stringify(response));
+                    });
+                });
+
+                iniciaSesion();
+
+
+                function crearUsuario(usuario,clave,correo,rol,labase){
+
+                  ldb.signup(usuario,clave, {
+                    metadata : {
+                      email : correo,
+                      base : labase,
+                      roles : [rol]
+                    }
+                  }, function (err, response) {
+                    // etc.
+                    console.log("crearUsuario:"+JSON.stringify(response)+"-err:"+err);
+                  });
+                };
+
+                $('#submitNuevo').click(function(event){
+
+                  var usuario=$('#nusuario').val();
+                  var password=$('#nclave').val();
+                  var password2=$('#nclave2').val();
+                  var correo=$('#ncorreo').val();
+                  var rol=$('#nrol').val();
+
+                  if (password !="undefined" && password.length>6 && password==password2){
+                    crearUsuario(usuario,password,correo,rol,"fichasegura");
+                    //alert("Se creara");
+                    $('#admin-modal').modal("hide");
+                  }else{
+                    alert("Las contraseñas no coinciden")
+                  }
+
+                });
+
+                $('#cancelarNuevo').click(function(event) {
+                  $('#admin-modal').modal("hide");
+                });
 
                 var substrMatcher= function(strs) {  //no la estamos usando de momento.
 
