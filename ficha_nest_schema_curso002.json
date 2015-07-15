@@ -406,6 +406,11 @@
         "type": "object",
         "title":"Tratamiento",
         "properties": {
+          "diagnosticoOccidental":{
+            "title": "Diagnóstico Occidental",
+            "description": "(Si lo hubiese)",
+            "type": "string"
+          },
           "motivo": {
             "title": "Motivo de Principal de Consulta",
             "description": "Ingrese el motivo principal de la consulta",
@@ -607,9 +612,9 @@
                   }
                 }
               },
-              "cardiovacular":{
+              "cardiovascular":{
                 "type":"object",
-                "title":"Cardiovacular",
+                "title":"Cardiosvacular",
                 "properties":{
                   "circulatorio":{
                     "type":"string",
@@ -779,7 +784,7 @@
                       "title":"Obstruccion",
                       "enum":["Sí"]
                     },
-                    "mucocidad":{
+                    "mucosidad":{
                       "type":"string",
                       "title":"Mucosidad",
                       "enum":["Fluida","Espesa","Clara","Amarilla","Verdosa"]

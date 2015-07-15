@@ -106,12 +106,10 @@ var misOpciones={
                       "type": "textarea",
                       "rows": 5,
                       "cols": 40,
-                      "helper": "Por favor ingrese el motivo principal de su consulta actual"
+                      "helper": "Por favor ingrese el motivo principal de su consulta actual."
                  },
-                 "motivoSecundario":{//funciona
-                       "rows": 5,
-                       "cols": 40,
-                       "helper": "Por favor ingresar los motivos secundarios de su consulta actual"
+                 "diagnosticoOccidental":{//funciona
+                       "helper": "Por favor ingrese el diagn&oacute;stico occidental, si lo hubiese."
                   },
                 "medicamentos":{
                   "type":"table"
@@ -140,6 +138,143 @@ var misOpciones={
                            "vertical":false
                          },
                        }
+                     }
+                   }
+                 }, //tratamientos_0_sintomas_oido_vertigo
+                 "sintomas":{
+                   "fields":{
+                     "oido":{
+                       "fields":{
+                         "vertigo":{
+                           "type":"radio",
+                           "vertical":false
+                         },
+                         "tinitus":{
+                           "type":"radio",
+                           "vertical":false
+                         }
+                       }
+                     },
+                     "ojos":{
+                       "fields":{
+                         "lagrimas":{
+                           "type":"radio",
+                           "vertical":false
+                         },
+                         "secreciones":{
+                           "type":"radio",
+                           "vertical":false
+                         }
+                       }
+                     },//tratamientos_0_sintomas_cardiovacular_circulatorio
+                     "cardiovascular":{
+                       "fields":{
+                         "circulatorio":{
+                           "type":"checkbox"
+                         },
+                         "corazon":{
+                           "type":"checkbox"
+                         }
+                       }
+                     },
+                     "digestion":{
+                       "fields":{
+                         "labios":{
+                           "type":"checkbox"
+                         },
+                         "encias":{
+                           "type":"checkbox"
+                         },
+                         "nauceas":{
+                           "type":"checkbox"
+                         },
+                         "sensacionAbdominal":{
+                           "type":"checkbox"
+                         },
+                         "vomitos":{
+                           "type":"radio",
+                           "vertical":false
+                         },
+                         "acidez":{
+                           "type":"radio",
+                           "vertical":false
+                         },
+                         "liquidos":{
+                           "fields":{
+                             "preferencia":{
+                               "type":"radio",
+                               "vertical":false
+                             }
+                           }
+                         },
+                         "orina":{
+                           "fields":{
+                             "sensaciones":{
+                               "type":"radio",
+                               "vertical":false
+                             },
+                             "frecuencia":{
+                               "type":"radio",
+                               "vertical":false
+                             }
+                           }
+                         },
+                         "evacuaciones":{
+                           "fields":{
+                             "olor":{
+                               "type":"radio",
+                               "vertical":false
+                             },
+                             "hemorroides":{
+                               "type":"radio",
+                               "vertical":false
+                             }
+                           }
+                         } //tratamientos_0_sintomas_digestion_evacuaciones_olor
+                       }
+                     },
+                     "respiratorio":{
+                       "fields":{
+                         "nariz":{
+                           "fields":{
+                             "obstruccion":{
+                               "type":"radio",
+                               "vertical":false
+                             },
+                             "mucosidad":{
+                               "type":"checkbox"
+
+                             },
+                             "olores":{
+                               "type":"radio",
+                               "vertical":false
+                             },
+                             "epistaxis":{ //tratamientos_0_sintomas_respiratorio_respiracion_intensidad
+                               "type":"radio",
+                               "vertical":false
+                             }
+                           }
+                         },
+                         "respiracion":{
+                           "fields":{
+                             "intensidad":{
+                               "type":"radio",
+                               "vertical":false
+                             }
+                           }
+                         },
+                         "tos":{
+                           "fields":{
+                             "expectoracion":{
+                               "type":"checkbox"
+                             },
+                             "hora":{
+                               "type":"checkbox"
+                             }
+                           }
+                         }
+                       }
+
                      }
                    }
                  },
