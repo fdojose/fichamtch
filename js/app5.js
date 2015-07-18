@@ -2,11 +2,6 @@
   //var miTodo={"_terapeuta":"0000","rut":"111111","datosPersonales":{"nombres":"Juanito","apat":"Alguien","amat":"Algo"},"genero":"Masculino"};
   //var rutTerapeuta="125851940";
 
-  if (typeof rutTerapeuta == 'undefined'){
-    var rutTerapeuta;
-    //rutTerapeuta="111111";
-    //alert("No hay un usuario identificado, usando base de prueba:"+rutTerapeuta);
-  }
   var puedeBorrar=true;
   var soloTerapeuta=true;
 
@@ -382,3 +377,139 @@
   if (remoteCouch) {
     sync();
   }
+
+//Sistema de autenticación directa contra Couchdb
+
+//Script de login
+if (remoteCouch){
+  var ldb = new PouchDB(remoteCouch);
+  console.log("ldb:"+JSON.stringify(ldb))
+}
+
+$( '#submitLogin' ).click(function( event ) {
+
+  var usuario=$('#usuario').val();
+  var clave=$('#clave').val();
+
+  console.log(usuario+":"+clave);
+
+  rutTerapeuta=usuario;
+
+  ldb.login(usuario,clave, function (err, response) {
+    if (err) {
+      if (err.name === 'unauthorized') {
+        // name or password incorrect
+      } else {
+        // cosmic rays, a meteor, etc.
+
+      }
+    }else {
+      if(response.ok){
+        $("#login-modal").modal("hide");
+        iniciaSesion();
+      }
+    }
+    console.log("login:"+JSON.stringify(response));
+  });
+});
+
+function iniciaSesion(){
+
+//verifica si puede iniciar una sesion
+  ldb.getSession(function (err, response) {
+      if (err) {
+        // network error
+        alert("Problemas para contactar con el servidor.\n Se trabajará fuera de línea.")
+
+      } else if (!response.userCtx.name) { //si se conecta, pero no hay usuario, muestra la pantalla de login
+        // nobody's logged in
+        $("#login-modal").modal("show");
+        $('#logout').hide();
+
+      } else{ // Si se conecta y hay usuario se registra como tal y habilita el logout
+        // response.userCtx.name is the current user
+        $('#logout').show();
+        $('#logout').text("Logout: "+response.userCtx.name);
+        $('#loginLink').hide();
+        //asignamos el usuario
+        rutTerapeuta=response.userCtx.name;
+
+        $('#ficha').show();
+
+        //revisamos si es administrador para mostrar el link de administración
+        if (response.userCtx.roles.indexOf("_admin")>(-1)){
+          $('#usersAdmin').show();
+        }else{
+          $('#usersAdmin').hide();
+        }
+      }
+      console.log("getSession:"+JSON.stringify(response));
+    });
+}
+
+
+  $( '#logout' ).click(function( event ) { //habilita el logout
+    //console.log( 'clicked', $( this ).text() );
+    ldb.logout(function (err, response) {
+        if (err) {
+          // network error
+          alert("No se pudo desconectar");
+        }else{
+          $('#loginLink').show();
+          $('#logout').hide();
+          $('#ficha').hide();
+        }
+        console.log("logout:"+JSON.stringify(response));
+      });
+  });
+
+  function crearUsuario(usuario,clave,correo,rol,labase){ //función para crear usuarios en la base remota
+
+    ldb.signup(usuario,clave, {
+      metadata : {
+        email : correo,
+        base : labase,
+        roles : [rol]
+      }
+    }, function (err, response) {
+      // etc.
+      console.log("crearUsuario:"+JSON.stringify(response)+"-err:"+err);
+    });
+  };
+
+  $('#submitNuevo').click(function(event){ //envía un nuevo usuario a la base remota.
+
+    var usuario=$('#nusuario').val();
+    var password=$('#nclave').val();
+    var password2=$('#nclave2').val();
+    var correo=$('#ncorreo').val();
+    var rol=$('#nrol').val();
+
+    if (password !="undefined" && password.length>6 && password==password2){
+      crearUsuario(usuario,password,correo,rol,"fichasegura");
+      //alert("Se creara");
+      $('#admin-modal').modal("hide");
+    }else{
+      alert("Las contraseñas no coinciden")
+    }
+
+  });
+
+  $('#cancelarNuevo').click(function(event) { //Cancela la creación de un usuario
+    $('#admin-modal').modal("hide");
+  });
+
+  if (typeof rutTerapeuta == 'undefined'){ //si viene un rut y una clave no debiera requerir iniciar sesión, no lo tengo claro.
+    var rutTerapeuta;
+    iniciaSesion();
+    //rutTerapeuta="111111";
+    //alert("No hay un usuario identificado, usando base de prueba:"+rutTerapeuta);
+  }else { //Si viene con el rut no debiera existir login, pero no lo tengo claro.
+    $('#login').hide();
+  }
+  /*
+  Hay que pensar que hacemos con los usuarios cuando no haya conexión, podemos usarlos con la clave en forma temporal y
+  tratar de reconectar cada cierto tiempo.
+  Si lo dejaremos autenticado contra el couchdb habra que cambiar el string de conexión. Actualmente usa un terapeuta genérico.
+  /*
+//Cierre autenticación directa
