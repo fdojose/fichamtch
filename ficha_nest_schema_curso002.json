@@ -378,7 +378,8 @@
             "Estudiante",
             "Empleado",
             "Auto Empleo",
-            "Empresario"
+            "Empresario",
+            "Jubilado"
           ]
         },
         "tipoOcupacion": {
