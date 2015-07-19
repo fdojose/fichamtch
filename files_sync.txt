@@ -7,10 +7,14 @@
 ./bower_components/alpaca/dist/
 ./bower_components/pouchdb/dist/
 ./bower_components/pouchdb-find/dist/
+./bower_components/pouchdb-authentication/dist/pouchdb.authentication.min.js
+./bower_components/transform-pouch/dist/pouchdb.transform-pouch.min.js
 ./bower_components/typeahead.js/dist/
+./bower_components/js-sha3/build/sha3.min.js
+./bower_components/aes/aes.js
 ./data/
 ./js
 ./css
-./ficha6.html
 ./ficha8.html
+./ficha9.html
 ./ficha_nest_schema_curso002.json

@@ -1,6 +1,6 @@
 
   //var miTodo={"_terapeuta":"0000","rut":"111111","datosPersonales":{"nombres":"Juanito","apat":"Alguien","amat":"Algo"},"genero":"Masculino"};
-  var rutTerapeuta="125851940";
+  //var rutTerapeuta="125851940";
 
   var puedeBorrar=true;
   var soloTerapeuta=true;
@@ -8,7 +8,6 @@
   'use strict';
 
   var ENTER_KEY = 13;
-  var syncDom = document.getElementById('sync-wrapper');
 
   // EDITING STARTS HERE (you dont need to edit anything above this line)
 
@@ -143,7 +142,7 @@
 
   // Initialise a sync with the remote server
   function sync() {
-    syncDom.setAttribute('data-sync-state', 'process');
+    syncProcess("Sincronizando");
 
     var opts = {
         live: true,
@@ -155,22 +154,26 @@
 
     db.replicate.to(remoteCouch,opts).then(function (result) {
         // handle 'completed' result
+        console.log("db.replicate.to Completado");
         syncCompleted(result);
+
       }).catch(function (err) {
         syncError(err);
     });
 
     db.replicate.from(remoteCouch,opts).then(function (result) {
         // handle 'completed' result
+        console.log("db.replicate.from Completado");
         syncCompleted(result);
+
       }).catch(function (err) {
         syncError(err);
     });
 
   }
 
-  // EDITING STARTS HERE (you dont need to edit anything below this line)
 
+  var syncDom = document.getElementById('sync-wrapper');
   // There was some form or error syncing
   function syncError(err) {
     syncDom.setAttribute('data-sync-state', 'error');
@@ -179,6 +182,10 @@
   function syncCompleted(result) {
     syncDom.setAttribute('data-sync-state', 'success');
     console.log("syncCompleted:"+result);
+  }
+  function syncProcess(result) {
+    syncDom.setAttribute('data-sync-state', 'process');
+    console.log("syncProcess:"+result);
   }
 
   // User has double clicked a todo, display an input so they can edit the title

@@ -64,7 +64,7 @@ thead{
   display: block;
 }
 
-[data-sync-state=syncing] #sync-success {
+[data-sync-state=success] #sync-success {
   display: block;
 }
 
