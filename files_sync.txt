@@ -13,4 +13,5 @@
 ./css
 ./ficha6.html
 ./ficha8.html
+./ficha9.html
 ./ficha_nest_schema_curso002.json
