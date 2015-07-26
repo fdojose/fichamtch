@@ -395,6 +395,46 @@
 }
 
 
+/** ************************************** **/
+/** OPTIONTREE                             **/
+/** ************************************** **/
+
+.alpaca-field-optiontree {
+
+}
+
+.alpaca-field-optiontree .optiontree {
+
+}
+
+.alpaca-field-optiontree .optiontree .optiontree-selector {
+
+}
+
+.alpaca-field-optiontree.optiontree-horizontal {
+
+}
+
+.alpaca-field-optiontree.optiontree-horizontal .optiontree {
+    display: inline-block;
+}
+
+.alpaca-field-optiontree.optiontree-horizontal .optiontree .optiontree-selector {
+    display: inline-block;
+    padding-left: 4px;
+}
+
+.alpaca-field-optiontree.optiontree-horizontal input {
+    display: inline-block;
+    width: auto;
+}
+
+.alpaca-field-optiontree.optiontree-horizontal label {
+    display: block;
+}
+
+
+
 
 .alpaca-field-tablerow label.control-label
 {
@@ -471,7 +511,7 @@ legend.alpaca-container-label
 
 .alpaca-array-actionbar
 {
-    height: 40px;
+    /*height: 40px;*/
 }
 
 .alpaca-array-actionbar.alpaca-array-actionbar-top
@@ -525,6 +565,11 @@ legend.alpaca-container-label
     padding: 10px;
 }
 */
+
+.alpaca-control-buttons-container
+{
+    margin-top: 10px;
+}
 
 .alpaca-container-item > .alpaca-container > .alpaca-field-object
 {
@@ -589,6 +634,7 @@ legend.alpaca-container-label
     width: 50px !important;
 }
 */
+
 
 
 

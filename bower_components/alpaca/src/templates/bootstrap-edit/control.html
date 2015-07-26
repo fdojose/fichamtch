@@ -8,11 +8,23 @@
 
         {{#control}}{{/control}}
 
-        {{#if options.helper}}
+        {{#if options.helpers}}
+        {{#each options.helpers}}
         <p class="help-block {{#if options.helperClass}}{{options.helperClass}}{{/if}}">
             <i class="glyphicon glyphicon-info-sign"></i>
-            {{{options.helper}}}
+            {{{.}}}
         </p>
+        {{/each}}
+        {{/if}}
+
+        {{#if options.renderButtons}}
+            {{#if options.buttons}}
+            <div class="alpaca-control-buttons-container">
+                {{#each options.buttons}}
+                <button data-key="{{@key}}" type="{{type}}" class="alpaca-control-button alpaca-control-button-{{@key}} {{styles}}" {{#each value}}{{@key}}="{{value}}" {{/each}}>{{{value}}}</button>
+                {{/each}}
+            </div>
+            {{/if}}
         {{/if}}
 
     </div>

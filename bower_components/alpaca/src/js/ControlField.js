@@ -51,6 +51,34 @@
             }
 
             this.controlDescriptor = this.view.getTemplateDescriptor("control-" + controlTemplateType, self);
+
+            // buttons
+            if (typeof(this.options.renderButtons) === "undefined")
+            {
+                this.options.renderButtons = true;
+            }
+            if (this.options.buttons)
+            {
+                for (var k in this.options.buttons)
+                {
+                    if (this.options.buttons[k].label)
+                    {
+                        this.options.buttons[k].value = this.options.buttons[k].label;
+                    }
+                    if (this.options.buttons[k].title)
+                    {
+                        this.options.buttons[k].value = this.options.buttons[k].title;
+                    }
+                    if (!this.options.buttons[k].type)
+                    {
+                        this.options.buttons[k].type = "button";
+                    }
+                    if (!this.options.buttons[k].styles)
+                    {
+                        this.options.buttons[k].styles = this.view.styles.button;
+                    }
+                }
+            }
         },
 
         getControlEl: function()
@@ -213,6 +241,34 @@
                 }
             }
 
+            // buttons
+            $(this.getFieldEl()).find(".alpaca-control-button").each(function() {
+
+                $(this).click(function(e) {
+                    $(this).attr("button-pushed", true);
+                });
+
+                // custom click handler?
+                var key = $(this).attr("data-key");
+                if (key)
+                {
+                    var buttonConfig = self.options.buttons[key];
+                    if (buttonConfig)
+                    {
+                        if (buttonConfig.click)
+                        {
+                            $(this).click(function(control, handler) {
+                                return function(e) {
+                                    e.preventDefault();
+                                    handler.call(control, e);
+                                }
+                            }(self, buttonConfig.click));
+                        }
+                    }
+                }
+            });
+
+
             callback();
         },
 
@@ -270,6 +326,36 @@
         setDefault: function() {
             var defaultData = Alpaca.isEmpty(this.schema['default']) ? "" : this.schema['default'];
             this.setValue(defaultData);
+        },
+
+        /**
+         * Returns the value of this field.
+         *
+         * @returns {Any} value Field value.
+         */
+        getValue: function()
+        {
+            var self = this;
+
+            var value = this.base();
+
+            if (!this.isDisplayOnly())
+            {
+                value = self.getControlValue();
+            }
+
+            // some correction for type
+            value = self.ensureProperType(value);
+
+            return value;
+        },
+
+        /**
+         * Extension point
+         */
+        getControlValue: function()
+        {
+            return this._getControlVal(true);
         },
 
         /**

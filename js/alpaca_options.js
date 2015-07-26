@@ -380,7 +380,7 @@ var misOpciones={
                                    //"fieldClass":"dropdown",
                                    /*"fieldClass":"js-example-data-array" Select2 no funciona, no se rellena el campo */
 
-                                   /*//aqui se comenta el typeahead
+                                   //aqui se comenta el typeahead
                                    "typeahead": {
                                      "config": {
                                        //"autoselect": true,

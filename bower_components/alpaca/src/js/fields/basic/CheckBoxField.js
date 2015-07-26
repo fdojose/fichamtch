@@ -127,6 +127,8 @@
                 //
                 $(self.getFieldEl()).find("input:checkbox").change(function(evt) {
                     self.triggerWithPropagation("change");
+                    //evt.preventDefault();
+                    //evt.stopImmediatePropagation();
                 });
 
                 // for multiple mode, mark values
@@ -161,7 +163,7 @@
         /**
          * @see Alpaca.Field#getValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             var self = this;
 
@@ -248,6 +250,7 @@
                 }
 
                 // walk through values and assign into appropriate inputs
+                Alpaca.checked($(self.getFieldEl()).find("input[data-checkbox-value]"), false);
                 for (var j = 0; j < values.length; j++)
                 {
                     var input = $(self.getFieldEl()).find("input[data-checkbox-value=\"" + values[j] + "\"]");
@@ -337,6 +340,7 @@
         {
             $(this.control).find("input").each(function() {
                 $(this).disabled = true;
+                $(this).prop("disabled", true);
             });
 
         },
@@ -348,6 +352,7 @@
         {
             $(this.control).find("input").each(function() {
                 $(this).disabled = false;
+                $(this).prop("disabled", false);
             });
 
         },

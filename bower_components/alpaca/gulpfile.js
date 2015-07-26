@@ -90,6 +90,7 @@ var paths = {
             "src/js/fields/advanced/IntegerField.js",
             "src/js/fields/advanced/LowerCaseField.js",
             "src/js/fields/advanced/MapField.js",
+            "src/js/fields/advanced/OptionTree.js",
             "src/js/fields/advanced/PasswordField.js",
             "src/js/fields/advanced/PersonalNameField.js",
             "src/js/fields/advanced/PhoneField.js",
@@ -217,6 +218,11 @@ gulp.task("clean", function() {
 
 gulp.task("build-templates", function(cb)
 {
+    // Mozilla
+    var escapeRegExp = function(string){
+            return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
     var processName = function(filepath)
     {
         // strip .js from end
@@ -227,11 +233,11 @@ gulp.task("build-templates", function(cb)
         }
 
         // find "src/templates/" and index up
-        var z = filepath.indexOf("src/templates/");
+        var z = filepath.indexOf(path.join('src','templates',path.sep));
         filepath = filepath.substring(z + 14);
 
         // replace any "/" with .
-        filepath = filepath.replace(new RegExp("/", 'g'), ".");
+        filepath = filepath.replace(new RegExp(escapeRegExp(path.sep), 'g'), ".");
 
         return filepath;
     };
