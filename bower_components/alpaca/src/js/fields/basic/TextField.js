@@ -86,6 +86,11 @@
             {
                 this.options.disallowEmptySpaces = false;
             }
+
+            if (typeof(this.options.disallowOnlyEmptySpaces) === "undefined")
+            {
+                this.options.disallowOnlyEmptySpaces = false;
+            }
         },
 
         /**
@@ -135,7 +140,7 @@
             var self = this;
 
             // autocomplete
-            if (self.options.autocomplete)
+            if (typeof(self.options.autocomplete) !== "undefined")
             {
                 $(self.field).addClass("alpaca-autocomplete");
                 $(self.control).attr("autocomplete", (self.options.autocomplete ? "on" : "off"));
@@ -186,7 +191,13 @@
                 {
                     var bloodHoundConfig = {
                         datumTokenizer: function(d) {
-                            return Bloodhound.tokenizers.whitespace(d.value);
+                            var tokens = "";
+                            for (var k in d) {
+                                if (d.hasOwnProperty(k) || d[k]) {
+                                    tokens += " " + d[k];
+                                }
+                            }
+                            return Bloodhound.tokenizers.whitespace(tokens);
                         },
                         queryTokenizer: Bloodhound.tokenizers.whitespace
                     };
@@ -375,32 +386,23 @@
         },
 
         /**
-         * @see Alpaca.Field#getValue
+         * @see Alpaca.Fields.ControlField#getControlValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             var self = this;
 
-            var value = null;
+            var value = this._getControlVal(true);
 
-            if (!this.isDisplayOnly() && this.control && this.control.length > 0)
+            if (self.control.mask && self.options.maskString)
             {
-                value = this._getControlVal(true);
-
-                if (self.control.mask && self.options.maskString)
+                // get unmasked value
+                var fn = $(this.control).data($.mask.dataName);
+                if (fn)
                 {
-                    // get unmasked value
-                    var fn = $(this.control).data($.mask.dataName);
-                    if (fn)
-                    {
-                        value = fn();
-                        value = self.ensureProperType(value);
-                    }
+                    value = fn();
+                    value = self.ensureProperType(value);
                 }
-            }
-            else
-            {
-                value = this.base();
             }
 
             return value;
@@ -583,6 +585,11 @@
         {
             var self = this;
 
+            // ignore tab and arrow keys
+            if (e.keyCode === 9 || e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 ) {
+                return;
+            }
+
             if (e.keyCode === 8) // backspace
             {
                 if (!Alpaca.isEmpty(self.schema.minLength) && (self.options.constrainLengths || self.options.constrainMinLength))
@@ -627,6 +634,9 @@
 
             // if applicable, update the max length indicator
             self.updateMaxLengthIndicator();
+
+            // trigger "fieldkeyup"
+            $(this.field).trigger("fieldkeyup");
         }
 
 
@@ -747,6 +757,12 @@
                     "disallowEmptySpaces": {
                         "title": "Disallow Empty Spaces",
                         "description": "Whether to disallow the entry of empty spaces in the text",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "disallowOnlyEmptySpaces": {
+                        "title": "Disallow Only Empty Spaces",
+                        "description": "Whether to disallow the entry of only empty spaces in the text",
                         "type": "boolean",
                         "default": false
                     }

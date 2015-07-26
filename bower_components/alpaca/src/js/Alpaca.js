@@ -126,7 +126,9 @@
                     return (existing ? true : false);
                 }
                 else if ("destroy" === specialFunctionName) {
-                    existing.destroy();
+                    if (existing) {
+                        existing.destroy();
+                    }
                     return;
                 }
 
@@ -307,6 +309,7 @@
                                 // pick first element in form
                                 if (field.children && field.children.length > 0)
                                 {
+                                    /*
                                     for (var z = 0; z < field.children.length; z++)
                                     {
                                         if (field.children[z].isControlField)
@@ -318,6 +321,9 @@
                                             }
                                         }
                                     }
+                                    */
+
+                                    doFocus(field);
                                 }
                             }
                             else if (typeof(options.focus) === "string")
@@ -560,9 +566,10 @@
         /**
          * Finds whether a variable is empty.
          * @param {Any} obj The variable being evaluated.
+         * @param [boolean] includeFunctions whether to include functions in any counts
          * @returns {Boolean} True if the variable is empty, false otherwise.
          */
-        isEmpty: function(obj) {
+        isEmpty: function(obj, includeFunctions) {
 
             var self = this;
 
@@ -577,7 +584,7 @@
 
             if (obj && Alpaca.isObject(obj))
             {
-                var count = self.countProperties(obj);
+                var count = self.countProperties(obj, includeFunctions);
                 if (count === 0)
                 {
                     return true;
@@ -591,18 +598,26 @@
          * Counts the number of properties in an object.
          *
          * @param obj
+         * @param includeFunctions
+         *
          * @returns {number}
          */
-        countProperties: function(obj) {
+        countProperties: function(obj, includeFunctions) {
             var count = 0;
 
             if (obj && Alpaca.isObject(obj))
             {
                 for (var k in obj)
                 {
-                    if (obj.hasOwnProperty(k) && typeof(obj[k]) !== "function")
+                    if (obj.hasOwnProperty(k))
                     {
-                        count++;
+                        if (includeFunctions) {
+                            count++;
+                        } else {
+                            if (typeof(obj[k]) !== "function") {
+                                count++;
+                            }
+                        }
                     }
                 }
             }
@@ -855,7 +870,7 @@
         {
             var type = null;
 
-            if (schema && schema["enum"])
+            if (schema && typeof(schema["enum"]) !== "undefined")
             {
                 if (schema["enum"].length > 3)
                 {
@@ -1087,7 +1102,8 @@
         regexps:
         {
             "email": /^[a-z0-9!\#\$%&'\*\-\/=\?\+\-\^_`\{\|\}~]+(?:\.[a-z0-9!\#\$%&'\*\-\/=\?\+\-\^_`\{\|\}~]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,6}$/i,
-            "url": /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(\:[0-9]{1,5})?(([0-9]{1,5})?\/.*)?$/i,
+            "url": /^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(\:[0-9]{1,5})?(\/.*)?$/i,
+            "intranet-url": /^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*(\:[0-9]{1,5})?(\/.*)?$/i,
             "password": /^[0-9a-zA-Z\x20-\x7E]*$/,
             "date": /^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.]\d\d$/,
             "integer": /^([\+\-]?([1-9]\d*)|0)$/,
@@ -1095,7 +1111,8 @@
             "phone":/^(\D?(\d{3})\D?\D?(\d{3})\D?(\d{4}))?$/,
             "ipv4":/^(?:1\d?\d?|2(?:[0-4]\d?|[6789]|5[0-5]?)?|[3-9]\d?|0)(?:\.(?:1\d?\d?|2(?:[0-4]\d?|[6789]|5[0-5]?)?|[3-9]\d?|0)){3}$/,
             "zipcode-five": /^(\d{5})?$/,
-            "zipcode-nine": /^(\d{5}(-\d{4})?)?$/
+            "zipcode-nine": /^(\d{5}(-\d{4})?)?$/,
+            "whitespace": /^\s+$/
         },
 
         /**
@@ -1566,11 +1583,13 @@
          * Finds whether a variable has empty value or not.
          *
          * @param {Any} val Variable to be evaluated.
+         * @param [boolean] includeFunctions whether to include function in any counts
+         *
          * @returns {Boolean} True if the variable has empty value, false otherwise.
          */
-        isValEmpty : function(val) {
+        isValEmpty : function(val, includeFunctions) {
             var empty = false;
-            if (Alpaca.isEmpty(val)) {
+            if (Alpaca.isEmpty(val, includeFunctions)) {
                 empty = true;
             } else {
                 if (Alpaca.isString(val) && val === "") {
@@ -1890,10 +1909,10 @@
         createFieldInstance : function(el, data, options, schema, view, connector, errorCallback) {
 
             // make sure options and schema are not empty
-            if (Alpaca.isValEmpty(options)) {
+            if (Alpaca.isValEmpty(options, true)) {
                 options = {};
             }
-            if (Alpaca.isValEmpty(schema)) {
+            if (Alpaca.isValEmpty(schema, true)) {
                 schema = {};
             }
 

@@ -84,6 +84,20 @@
             }
             */
 
+            // legacy support: options.helper -> convert to options.helpers
+            if (!this.options.helpers) {
+                this.options.helpers = [];
+            }
+            if (this.options.helper) {
+                if (!Alpaca.isArray(this.options.helper)) {
+                    this.options.helpers.push(this.options.helper);
+                } else {
+                    for (var i = 0; i < this.options.helper.length; i++) {
+                        this.options.helpers.push(this.options.helper[i]);
+                    }
+                }
+            }
+
             if (Alpaca.isEmpty(this.options.readonly) && !Alpaca.isEmpty(this.schema.readonly)) {
                 this.options.readonly = this.schema.readonly;
             }
@@ -303,7 +317,12 @@
         on: function(name, fn)
         {
             Alpaca.logDebug("Adding listener for event: " + name);
-            this._events[name] = fn;
+
+            if (!this._events[name]) {
+                this._events[name] = [];
+            }
+
+            this._events[name].push(fn);
             return this;
         },
 
@@ -333,27 +352,33 @@
          *
          * @returns {null}
          */
-        trigger: function(name, event)
+        trigger: function(name, event, arg1, arg2, arg3)
         {
             // NOTE: this == control
 
-            var handler = this._events[name];
-
-            var ret = null;
-            if (typeof(handler) === "function")
+            var handlers = this._events[name];
+            if (handlers)
             {
-                Alpaca.logDebug("Firing event: " + name);
-                try
+                for (var i = 0; i < handlers.length; i++)
                 {
-                    ret = handler.call(this, event);
-                }
-                catch (e)
-                {
-                    Alpaca.logDebug("The event handler caught an exception: " + name);
+                    var handler = handlers[i];
+
+                    var ret = null;
+                    if (typeof(handler) === "function")
+                    {
+                        Alpaca.logDebug("Firing event: " + name);
+                        try
+                        {
+                            ret = handler.call(this, event, arg1, arg2, arg3);
+                        }
+                        catch (e)
+                        {
+                            Alpaca.logDebug("The event handler caught an exception: " + name);
+                            Alpaca.logDebug(e);
+                        }
+                    }
                 }
             }
-
-            return ret;
         },
 
         /**
@@ -493,6 +518,15 @@
                         // allow any post-rendering facilities to kick in
                         self.postRender(function() {
 
+                            // finished initializing
+                            self.initializing = false;
+
+                            // allow for form to do some late updates
+                            if (self.form)
+                            {
+                                self.form.afterInitialize();
+                            }
+
                             // callback
                             if (callback && Alpaca.isFunction(callback))
                             {
@@ -513,6 +547,9 @@
 
                     // allow any post-rendering facilities to kick in
                     self.postRender(function() {
+
+                        // finished initializing
+                        self.initializing = false;
 
                         // callback
                         if (callback && Alpaca.isFunction(callback))
@@ -657,6 +694,12 @@
 
             // all fields get field id data attribute
             this.field.attr("data-alpaca-field-id", this.getId());
+
+            // all fields get their path
+            this.field.attr("data-alpaca-field-path", this.getPath());
+
+            // all fields get their name
+            this.field.attr("data-alpaca-field-name", this.getName());
 
             // try to avoid adding unnecessary injections for display view.
             if (this.view.type !== 'view') {
@@ -818,9 +861,6 @@
                 this.field.hide();
             }
 
-            // finished initializing
-            this.initializing = false;
-
             var defaultHideInitValidationError = (this.view.type === 'create') && !this.refreshed;
             this.hideInitValidationError = Alpaca.isValEmpty(this.options.hideInitValidationError) ? defaultHideInitValidationError : this.options.hideInitValidationError;
 
@@ -940,10 +980,6 @@
             return this.id;
         },
 
-        /*        getType: function() {
-         return this.type;
-         },*/
-
         /**
          * Returns this field's parent.
          *
@@ -954,12 +990,46 @@
         },
 
         /**
+         * Retrieves the path to this element in the graph of JSON data.
+         *
+         * @returns {string} the path to this element
+         */
+        getPath: function() {
+            return this.path;
+        },
+
+        /**
+         * Retrieves the name of this element at the current level of JSON data.
+         *
+         * @returns {*}
+         */
+        getName: function() {
+            return this.name;
+        },
+
+        /**
          * Finds if this field is top level.
          *
          * @returns {Boolean} True if this field is the top level one, false otherwise.
          */
         isTopLevel: function() {
             return Alpaca.isEmpty(this.parent);
+        },
+
+        /**
+         * Walks up the parent chain and returns the top most control.  If no parents, then current control is top control.
+         *
+         * @returns {Control} top most control
+         */
+        top: function()
+        {
+            var top = this;
+
+            while (top.parent) {
+                top = top.parent;
+            }
+
+            return top;
         },
 
         /**
@@ -989,6 +1059,12 @@
             this.updateObservable();
 
             this.triggerUpdate();
+
+            // special case - if we're in a display mode and not first render, then do a refresh here
+            if (this.isDisplayOnly() && !this.initializing)
+            {
+                this.refresh();
+            }
         },
 
         /**
@@ -1042,6 +1118,13 @@
 
             // remove any alpaca messages for this field
             $(this.getFieldEl()).children(".alpaca-message").remove();
+
+            // maxMessage
+            if (messages && messages.length > 0) {
+                if(this.options.maxMessages && Alpaca.isNumber(this.options.maxMessages) && this.options.maxMessages > -1) {
+                    messages = messages.slice(0,this.options.maxMessages);
+                }
+            }
 
             // CALLBACK: "removeMessages"
             self.fireCallback("removeMessages");
@@ -1325,8 +1408,13 @@
                 return false;
             }
 
+            if (this.options.disallowOnlyEmptySpaces && Alpaca.testRegex(Alpaca.regexps.whitespace, this.getValue())) {
+                return false;
+            }
+
             return true;
         },
+
 
         /**
          * Checks whether the field value is allowed or not.
@@ -1661,6 +1749,9 @@
             {
                 this.refreshValidationState();
             }
+
+            // trigger "fieldblur"
+            $(this.field).trigger("fieldblur");
         },
 
         /**
@@ -1702,27 +1793,44 @@
          * @returns {Alpaca.Field} Field control mapped to the path.
          */
         getControlByPath: function(path) {
-            var parentControl = this;
-            if (path) {
+
+            var result = null;
+
+            if (path)
+            {
+                // strip off the leading "/" if it is there
+                if (path.indexOf("/") === 0) {
+                    path = path.substring(1);
+                }
+
+                // strip off the trailing "/" if it is there
+                if (Alpaca.endsWith(path, "/")) {
+                    path = path.substring(0, path.length - 1);
+                }
+
+                var current = this;
+
                 var pathArray = path.split('/');
-                for (var i = 0; i < pathArray.length; i++) {
-                    if (!Alpaca.isValEmpty(pathArray[i])) {
-                        if (parentControl && parentControl.childrenByPropertyId) {
-                            //check to see if we need to add the properties field
-                            if (parentControl.childrenByPropertyId[pathArray[i]]) {
-                                parentControl = parentControl.childrenByPropertyId[pathArray[i]];
-                            } else {
-                                return null;
-                            }
-                        } else {
-                            return null;
-                        }
-                    } else {
-                        return null;
+                for (var i = 0; i < pathArray.length; i++)
+                {
+                    var pathElement = pathArray[i];
+
+                    if (pathElement.indexOf("[") === 0)
+                    {
+                        // index into an array
+                        var index = parseInt(pathElement.substring(1, pathElement.length - 1), 10);
+                        current = current.children[index];
+                    }
+                    else
+                    {
+                        current = current.childrenByPropertyId[pathElement];
                     }
                 }
-                return parentControl;
+
+                result = current;
             }
+
+            return result;
         },
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2098,6 +2206,14 @@
                         "description": "Field help message.",
                         "type": "string"
                     },
+                    "helpers": {
+                        "title": "Helpers",
+                        "description": "An array of field help messages.  Each message will be displayed on it's own line.",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
                     "fieldClass": {
                         "title": "CSS class",
                         "description": "Specifies one or more CSS classes that should be applied to the dom element for this field once it is rendered.  Supports a single value, comma-delimited values, space-delimited values or values passed in as an array.",
@@ -2155,12 +2271,12 @@
                                     "enum":["post","get"],
                                     "type": "string"
                                 },
-				"rubyrails": {
-				    "title": "Ruby On Rails",
-				    "description": "Ruby on Rails Name Standard",
-				    "enum": ["true", "false"],
-				    "type": "string"
-				},
+                                "rubyrails": {
+                                    "title": "Ruby On Rails",
+                                    "description": "Ruby on Rails Name Standard",
+                                    "enum": ["true", "false"],
+                                    "type": "string"
+                                },
                                 "name": {
                                     "title": "Name",
                                     "description": "Form name",
@@ -2244,6 +2360,12 @@
                     },
                     "helper": {
                         "type": "textarea"
+                    },
+                    "helpers": {
+                        "type": "array",
+                        "items": {
+                            "type": "textarea"
+                        }
                     },
                     "fieldClass": {
                         "type": "text"

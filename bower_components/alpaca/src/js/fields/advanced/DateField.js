@@ -58,12 +58,25 @@
                 self.options.picker.format = self.options.dateFormat;
             }
 
+            if (!self.options.picker.locale) {
+                self.options.picker.locale = "en_US";
+            }
+
+            if (!self.options.picker.dayViewHeaderFormat) {
+                self.options.picker.dayViewHeaderFormat = "MMMM YYYY";
+            }
+
             // extra formats
             if (!self.options.picker.extraFormats) {
                 var extraFormats = self.getDefaultExtraFormats();
                 if (extraFormats) {
                     self.options.picker.extraFormats = extraFormats;
                 }
+            }
+
+            if (typeof(self.options.manualEntry) === "undefined")
+            {
+                self.options.manualEntry = false;
             }
         },
 
@@ -91,12 +104,44 @@
                         {
                             self.options.dateFormat = self.picker.format();
                         }
+
+                        // optionally block manual entry
+                        self.on("keypress", function (e) {
+                            if (!self.options.manualEntry)
+                            {
+                                e.preventDefault();
+                                e.stopImmediatePropagation();
+
+                                return false;
+                            }
+                        });
+
+                        // with date-time picker, trigger change using plugin
+                        self.getFieldEl().on("dp.change", function(e) {
+
+                            // we use a timeout here because we want this to run AFTER control click handlers
+                            setTimeout(function() {
+                                self.onChange.call(self, e);
+                                self.triggerWithPropagation("change", e);
+                            }, 250);
+
+                        });
                     }
                 }
 
                 callback();
 
             });
+        },
+
+        /**
+         * Allows manual entry mode to be toggled on and off.
+         *
+         * @param manualEntry
+         */
+        setManualEntry: function(manualEntry)
+        {
+            this.options.manualEntry = manualEntry;
         },
 
         /**
@@ -224,14 +269,6 @@
                     this.picker.date(value);
                 }
             }
-        },
-
-        /**
-         * @see Alpaca.Fields.TextField#getValue
-         */
-        getValue: function()
-        {
-            return this.base();
         },
 
         destroy: function()

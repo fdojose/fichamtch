@@ -15,7 +15,7 @@ legend.alpaca-container-label
 
 .alpaca-array-actionbar
 {
-    height: 40px;
+    /*height: 40px;*/
 }
 
 .alpaca-array-actionbar.alpaca-array-actionbar-top
@@ -69,6 +69,11 @@ legend.alpaca-container-label
     padding: 10px;
 }
 */
+
+.alpaca-control-buttons-container
+{
+    margin-top: 10px;
+}
 
 .alpaca-container-item > .alpaca-container > .alpaca-field-object
 {
@@ -133,6 +138,7 @@ legend.alpaca-container-label
     width: 50px !important;
 }
 */
+
 
 
 

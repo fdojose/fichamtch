@@ -136,9 +136,9 @@
         /**
          * Reconstructs the data object from the child fields.
          *
-         * @see Alpaca.Field#getValue
+         * @see Alpaca.ContainerField#getContainerValue
          */
-        getValue: function()
+        getContainerValue: function()
         {
             // if we don't have any children and we're not required, hand back empty object
             if (this.children.length === 0 && !this.isRequired())
@@ -175,7 +175,7 @@
                         {
                             assignedValue = fieldValue;
                         }
-                        else if (fieldValue)
+                        else if (fieldValue || fieldValue === 0)
                         {
                             assignedValue = fieldValue;
                         }
@@ -293,7 +293,10 @@
                 var itemData = null;
                 if (self.data)
                 {
-                    itemData = self.data[propertyId];
+                    if (self.data.hasOwnProperty(propertyId))
+                    {
+                        itemData = self.data[propertyId];
+                    }
                 }
 
                 var pf = (function(propertyId, itemData, extraDataProperties)
@@ -315,17 +318,7 @@
 
                             self.createItem(propertyId, schema, options, itemData, null, function (addedItemControl) {
 
-                                if (options.hasOwnProperty("order")) {
-                                    order = parseInt(options.order, 10);
-                                    if (order === order) {
-                                        // order is not NaN
-                                        items.splice(order, 0, addedItemControl);
-                                    } else {
-                                        items.push(addedItemControl);
-                                    }
-                                } else {
-                                    items.push(addedItemControl);
-                                }
+                                items.push(addedItemControl);
 
                                 // remove from extraDataProperties helper
                                 delete extraDataProperties[propertyId];
@@ -346,6 +339,22 @@
             }
 
             Alpaca.series(propertyFunctions, function(err) {
+
+                // sort by order
+                items.sort(function(a, b) {
+
+                    var orderA = a.options.order;
+                    if (!orderA) {
+                        orderA = 0;
+                    }
+                    var orderB = b.options.order;
+                    if (!orderB) {
+                        orderB = 0;
+                    }
+
+                    return (orderA - orderB);
+                });
+
                 cf();
             });
         },
@@ -1027,6 +1036,9 @@
                 // refresh validation state
                 self.refreshValidationState(true, function() {
 
+                    // dispatch event: add
+                    self.trigger("add", child);
+
                     // trigger update
                     self.triggerUpdate();
 
@@ -1064,6 +1076,9 @@
             childField.destroy();
 
             this.refreshValidationState(true, function() {
+
+                // dispatch event: remove
+                self.trigger("remove", childField);
 
                 // trigger update handler
                 self.triggerUpdate();
@@ -1496,6 +1511,15 @@
 
                                     refreshSteps();
                                 }
+                                else
+                                {
+                                    // allow focus to settle on invalid field
+                                    window.setTimeout(function() {
+                                        self.focus(function(field) {
+                                            // done
+                                        });
+                                    }, 250);
+                                }
                             });
                         }
                     });
@@ -1525,6 +1549,15 @@
                                             }
                                         }
                                     }
+                                }
+                                else
+                                {
+                                    // allow focus to settle on invalid field
+                                    window.setTimeout(function() {
+                                        self.focus(function(field) {
+                                            // done
+                                        });
+                                    }, 250);
                                 }
                             });
                         }
@@ -1813,6 +1846,9 @@
 
                 // trigger update
                 self.triggerUpdate();
+
+                // dispatch event: move
+                self.trigger("move");
 
                 if (callback)
                 {

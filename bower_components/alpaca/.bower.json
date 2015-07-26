@@ -1,7 +1,7 @@
 {
   "name": "alpaca",
   "description": "Alpaca provides the easiest and fastest way to generate interactive forms for the web and mobile devices. It runs simply as HTML5 or more elaborately using Bootstrap, jQuery Mobile or jQuery UI. Alpaca uses Handlebars to process JSON schema and provide developers with an extensible framework for implementing controls, wizards, layouts, I18N support and an custom data persistence.",
-  "version": "1.5.9",
+  "version": "1.5.11",
   "main": "dist/alpaca/bootstrap/alpaca.js",
   "license": "Apache-2.0",
   "keywords": [
@@ -46,7 +46,7 @@
     "ckeditor": "4.4.1",
     "datatables": "1.10.5",
     "datatables-plugins": "https://github.com/DataTables/Plugins.git",
-    "eonasdan-bootstrap-datetimepicker": "4.0.0",
+    "eonasdan-bootstrap-datetimepicker": "4.14.30",
     "google-code-prettify": "1.0.3",
     "handlebars": "3.0.3",
     "handsontable": "0.11.4",
@@ -60,7 +60,7 @@
     "jqueryui-timepicker-addon": "1.5.0",
     "js-beautify": "1.5.4",
     "json3": "3.3.2",
-    "moment": "2.8.3",
+    "moment": "2.9.0",
     "respond": "1.4.2",
     "tinymce": "4.1.7",
     "typeahead.js": "0.10.5"
@@ -69,11 +69,11 @@
     "bootstrap": "3.2.0",
     "jquery": "1.11.1"
   },
-  "_release": "1.5.9",
+  "_release": "1.5.11",
   "_resolution": {
     "type": "version",
-    "tag": "1.5.9",
-    "commit": "b3c5ebb380917dcf568898a11e0c958cfde857b9"
+    "tag": "1.5.11",
+    "commit": "823e485d35e2b425cc7e16c3c4dc5ecc05201046"
   },
   "_source": "git://github.com/gitana/alpaca.git",
   "_target": "~1.5.8",

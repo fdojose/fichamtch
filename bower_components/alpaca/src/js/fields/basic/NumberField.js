@@ -19,6 +19,12 @@
             // @see http://stackoverflow.com/questions/16420828/jquery-val-refuses-to-return-non-numeric-input-from-a-number-field-under-chrome
 
             this.base();
+
+            if (typeof(this.options.numericEntry) === "undefined")
+            {
+                this.options.numericEntry = false;
+            }
+
         },
 
         /**
@@ -29,9 +35,38 @@
         },
 
         /**
-         * @see Alpaca.Fields.TextField#getValue
+         * @see Alpaca.ControlField#postRender
          */
-        getValue: function()
+        postRender: function(callback) {
+
+            var self = this;
+
+            this.base(function() {
+
+                if (self.control)
+                {
+                    self.on("keypress", function(e) {
+
+                        var key = e.charCode || e.keyCode || 0;
+
+                        var valid = true;
+
+                        if (self.options.numericEntry) {
+                            valid = valid && (key >= 48 && key <= 57);
+                        }
+
+                        return valid;
+                    });
+                }
+
+                callback();
+            });
+        },
+
+        /**
+         * @see Alpaca.Fields.ControlField#getControlValue
+         */
+        getControlValue: function()
         {
             var val = this._getControlVal(true);
 
@@ -99,8 +134,29 @@
                 valInfo["stringValueNotMultipleOf"]["message"] = Alpaca.substituteTokens(this.getMessage("stringValueNotMultipleOf"), [this.schema.multipleOf]);
             }
 
+            // TODO: is this necessary?  isn't this handled by TextField parent method (via this.base())?
+            /*
+            var status =  this._validatePattern();
+            valInfo["invalidPattern"] = {
+                "message": status ? "" : Alpaca.substituteTokens(this.getMessage("invalidPattern"), [this.schema.pattern]),
+                "status": status
+            };
+
+            status = this._validateMaxLength();
+            valInfo["stringTooLong"] = {
+                "message": status ? "" : Alpaca.substituteTokens(this.getMessage("stringTooLong"), [this.schema.maxLength]),
+                "status": status
+            };
+
+            status = this._validateMinLength();
+            valInfo["stringTooShort"] = {
+                "message": status ? "" : Alpaca.substituteTokens(this.getMessage("stringTooShort"), [this.schema.minLength]),
+                "status": status
+            };
+            */
+
             // hand back a true/false
-            return baseStatus && valInfo["stringNotANumber"]["status"] && valInfo["stringDivisibleBy"]["status"] && valInfo["stringValueTooLarge"]["status"] && valInfo["stringValueTooSmall"]["status"] && valInfo["stringValueNotMultipleOf"]["status"];
+            return baseStatus && valInfo["stringNotANumber"]["status"] && valInfo["stringDivisibleBy"]["status"] && valInfo["stringValueTooLarge"]["status"] && valInfo["stringValueTooSmall"]["status"] && valInfo["stringValueNotMultipleOf"]["status"] && valInfo["invalidPattern"]["status"] && valInfo["stringTooLong"]["status"] && valInfo["stringTooShort"]["status"];
         },
 
         /**
@@ -216,10 +272,165 @@
         },
 
         /**
+         * Validates against the schema pattern property.
+         *
+         * @returns {Boolean} True if it matches the pattern, false otherwise.
+         */
+        _validatePattern: function()
+        {
+            if (this.schema.pattern)
+            {
+                var val = this.getValue();
+                if(Alpaca.isNumber(val)) {
+                    val = val.toString();
+                }
+                if (val === "" && this.options.allowOptionalEmpty && !this.isRequired())
+                {
+                    return true;
+                }
+                if (Alpaca.isEmpty(val))
+                {
+                    val = "";
+                }
+                if (!val.match(this.schema.pattern))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        },
+
+        /**
+         * Validates against the schema minLength property.
+         *
+         * @returns {Boolean} True if its size is greater than minLength, false otherwise.
+         */
+        _validateMinLength: function()
+        {
+            if (!Alpaca.isEmpty(this.schema.minLength))
+            {
+                var val = this.getValue();
+                if(Alpaca.isNumber(val)) {
+                    val = val.toString();
+                }
+                if (val === "" && this.options.allowOptionalEmpty && !this.isRequired())
+                {
+                    return true;
+                }
+                if (Alpaca.isEmpty(val))
+                {
+                    val = "";
+                }
+                if (val.length < this.schema.minLength)
+                {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        /**
+         * Validates against the schema maxLength property.
+         *
+         * @returns {Boolean} True if its size is less than maxLength , false otherwise.
+         */
+        _validateMaxLength: function()
+        {
+            if (!Alpaca.isEmpty(this.schema.maxLength))
+            {
+                var val = this.getValue();
+                if(Alpaca.isNumber(val)) {
+                    val = val.toString();
+                }
+                if (val === "" && this.options.allowOptionalEmpty && !this.isRequired())
+                {
+                    return true;
+                }
+                if (Alpaca.isEmpty(val))
+                {
+                    val = "";
+                }
+                if (val.length > this.schema.maxLength)
+                {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        /**
          * @see Alpaca.Fields.TextField#getType
          */
         getType: function() {
             return "number";
+        },
+
+        /**
+         * @see Alpaca.ControlField#onKeyPress
+         */
+        onKeyDown: function(e)
+        {
+            var self = this;
+
+            // ignore tab and arrow keys
+            if (e.keyCode === 9 || e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 ) {
+                return;
+            }
+
+            if (e.keyCode === 8) // backspace
+            {
+                if (!Alpaca.isEmpty(self.schema.minLength) && (self.options.constrainLengths || self.options.constrainMinLength))
+                {
+                    var newValue = self.getValue() || "";
+                    if(Alpaca.isNumber(newValue)) {
+                        newValue = newValue.toString();
+                    }
+                    if (newValue.length <= self.schema.minLength)
+                    {
+                        // kill event
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                    }
+                }
+            }
+            else
+            {
+                if (!Alpaca.isEmpty(self.schema.maxLength) && (self.options.constrainLengths || self.options.constrainMaxLength))
+                {
+                    var newValue = self.getValue() || "";
+                    if(Alpaca.isNumber(newValue)) {
+                        newValue = newValue.toString();
+                    }
+                    if (newValue.length >= self.schema.maxLength)
+                    {
+                        // kill event
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                    }
+                }
+            }
+
+            if (e.keyCode === 32) // space
+            {
+                if (self.options.disallowEmptySpaces)
+                {
+                    // kill event
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                }
+            }
+        },
+
+        onKeyUp: function(e)
+        {
+            var self = this;
+
+            // if applicable, update the max length indicator
+            self.updateMaxLengthIndicator();
+
+            // trigger "fieldkeyup"
+            $(this.field).trigger("fieldkeyup");
         },
 
         /* builder_helpers */
@@ -293,6 +504,23 @@
                         "rightLabel": "Exclusive Maximum ?",
                         "helper": "Field value must be less than but not equal to this number if checked",
                         "type": "checkbox"
+                    }
+                }
+            });
+        },
+
+        /**
+         * @private
+         * @see Alpaca.Fields.NumberField#getSchemaOfOptions
+         */
+        getSchemaOfOptions: function() {
+            return Alpaca.merge(this.base(), {
+                "properties": {
+                    "numericEntry": {
+                        "title": "Numeric Entry",
+                        "description": "Whether to constrain data entry key presses to numeric values (0-9)",
+                        "type": "boolean",
+                        "default": false
                     }
                 }
             });

@@ -157,25 +157,29 @@ this["HandlebarsPrecompiled"]["web-display"]["container"] = Handlebars.template(
 },"4":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "        <p class=\"alpaca-helper "
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "\">\n            <i class=\"alpaca-icon-helper\"></i>\n            "
-    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helper : stack1), depth0)) != null ? stack1 : "")
-    + "\n        </p>\n";
+  return ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helpers : stack1),{"name":"each","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");
 },"5":function(depth0,helpers,partials,data) {
     var stack1;
 
+  return "        <p class=\"alpaca-helper "
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1),{"name":"if","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\">\n            <i class=\"alpaca-icon-helper\"></i>\n            "
+    + ((stack1 = this.lambda(depth0, depth0)) != null ? stack1 : "")
+    + "\n        </p>\n";
+},"6":function(depth0,helpers,partials,data) {
+    var stack1;
+
   return this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1), depth0));
-},"7":function(depth0,helpers,partials,data) {
+},"8":function(depth0,helpers,partials,data) {
     return "";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, options, buffer = 
   "<script type=\"text/x-handlebars-template\">\n\n    <div>\n\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.label : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n"
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helper : stack1),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helpers : stack1),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n        ";
-  stack1 = ((helper = (helper = helpers.container || (depth0 != null ? depth0.container : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"container","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0,options) : helper));
+  stack1 = ((helper = (helper = helpers.container || (depth0 != null ? depth0.container : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"container","hash":{},"fn":this.program(8, data, 0),"inverse":this.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0,options) : helper));
   if (!helpers.container) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n\n    </div>\n\n</script>";
@@ -194,6 +198,9 @@ this["HandlebarsPrecompiled"]["web-display"]["control-checkbox"] = Handlebars.te
     + ((stack1 = (helpers.str || (depth0 && depth0.str) || helpers.helperMissing).call(depth0,(depth0 != null ? depth0.data : depth0),{"name":"str","hash":{},"data":data})) != null ? stack1 : "")
     + "</div>\n\n</script>";
 },"useData":true});
+this["HandlebarsPrecompiled"]["web-display"]["control-hidden"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    return "<script type=\"text/x-handlebars-template\">\n\n</script>";
+},"useData":true});
 this["HandlebarsPrecompiled"]["web-display"]["control-image"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
@@ -202,6 +209,15 @@ this["HandlebarsPrecompiled"]["web-display"]["control-image"] = Handlebars.templ
     + "-image\" src=\""
     + alias3(((helper = (helper = helpers.data || (depth0 != null ? depth0.data : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"data","hash":{},"data":data}) : helper)))
     + "\">\n    </div>\n\n</script>";
+},"useData":true});
+this["HandlebarsPrecompiled"]["web-display"]["control-password"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+    return "";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<script type=\"text/x-handlebars-template\">\n\n    <div>"
+    + ((stack1 = (helpers.disguise || (depth0 && depth0.disguise) || helpers.helperMissing).call(depth0,(depth0 != null ? depth0.data : depth0),"&bull;",{"name":"disguise","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "</div>\n\n</script>";
 },"useData":true});
 this["HandlebarsPrecompiled"]["web-display"]["control-radio"] = Handlebars.template({"1":function(depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
@@ -280,7 +296,7 @@ this["HandlebarsPrecompiled"]["web-display"]["control-url"] = Handlebars.templat
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper;
 
-  return "<script type=\"text/x-handlebars-template\">\n\n    <a href=\""
+  return "<script type=\"text/x-handlebars-template\">\n\n    <div class=\"alpaca-control-url-anchor-wrapper\">\n        <a href=\""
     + this.escapeExpression(((helper = (helper = helpers.data || (depth0 != null ? depth0.data : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"data","hash":{},"data":data}) : helper)))
     + "\" "
     + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.anchorTarget : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
@@ -288,7 +304,7 @@ this["HandlebarsPrecompiled"]["web-display"]["control-url"] = Handlebars.templat
     + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.anchorTitle : stack1),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.program(5, data, 0),"data":data})) != null ? stack1 : "")
     + "\">\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.anchorTitle : stack1),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.program(9, data, 0),"data":data})) != null ? stack1 : "")
-    + "    </a>\n\n</script>";
+    + "        </a>\n    </div>\n\n</script>";
 },"useData":true});
 this["HandlebarsPrecompiled"]["web-display"]["control"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var stack1, helper;
@@ -309,12 +325,16 @@ this["HandlebarsPrecompiled"]["web-display"]["control"] = Handlebars.template({"
 },"6":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "        <p class=\""
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "\">\n            <i class=\"info-sign\"></i>\n            "
-    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helper : stack1), depth0)) != null ? stack1 : "")
-    + "\n        </p>\n";
+  return ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helpers : stack1),{"name":"each","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");
 },"7":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "        <p class=\""
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1),{"name":"if","hash":{},"fn":this.program(8, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\">\n            <i class=\"info-sign\"></i>\n            "
+    + ((stack1 = this.lambda(depth0, depth0)) != null ? stack1 : "")
+    + "\n        </p>\n";
+},"8":function(depth0,helpers,partials,data) {
     var stack1;
 
   return this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1), depth0));
@@ -327,7 +347,7 @@ this["HandlebarsPrecompiled"]["web-display"]["control"] = Handlebars.template({"
   if (!helpers.control) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n\n"
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helper : stack1),{"name":"if","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helpers : stack1),{"name":"if","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n    </div>\n\n</script>\n";
 },"useData":true});
 this["HandlebarsPrecompiled"]["web-display"]["form"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
@@ -570,10 +590,12 @@ this["HandlebarsPrecompiled"]["web-edit"]["container-table-item"] = Handlebars.t
 this["HandlebarsPrecompiled"]["web-edit"]["container-table"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     return "";
 },"3":function(depth0,helpers,partials,data) {
-    var stack1;
+    var stack1, helper;
 
-  return "                    <th>"
-    + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.value : depth0)) != null ? stack1.title : stack1), depth0))
+  return "                    <th data-header-id=\""
+    + this.escapeExpression(((helper = (helper = helpers.key || (depth0 != null ? depth0.key : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\">"
+    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.value : depth0)) != null ? stack1.title : stack1), depth0)) != null ? stack1 : "")
     + "</th>\n";
 },"5":function(depth0,helpers,partials,data) {
     return "                        <th>Actions</th>\n";
@@ -647,25 +669,29 @@ this["HandlebarsPrecompiled"]["web-edit"]["container"] = Handlebars.template({"1
 },"4":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "        <p class=\"alpaca-helper "
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "\">\n            <i class=\"alpaca-icon-helper\"></i>\n            "
-    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helper : stack1), depth0)) != null ? stack1 : "")
-    + "\n        </p>\n";
+  return ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helpers : stack1),{"name":"each","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");
 },"5":function(depth0,helpers,partials,data) {
     var stack1;
 
+  return "        <p class=\"alpaca-helper "
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1),{"name":"if","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\">\n            <i class=\"alpaca-icon-helper\"></i>\n            "
+    + ((stack1 = this.lambda(depth0, depth0)) != null ? stack1 : "")
+    + "\n        </p>\n";
+},"6":function(depth0,helpers,partials,data) {
+    var stack1;
+
   return this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1), depth0));
-},"7":function(depth0,helpers,partials,data) {
+},"8":function(depth0,helpers,partials,data) {
     return "";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, options, buffer = 
   "<script type=\"text/x-handlebars-template\">\n\n    <div>\n\n"
     + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.label : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n"
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helper : stack1),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helpers : stack1),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n        ";
-  stack1 = ((helper = (helper = helpers.container || (depth0 != null ? depth0.container : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"container","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0,options) : helper));
+  stack1 = ((helper = (helper = helpers.container || (depth0 != null ? depth0.container : depth0)) != null ? helper : helpers.helperMissing),(options={"name":"container","hash":{},"fn":this.program(8, data, 0),"inverse":this.noop,"data":data}),(typeof helper === "function" ? helper.call(depth0,options) : helper));
   if (!helpers.container) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n\n    </div>\n\n</script>";
@@ -881,8 +907,61 @@ this["HandlebarsPrecompiled"]["web-edit"]["control-image"] = Handlebars.template
     + alias3(((helper = (helper = helpers.data || (depth0 != null ? depth0.data : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"data","hash":{},"data":data}) : helper)))
     + "\">\n    </div>\n\n</script>";
 },"useData":true});
-this["HandlebarsPrecompiled"]["web-edit"]["control-optiontree"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    return "<script type=\"text/x-handlebars-template\">\n\n    <div class=\"optiontree\"></div>\n\n</script>";
+this["HandlebarsPrecompiled"]["web-edit"]["control-optiontree"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "placeholder=\""
+    + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.placeholder : stack1), depth0))
+    + "\"";
+},"3":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "size=\""
+    + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.size : stack1), depth0))
+    + "\"";
+},"5":function(depth0,helpers,partials,data) {
+    return "readonly=\"readonly\"";
+},"7":function(depth0,helpers,partials,data) {
+    var helper;
+
+  return "name=\""
+    + this.escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"name","hash":{},"data":data}) : helper)))
+    + "\"";
+},"9":function(depth0,helpers,partials,data) {
+    var helper, alias1=this.escapeExpression;
+
+  return "data-"
+    + alias1(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
+    + "=\""
+    + alias1(this.lambda(depth0, depth0))
+    + "\"";
+},"11":function(depth0,helpers,partials,data) {
+    var helper, alias1=this.escapeExpression;
+
+  return alias1(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
+    + "=\""
+    + alias1(this.lambda(depth0, depth0))
+    + "\"";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+
+  return "<script type=\"text/x-handlebars-template\">\n\n    <div class=\"optiontree\"></div>\n\n    <input type=\""
+    + alias3(((helper = (helper = helpers.inputType || (depth0 != null ? depth0.inputType : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"inputType","hash":{},"data":data}) : helper)))
+    + "\" id=\""
+    + alias3(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" "
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.placeholder : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.size : stack1),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.readonly : stack1),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.name : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.data : stack1),{"name":"each","hash":{},"fn":this.program(9, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.attributes : stack1),{"name":"each","hash":{},"fn":this.program(11, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "/>\n\n</script>";
 },"useData":true});
 this["HandlebarsPrecompiled"]["web-edit"]["control-password"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var stack1;
@@ -1224,15 +1303,52 @@ this["HandlebarsPrecompiled"]["web-edit"]["control"] = Handlebars.template({"1":
 },"6":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "        <p class=\""
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "\">\n            <i class=\"info-sign\"></i>\n            "
-    + ((stack1 = this.lambda(((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helper : stack1), depth0)) != null ? stack1 : "")
-    + "\n        </p>\n";
+  return ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helpers : stack1),{"name":"each","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");
 },"7":function(depth0,helpers,partials,data) {
     var stack1;
 
+  return "        <p class=\""
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1),{"name":"if","hash":{},"fn":this.program(8, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\">\n            <i class=\"info-sign\"></i>\n            "
+    + ((stack1 = this.lambda(depth0, depth0)) != null ? stack1 : "")
+    + "\n        </p>\n";
+},"8":function(depth0,helpers,partials,data) {
+    var stack1;
+
   return this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helperClass : stack1), depth0));
+},"10":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.buttons : stack1),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");
+},"11":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "            <div class=\"alpaca-control-buttons-container\">\n"
+    + ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.buttons : stack1),{"name":"each","hash":{},"fn":this.program(12, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "            </div>\n";
+},"12":function(depth0,helpers,partials,data) {
+    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+
+  return "                <button data-key=\""
+    + alias3(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
+    + "\" type=\""
+    + alias3(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"type","hash":{},"data":data}) : helper)))
+    + "\" class=\"alpaca-control-button alpaca-control-button-"
+    + alias3(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
+    + " "
+    + alias3(((helper = (helper = helpers.styles || (depth0 != null ? depth0.styles : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"styles","hash":{},"data":data}) : helper)))
+    + "\" "
+    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.value : depth0),{"name":"each","hash":{},"fn":this.program(13, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ">"
+    + ((stack1 = ((helper = (helper = helpers.value || (depth0 != null ? depth0.value : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"value","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "</button>\n";
+},"13":function(depth0,helpers,partials,data) {
+    var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+
+  return alias3(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
+    + "=\""
+    + alias3(((helper = (helper = helpers.value || (depth0 != null ? depth0.value : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"value","hash":{},"data":data}) : helper)))
+    + "\" ";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, options, buffer = 
   "<script type=\"text/x-handlebars-template\">\n\n    <div>\n\n"
@@ -1242,7 +1358,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["control"] = Handlebars.template({"1":
   if (!helpers.control) { stack1 = helpers.blockHelperMissing.call(depth0,stack1,options)}
   if (stack1 != null) { buffer += stack1; }
   return buffer + "\n\n"
-    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helper : stack1),{"name":"if","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.helpers : stack1),{"name":"if","hash":{},"fn":this.program(6, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\n"
+    + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.options : depth0)) != null ? stack1.renderButtons : stack1),{"name":"if","hash":{},"fn":this.program(10, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n    </div>\n\n</script>";
 },"useData":true});
 this["HandlebarsPrecompiled"]["web-edit"]["form"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
@@ -1258,21 +1376,39 @@ this["HandlebarsPrecompiled"]["web-edit"]["form"] = Handlebars.template({"1":fun
     + alias3(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
     + "\" type=\""
     + alias3(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"type","hash":{},"data":data}) : helper)))
-    + "\" class=\"alpaca-form-button alpaca-form-button-"
+    + "\" "
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.id : depth0),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + " class=\"alpaca-form-button alpaca-form-button-"
     + alias3(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
     + " "
     + alias3(((helper = (helper = helpers.styles || (depth0 != null ? depth0.styles : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"styles","hash":{},"data":data}) : helper)))
     + "\" "
-    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.value : depth0),{"name":"each","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.value : depth0),{"name":"each","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.attributes : depth0),{"name":"each","hash":{},"fn":this.program(9, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + ">"
     + ((stack1 = ((helper = (helper = helpers.value || (depth0 != null ? depth0.value : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"value","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "</button>\n";
 },"5":function(depth0,helpers,partials,data) {
-    var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+    var helper;
 
-  return alias3(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
+  return "id=\""
+    + this.escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\"";
+},"7":function(depth0,helpers,partials,data) {
+    var helper, alias1=this.escapeExpression;
+
+  return alias1(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
     + "=\""
-    + alias3(((helper = (helper = helpers.value || (depth0 != null ? depth0.value : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"value","hash":{},"data":data}) : helper)))
+    + alias1(this.lambda(depth0, depth0))
+    + "\"";
+},"9":function(depth0,helpers,partials,data) {
+    var helper, alias1=this.escapeExpression;
+
+  return " "
+    + alias1(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
+    + "=\""
+    + alias1(this.lambda(depth0, depth0))
     + "\"";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, options, buffer = 
@@ -1332,14 +1468,32 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
   return "                        <button type=\""
     + alias3(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"type","hash":{},"data":data}) : helper)))
-    + "\" class=\""
+    + "\" "
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.id : depth0),{"name":"if","hash":{},"fn":this.program(12, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + " class=\""
     + alias3(this.lambda(((stack1 = ((stack1 = (depths[2] != null ? depths[2].view : depths[2])) != null ? stack1.styles : stack1)) != null ? stack1.button : stack1), depth0))
     + "\" data-alpaca-wizard-button-key=\""
     + alias3(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
-    + "\">"
+    + "\" "
+    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.attributes : depth0),{"name":"each","hash":{},"fn":this.program(14, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ">"
     + ((stack1 = ((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "</button>\n";
-},"13":function(depth0,helpers,partials,data,blockParams,depths) {
+},"12":function(depth0,helpers,partials,data) {
+    var helper;
+
+  return "id=\""
+    + this.escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\"";
+},"14":function(depth0,helpers,partials,data) {
+    var helper, alias1=this.escapeExpression;
+
+  return " "
+    + alias1(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"key","hash":{},"data":data}) : helper)))
+    + "=\""
+    + alias1(this.lambda(depth0, depth0))
+    + "\"";
+},"16":function(depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
   return ((stack1 = (helpers.compare || (depth0 && depth0.compare) || helpers.helperMissing).call(depth0,(depth0 != null ? depth0.align : depth0),"right",{"name":"compare","hash":{},"fn":this.program(11, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "");
@@ -1356,7 +1510,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
     + "\n        <!-- wizard steps -->\n        <div class=\"alpaca-wizard-steps\">\n\n        </div>\n\n        <!-- wizard buttons -->\n        <div class=\"alpaca-wizard-buttons\">\n\n            <div class=\"pull-left\">\n"
     + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.buttons : depth0),{"name":"each","hash":{},"fn":this.program(10, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "            </div>\n\n            <div class=\"pull-right\">\n"
-    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.buttons : depth0),{"name":"each","hash":{},"fn":this.program(13, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.buttons : depth0),{"name":"each","hash":{},"fn":this.program(16, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "            </div>\n\n            <div style=\"clear:both\"></div>\n\n        </div>\n\n    </div>\n\n</script>";
 },"useData":true,"useDepths":true});
 /**
@@ -1859,7 +2013,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                     return (existing ? true : false);
                 }
                 else if ("destroy" === specialFunctionName) {
-                    existing.destroy();
+                    if (existing) {
+                        existing.destroy();
+                    }
                     return;
                 }
 
@@ -2040,6 +2196,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                                 // pick first element in form
                                 if (field.children && field.children.length > 0)
                                 {
+                                    /*
                                     for (var z = 0; z < field.children.length; z++)
                                     {
                                         if (field.children[z].isControlField)
@@ -2051,6 +2208,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                                             }
                                         }
                                     }
+                                    */
+
+                                    doFocus(field);
                                 }
                             }
                             else if (typeof(options.focus) === "string")
@@ -2293,9 +2453,10 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         /**
          * Finds whether a variable is empty.
          * @param {Any} obj The variable being evaluated.
+         * @param [boolean] includeFunctions whether to include functions in any counts
          * @returns {Boolean} True if the variable is empty, false otherwise.
          */
-        isEmpty: function(obj) {
+        isEmpty: function(obj, includeFunctions) {
 
             var self = this;
 
@@ -2310,7 +2471,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
             if (obj && Alpaca.isObject(obj))
             {
-                var count = self.countProperties(obj);
+                var count = self.countProperties(obj, includeFunctions);
                 if (count === 0)
                 {
                     return true;
@@ -2324,18 +2485,26 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
          * Counts the number of properties in an object.
          *
          * @param obj
+         * @param includeFunctions
+         *
          * @returns {number}
          */
-        countProperties: function(obj) {
+        countProperties: function(obj, includeFunctions) {
             var count = 0;
 
             if (obj && Alpaca.isObject(obj))
             {
                 for (var k in obj)
                 {
-                    if (obj.hasOwnProperty(k) && typeof(obj[k]) !== "function")
+                    if (obj.hasOwnProperty(k))
                     {
-                        count++;
+                        if (includeFunctions) {
+                            count++;
+                        } else {
+                            if (typeof(obj[k]) !== "function") {
+                                count++;
+                            }
+                        }
                     }
                 }
             }
@@ -2588,7 +2757,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         {
             var type = null;
 
-            if (schema && schema["enum"])
+            if (schema && typeof(schema["enum"]) !== "undefined")
             {
                 if (schema["enum"].length > 3)
                 {
@@ -2820,7 +2989,8 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         regexps:
         {
             "email": /^[a-z0-9!\#\$%&'\*\-\/=\?\+\-\^_`\{\|\}~]+(?:\.[a-z0-9!\#\$%&'\*\-\/=\?\+\-\^_`\{\|\}~]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,6}$/i,
-            "url": /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(\:[0-9]{1,5})?(([0-9]{1,5})?\/.*)?$/i,
+            "url": /^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(\:[0-9]{1,5})?(\/.*)?$/i,
+            "intranet-url": /^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*(\:[0-9]{1,5})?(\/.*)?$/i,
             "password": /^[0-9a-zA-Z\x20-\x7E]*$/,
             "date": /^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.]\d\d$/,
             "integer": /^([\+\-]?([1-9]\d*)|0)$/,
@@ -2828,7 +2998,8 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             "phone":/^(\D?(\d{3})\D?\D?(\d{3})\D?(\d{4}))?$/,
             "ipv4":/^(?:1\d?\d?|2(?:[0-4]\d?|[6789]|5[0-5]?)?|[3-9]\d?|0)(?:\.(?:1\d?\d?|2(?:[0-4]\d?|[6789]|5[0-5]?)?|[3-9]\d?|0)){3}$/,
             "zipcode-five": /^(\d{5})?$/,
-            "zipcode-nine": /^(\d{5}(-\d{4})?)?$/
+            "zipcode-nine": /^(\d{5}(-\d{4})?)?$/,
+            "whitespace": /^\s+$/
         },
 
         /**
@@ -3299,11 +3470,13 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
          * Finds whether a variable has empty value or not.
          *
          * @param {Any} val Variable to be evaluated.
+         * @param [boolean] includeFunctions whether to include function in any counts
+         *
          * @returns {Boolean} True if the variable has empty value, false otherwise.
          */
-        isValEmpty : function(val) {
+        isValEmpty : function(val, includeFunctions) {
             var empty = false;
-            if (Alpaca.isEmpty(val)) {
+            if (Alpaca.isEmpty(val, includeFunctions)) {
                 empty = true;
             } else {
                 if (Alpaca.isString(val) && val === "") {
@@ -3623,10 +3796,10 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         createFieldInstance : function(el, data, options, schema, view, connector, errorCallback) {
 
             // make sure options and schema are not empty
-            if (Alpaca.isValEmpty(options)) {
+            if (Alpaca.isValEmpty(options, true)) {
                 options = {};
             }
-            if (Alpaca.isValEmpty(schema)) {
+            if (Alpaca.isValEmpty(schema, true)) {
                 schema = {};
             }
 
@@ -7463,6 +7636,17 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         return message;
     });
 
+    Handlebars.registerHelper("disguise", function(text, character) {
+
+        var replaced = "";
+        for (var i = 0; i < text.length; i++) {
+            replaced += character;
+        }
+
+        return replaced;
+
+    });
+
 
 
     //Handlebars.registerHelper("each", helpers["each"]);
@@ -8074,6 +8258,20 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             }
             */
 
+            // legacy support: options.helper -> convert to options.helpers
+            if (!this.options.helpers) {
+                this.options.helpers = [];
+            }
+            if (this.options.helper) {
+                if (!Alpaca.isArray(this.options.helper)) {
+                    this.options.helpers.push(this.options.helper);
+                } else {
+                    for (var i = 0; i < this.options.helper.length; i++) {
+                        this.options.helpers.push(this.options.helper[i]);
+                    }
+                }
+            }
+
             if (Alpaca.isEmpty(this.options.readonly) && !Alpaca.isEmpty(this.schema.readonly)) {
                 this.options.readonly = this.schema.readonly;
             }
@@ -8293,7 +8491,12 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         on: function(name, fn)
         {
             Alpaca.logDebug("Adding listener for event: " + name);
-            this._events[name] = fn;
+
+            if (!this._events[name]) {
+                this._events[name] = [];
+            }
+
+            this._events[name].push(fn);
             return this;
         },
 
@@ -8323,27 +8526,33 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
          *
          * @returns {null}
          */
-        trigger: function(name, event)
+        trigger: function(name, event, arg1, arg2, arg3)
         {
             // NOTE: this == control
 
-            var handler = this._events[name];
-
-            var ret = null;
-            if (typeof(handler) === "function")
+            var handlers = this._events[name];
+            if (handlers)
             {
-                Alpaca.logDebug("Firing event: " + name);
-                try
+                for (var i = 0; i < handlers.length; i++)
                 {
-                    ret = handler.call(this, event);
-                }
-                catch (e)
-                {
-                    Alpaca.logDebug("The event handler caught an exception: " + name);
+                    var handler = handlers[i];
+
+                    var ret = null;
+                    if (typeof(handler) === "function")
+                    {
+                        Alpaca.logDebug("Firing event: " + name);
+                        try
+                        {
+                            ret = handler.call(this, event, arg1, arg2, arg3);
+                        }
+                        catch (e)
+                        {
+                            Alpaca.logDebug("The event handler caught an exception: " + name);
+                            Alpaca.logDebug(e);
+                        }
+                    }
                 }
             }
-
-            return ret;
         },
 
         /**
@@ -8483,6 +8692,15 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                         // allow any post-rendering facilities to kick in
                         self.postRender(function() {
 
+                            // finished initializing
+                            self.initializing = false;
+
+                            // allow for form to do some late updates
+                            if (self.form)
+                            {
+                                self.form.afterInitialize();
+                            }
+
                             // callback
                             if (callback && Alpaca.isFunction(callback))
                             {
@@ -8503,6 +8721,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
                     // allow any post-rendering facilities to kick in
                     self.postRender(function() {
+
+                        // finished initializing
+                        self.initializing = false;
 
                         // callback
                         if (callback && Alpaca.isFunction(callback))
@@ -8647,6 +8868,12 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
             // all fields get field id data attribute
             this.field.attr("data-alpaca-field-id", this.getId());
+
+            // all fields get their path
+            this.field.attr("data-alpaca-field-path", this.getPath());
+
+            // all fields get their name
+            this.field.attr("data-alpaca-field-name", this.getName());
 
             // try to avoid adding unnecessary injections for display view.
             if (this.view.type !== 'view') {
@@ -8808,9 +9035,6 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 this.field.hide();
             }
 
-            // finished initializing
-            this.initializing = false;
-
             var defaultHideInitValidationError = (this.view.type === 'create') && !this.refreshed;
             this.hideInitValidationError = Alpaca.isValEmpty(this.options.hideInitValidationError) ? defaultHideInitValidationError : this.options.hideInitValidationError;
 
@@ -8930,10 +9154,6 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             return this.id;
         },
 
-        /*        getType: function() {
-         return this.type;
-         },*/
-
         /**
          * Returns this field's parent.
          *
@@ -8944,12 +9164,46 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
+         * Retrieves the path to this element in the graph of JSON data.
+         *
+         * @returns {string} the path to this element
+         */
+        getPath: function() {
+            return this.path;
+        },
+
+        /**
+         * Retrieves the name of this element at the current level of JSON data.
+         *
+         * @returns {*}
+         */
+        getName: function() {
+            return this.name;
+        },
+
+        /**
          * Finds if this field is top level.
          *
          * @returns {Boolean} True if this field is the top level one, false otherwise.
          */
         isTopLevel: function() {
             return Alpaca.isEmpty(this.parent);
+        },
+
+        /**
+         * Walks up the parent chain and returns the top most control.  If no parents, then current control is top control.
+         *
+         * @returns {Control} top most control
+         */
+        top: function()
+        {
+            var top = this;
+
+            while (top.parent) {
+                top = top.parent;
+            }
+
+            return top;
         },
 
         /**
@@ -8979,6 +9233,12 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             this.updateObservable();
 
             this.triggerUpdate();
+
+            // special case - if we're in a display mode and not first render, then do a refresh here
+            if (this.isDisplayOnly() && !this.initializing)
+            {
+                this.refresh();
+            }
         },
 
         /**
@@ -9032,6 +9292,13 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
             // remove any alpaca messages for this field
             $(this.getFieldEl()).children(".alpaca-message").remove();
+
+            // maxMessage
+            if (messages && messages.length > 0) {
+                if(this.options.maxMessages && Alpaca.isNumber(this.options.maxMessages) && this.options.maxMessages > -1) {
+                    messages = messages.slice(0,this.options.maxMessages);
+                }
+            }
 
             // CALLBACK: "removeMessages"
             self.fireCallback("removeMessages");
@@ -9315,8 +9582,13 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 return false;
             }
 
+            if (this.options.disallowOnlyEmptySpaces && Alpaca.testRegex(Alpaca.regexps.whitespace, this.getValue())) {
+                return false;
+            }
+
             return true;
         },
+
 
         /**
          * Checks whether the field value is allowed or not.
@@ -9651,6 +9923,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             {
                 this.refreshValidationState();
             }
+
+            // trigger "fieldblur"
+            $(this.field).trigger("fieldblur");
         },
 
         /**
@@ -9692,27 +9967,44 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
          * @returns {Alpaca.Field} Field control mapped to the path.
          */
         getControlByPath: function(path) {
-            var parentControl = this;
-            if (path) {
+
+            var result = null;
+
+            if (path)
+            {
+                // strip off the leading "/" if it is there
+                if (path.indexOf("/") === 0) {
+                    path = path.substring(1);
+                }
+
+                // strip off the trailing "/" if it is there
+                if (Alpaca.endsWith(path, "/")) {
+                    path = path.substring(0, path.length - 1);
+                }
+
+                var current = this;
+
                 var pathArray = path.split('/');
-                for (var i = 0; i < pathArray.length; i++) {
-                    if (!Alpaca.isValEmpty(pathArray[i])) {
-                        if (parentControl && parentControl.childrenByPropertyId) {
-                            //check to see if we need to add the properties field
-                            if (parentControl.childrenByPropertyId[pathArray[i]]) {
-                                parentControl = parentControl.childrenByPropertyId[pathArray[i]];
-                            } else {
-                                return null;
-                            }
-                        } else {
-                            return null;
-                        }
-                    } else {
-                        return null;
+                for (var i = 0; i < pathArray.length; i++)
+                {
+                    var pathElement = pathArray[i];
+
+                    if (pathElement.indexOf("[") === 0)
+                    {
+                        // index into an array
+                        var index = parseInt(pathElement.substring(1, pathElement.length - 1), 10);
+                        current = current.children[index];
+                    }
+                    else
+                    {
+                        current = current.childrenByPropertyId[pathElement];
                     }
                 }
-                return parentControl;
+
+                result = current;
             }
+
+            return result;
         },
 
         /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -10088,6 +10380,14 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                         "description": "Field help message.",
                         "type": "string"
                     },
+                    "helpers": {
+                        "title": "Helpers",
+                        "description": "An array of field help messages.  Each message will be displayed on it's own line.",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
                     "fieldClass": {
                         "title": "CSS class",
                         "description": "Specifies one or more CSS classes that should be applied to the dom element for this field once it is rendered.  Supports a single value, comma-delimited values, space-delimited values or values passed in as an array.",
@@ -10145,12 +10445,12 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                                     "enum":["post","get"],
                                     "type": "string"
                                 },
-				"rubyrails": {
-				    "title": "Ruby On Rails",
-				    "description": "Ruby on Rails Name Standard",
-				    "enum": ["true", "false"],
-				    "type": "string"
-				},
+                                "rubyrails": {
+                                    "title": "Ruby On Rails",
+                                    "description": "Ruby on Rails Name Standard",
+                                    "enum": ["true", "false"],
+                                    "type": "string"
+                                },
                                 "name": {
                                     "title": "Name",
                                     "description": "Form name",
@@ -10234,6 +10534,12 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                     },
                     "helper": {
                         "type": "textarea"
+                    },
+                    "helpers": {
+                        "type": "array",
+                        "items": {
+                            "type": "textarea"
+                        }
                     },
                     "fieldClass": {
                         "type": "text"
@@ -10349,6 +10655,34 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             }
 
             this.controlDescriptor = this.view.getTemplateDescriptor("control-" + controlTemplateType, self);
+
+            // buttons
+            if (typeof(this.options.renderButtons) === "undefined")
+            {
+                this.options.renderButtons = true;
+            }
+            if (this.options.buttons)
+            {
+                for (var k in this.options.buttons)
+                {
+                    if (this.options.buttons[k].label)
+                    {
+                        this.options.buttons[k].value = this.options.buttons[k].label;
+                    }
+                    if (this.options.buttons[k].title)
+                    {
+                        this.options.buttons[k].value = this.options.buttons[k].title;
+                    }
+                    if (!this.options.buttons[k].type)
+                    {
+                        this.options.buttons[k].type = "button";
+                    }
+                    if (!this.options.buttons[k].styles)
+                    {
+                        this.options.buttons[k].styles = this.view.styles.button;
+                    }
+                }
+            }
         },
 
         getControlEl: function()
@@ -10511,6 +10845,34 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 }
             }
 
+            // buttons
+            $(this.getFieldEl()).find(".alpaca-control-button").each(function() {
+
+                $(this).click(function(e) {
+                    $(this).attr("button-pushed", true);
+                });
+
+                // custom click handler?
+                var key = $(this).attr("data-key");
+                if (key)
+                {
+                    var buttonConfig = self.options.buttons[key];
+                    if (buttonConfig)
+                    {
+                        if (buttonConfig.click)
+                        {
+                            $(this).click(function(control, handler) {
+                                return function(e) {
+                                    e.preventDefault();
+                                    handler.call(control, e);
+                                }
+                            }(self, buttonConfig.click));
+                        }
+                    }
+                }
+            });
+
+
             callback();
         },
 
@@ -10568,6 +10930,36 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         setDefault: function() {
             var defaultData = Alpaca.isEmpty(this.schema['default']) ? "" : this.schema['default'];
             this.setValue(defaultData);
+        },
+
+        /**
+         * Returns the value of this field.
+         *
+         * @returns {Any} value Field value.
+         */
+        getValue: function()
+        {
+            var self = this;
+
+            var value = this.base();
+
+            if (!this.isDisplayOnly())
+            {
+                value = self.getControlValue();
+            }
+
+            // some correction for type
+            value = self.ensureProperType(value);
+
+            return value;
+        },
+
+        /**
+         * Extension point
+         */
+        getControlValue: function()
+        {
+            return this._getControlVal(true);
         },
 
         /**
@@ -11515,30 +11907,55 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
          */
         focus: function(onFocusCallback)
         {
+            var self = this;
+
             this.base();
 
-            var index = -1;
+            var invalidIndex = -1;
 
-            for (var i = 0; i < this.children.length; i++)
+            // use the dom to create an array that orders things as they are laid out on the page
+            var pageOrderedChildren = new Array(this.children.length);
+            var el = this.getContainerEl();
+            if (this.form) {
+                el = this.form.getFormEl();
+            }
+            var pageOrder = 0;
+            $(el).find(".alpaca-container-item[data-alpaca-container-item-parent-field-id='" + this.getId() + "']").each(function() {
+                var childIndex = $(this).attr("data-alpaca-container-item-index");
+                pageOrderedChildren[pageOrder] = self.children[childIndex];
+                pageOrder++;
+            });
+
+            // walk the ordered children and find first invalid
+            for (var i = 0; i < pageOrderedChildren.length; i++)
             {
-                if (!this.children[i].isValid(true))
+                if (pageOrderedChildren[i])
                 {
-                    index = i;
-                    break;
+                    if (!pageOrderedChildren[i].isValid(true) &&
+                        pageOrderedChildren[i].isControlField &&
+                        pageOrderedChildren[i].isAutoFocusable() &&
+                        !pageOrderedChildren[i].options.readonly)
+                    {
+                        invalidIndex = i;
+                        break;
+                    }
                 }
             }
-            if (index === -1 && this.children.length > 0)
+
+            // if we didn't find anything invalid, just focus on first item
+            if (invalidIndex === -1 && pageOrderedChildren.length > 0)
             {
-                index = 0;
+                invalidIndex = 0;
             }
 
-            if (index > -1)
+            // do the focus if we found something
+            if (invalidIndex > -1)
             {
-                this.children[index].focus();
+                pageOrderedChildren[invalidIndex].focus();
 
                 if (onFocusCallback)
                 {
-                    onFocusCallback(this.children[index]);
+                    onFocusCallback(pageOrderedChildren[invalidIndex]);
                 }
             }
         },
@@ -11567,6 +11984,36 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             {
                 this.children[i].enable();
             }
+        },
+
+        /**
+         * Returns the value of this field.
+         *
+         * @returns {Any} value Field value.
+         */
+        getValue: function()
+        {
+            var self = this;
+
+            var value = self.getContainerValue();
+
+            if (self.isDisplayOnly())
+            {
+                if (value)
+                {
+                    value = JSON.stringify(value, null, "  ");
+                }
+            }
+
+            return value;
+        },
+
+        /**
+         * Extension point
+         */
+        getContainerValue: function()
+        {
+            return null;
         }
 
         /* builder_helpers */
@@ -11812,6 +12259,19 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             });
         },
 
+        afterInitialize: function()
+        {
+            var self = this;
+
+            if (self.options.toggleSubmitValidState) {
+
+                // adjust submit button state
+                self.adjustSubmitButtonState();
+
+            }
+
+        },
+
         /**
          * Determines whether the top control is entirely valid.
          *
@@ -12018,7 +12478,14 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                     _this.adjustSubmitButtonState();
                 });
 
-                this.adjustSubmitButtonState();
+                $(_this.topControl.getFieldEl()).bind("fieldkeyup", function() {
+                    _this.adjustSubmitButtonState();
+                });
+
+                $(_this.topControl.getFieldEl()).bind("fieldblur", function() {
+                    _this.adjustSubmitButtonState();
+                });
+
             }
         },
 
@@ -12106,7 +12573,10 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         focus: function(onFocusCallback)
         {
             this.topControl.focus(function(controlWithFocus) {
-                onFocusCallback(controlWithFocus);
+                if (onFocusCallback)
+                {
+                    onFocusCallback(controlWithFocus);
+                }
             });
         },
 
@@ -13396,6 +13866,11 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             {
                 this.options.disallowEmptySpaces = false;
             }
+
+            if (typeof(this.options.disallowOnlyEmptySpaces) === "undefined")
+            {
+                this.options.disallowOnlyEmptySpaces = false;
+            }
         },
 
         /**
@@ -13445,7 +13920,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             var self = this;
 
             // autocomplete
-            if (self.options.autocomplete)
+            if (typeof(self.options.autocomplete) !== "undefined")
             {
                 $(self.field).addClass("alpaca-autocomplete");
                 $(self.control).attr("autocomplete", (self.options.autocomplete ? "on" : "off"));
@@ -13496,7 +13971,13 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 {
                     var bloodHoundConfig = {
                         datumTokenizer: function(d) {
-                            return Bloodhound.tokenizers.whitespace(d.value);
+                            var tokens = "";
+                            for (var k in d) {
+                                if (d.hasOwnProperty(k) || d[k]) {
+                                    tokens += " " + d[k];
+                                }
+                            }
+                            return Bloodhound.tokenizers.whitespace(tokens);
                         },
                         queryTokenizer: Bloodhound.tokenizers.whitespace
                     };
@@ -13685,32 +14166,23 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @see Alpaca.Field#getValue
+         * @see Alpaca.Fields.ControlField#getControlValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             var self = this;
 
-            var value = null;
+            var value = this._getControlVal(true);
 
-            if (!this.isDisplayOnly() && this.control && this.control.length > 0)
+            if (self.control.mask && self.options.maskString)
             {
-                value = this._getControlVal(true);
-
-                if (self.control.mask && self.options.maskString)
+                // get unmasked value
+                var fn = $(this.control).data($.mask.dataName);
+                if (fn)
                 {
-                    // get unmasked value
-                    var fn = $(this.control).data($.mask.dataName);
-                    if (fn)
-                    {
-                        value = fn();
-                        value = self.ensureProperType(value);
-                    }
+                    value = fn();
+                    value = self.ensureProperType(value);
                 }
-            }
-            else
-            {
-                value = this.base();
             }
 
             return value;
@@ -13893,6 +14365,11 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         {
             var self = this;
 
+            // ignore tab and arrow keys
+            if (e.keyCode === 9 || e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 ) {
+                return;
+            }
+
             if (e.keyCode === 8) // backspace
             {
                 if (!Alpaca.isEmpty(self.schema.minLength) && (self.options.constrainLengths || self.options.constrainMinLength))
@@ -13937,6 +14414,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
             // if applicable, update the max length indicator
             self.updateMaxLengthIndicator();
+
+            // trigger "fieldkeyup"
+            $(this.field).trigger("fieldkeyup");
         }
 
 
@@ -14057,6 +14537,12 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                     "disallowEmptySpaces": {
                         "title": "Disallow Empty Spaces",
                         "description": "Whether to disallow the entry of empty spaces in the text",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "disallowOnlyEmptySpaces": {
+                        "title": "Disallow Only Empty Spaces",
+                        "description": "Whether to disallow the entry of only empty spaces in the text",
                         "type": "boolean",
                         "default": false
                     }
@@ -14390,6 +14876,8 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 //
                 $(self.getFieldEl()).find("input:checkbox").change(function(evt) {
                     self.triggerWithPropagation("change");
+                    //evt.preventDefault();
+                    //evt.stopImmediatePropagation();
                 });
 
                 // for multiple mode, mark values
@@ -14424,7 +14912,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         /**
          * @see Alpaca.Field#getValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             var self = this;
 
@@ -14511,6 +14999,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 }
 
                 // walk through values and assign into appropriate inputs
+                Alpaca.checked($(self.getFieldEl()).find("input[data-checkbox-value]"), false);
                 for (var j = 0; j < values.length; j++)
                 {
                     var input = $(self.getFieldEl()).find("input[data-checkbox-value=\"" + values[j] + "\"]");
@@ -14600,6 +15089,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         {
             $(this.control).find("input").each(function() {
                 $(this).disabled = true;
+                $(this).prop("disabled", true);
             });
 
         },
@@ -14611,6 +15101,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         {
             $(this.control).find("input").each(function() {
                 $(this).disabled = false;
+                $(this).prop("disabled", false);
             });
 
         },
@@ -14717,7 +15208,10 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             this.triggerUpdate();
         },
 
-        getValue: function()
+        /**
+         * @see Alpaca.Fields.ControlField#getControlValue
+         */
+        getControlValue: function()
         {
             return this.data;
         },
@@ -14766,9 +15260,10 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                     }
                 }
             }
-        },
+        }
 
         /* builder_helpers */
+        ,
 
         /**
          * @see Alpaca.Fields.TextField#getTitle
@@ -14921,9 +15416,10 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         /**
          * @see Alpaca.Field#getValue
          */
-        getValue: function(val)
+        convertValue: function(val)
         {
             var _this = this;
+
             if (Alpaca.isArray(val))
             {
                 $.each(val, function(index, itemVal) {
@@ -15260,9 +15756,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @see Alpaca.Field#getValue
+         * @see Alpaca.Fields.ControlField#getControlValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             var self = this;
 
@@ -15383,25 +15879,23 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
          */
         onClick: function(e)
         {
+            var self = this;
+            var currentValue = self.getValue();
+
             this.base(e);
 
-            var self = this;
-
             var val = $(e.currentTarget).find("input").val();
-            if (typeof(val) != "undefined")
+            if (typeof(val) !== "undefined")
             {
                 self.setValue(val);
                 self.refreshValidationState();
+
+                // manually trigger change event
+                if (currentValue !== val) {
+
+                    self.trigger("change");
+                }
             }
-
-            /*
-            Alpaca.later(25, this, function(){
-                var v = self.getValue();
-                self.setValue(v);
-                self.refreshValidationState();
-            });
-            */
-
         }
 
         /* builder_helpers */
@@ -15484,20 +15978,17 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @see Alpaca.Field#getValue
+         * @see Alpaca.ControlField#getControlValue
          */
-        getValue: function()
+        getControlValue: function()
         {
-            if (this.control && this.control.length > 0)
+            var val = this._getControlVal(true);
+            if (typeof(val) === "undefined")
             {
-                var val = this._getControlVal(true);
-                if (typeof(val) === "undefined")
-                {
-                    val = this.data;
-                }
-
-                return this.base(val);
+                val = this.data;
             }
+
+            return this.convertValue(val);
         },
 
         /**
@@ -15898,6 +16389,12 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             // @see http://stackoverflow.com/questions/16420828/jquery-val-refuses-to-return-non-numeric-input-from-a-number-field-under-chrome
 
             this.base();
+
+            if (typeof(this.options.numericEntry) === "undefined")
+            {
+                this.options.numericEntry = false;
+            }
+
         },
 
         /**
@@ -15908,9 +16405,38 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @see Alpaca.Fields.TextField#getValue
+         * @see Alpaca.ControlField#postRender
          */
-        getValue: function()
+        postRender: function(callback) {
+
+            var self = this;
+
+            this.base(function() {
+
+                if (self.control)
+                {
+                    self.on("keypress", function(e) {
+
+                        var key = e.charCode || e.keyCode || 0;
+
+                        var valid = true;
+
+                        if (self.options.numericEntry) {
+                            valid = valid && (key >= 48 && key <= 57);
+                        }
+
+                        return valid;
+                    });
+                }
+
+                callback();
+            });
+        },
+
+        /**
+         * @see Alpaca.Fields.ControlField#getControlValue
+         */
+        getControlValue: function()
         {
             var val = this._getControlVal(true);
 
@@ -15978,8 +16504,29 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 valInfo["stringValueNotMultipleOf"]["message"] = Alpaca.substituteTokens(this.getMessage("stringValueNotMultipleOf"), [this.schema.multipleOf]);
             }
 
+            // TODO: is this necessary?  isn't this handled by TextField parent method (via this.base())?
+            /*
+            var status =  this._validatePattern();
+            valInfo["invalidPattern"] = {
+                "message": status ? "" : Alpaca.substituteTokens(this.getMessage("invalidPattern"), [this.schema.pattern]),
+                "status": status
+            };
+
+            status = this._validateMaxLength();
+            valInfo["stringTooLong"] = {
+                "message": status ? "" : Alpaca.substituteTokens(this.getMessage("stringTooLong"), [this.schema.maxLength]),
+                "status": status
+            };
+
+            status = this._validateMinLength();
+            valInfo["stringTooShort"] = {
+                "message": status ? "" : Alpaca.substituteTokens(this.getMessage("stringTooShort"), [this.schema.minLength]),
+                "status": status
+            };
+            */
+
             // hand back a true/false
-            return baseStatus && valInfo["stringNotANumber"]["status"] && valInfo["stringDivisibleBy"]["status"] && valInfo["stringValueTooLarge"]["status"] && valInfo["stringValueTooSmall"]["status"] && valInfo["stringValueNotMultipleOf"]["status"];
+            return baseStatus && valInfo["stringNotANumber"]["status"] && valInfo["stringDivisibleBy"]["status"] && valInfo["stringValueTooLarge"]["status"] && valInfo["stringValueTooSmall"]["status"] && valInfo["stringValueNotMultipleOf"]["status"] && valInfo["invalidPattern"]["status"] && valInfo["stringTooLong"]["status"] && valInfo["stringTooShort"]["status"];
         },
 
         /**
@@ -16095,10 +16642,165 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
+         * Validates against the schema pattern property.
+         *
+         * @returns {Boolean} True if it matches the pattern, false otherwise.
+         */
+        _validatePattern: function()
+        {
+            if (this.schema.pattern)
+            {
+                var val = this.getValue();
+                if(Alpaca.isNumber(val)) {
+                    val = val.toString();
+                }
+                if (val === "" && this.options.allowOptionalEmpty && !this.isRequired())
+                {
+                    return true;
+                }
+                if (Alpaca.isEmpty(val))
+                {
+                    val = "";
+                }
+                if (!val.match(this.schema.pattern))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        },
+
+        /**
+         * Validates against the schema minLength property.
+         *
+         * @returns {Boolean} True if its size is greater than minLength, false otherwise.
+         */
+        _validateMinLength: function()
+        {
+            if (!Alpaca.isEmpty(this.schema.minLength))
+            {
+                var val = this.getValue();
+                if(Alpaca.isNumber(val)) {
+                    val = val.toString();
+                }
+                if (val === "" && this.options.allowOptionalEmpty && !this.isRequired())
+                {
+                    return true;
+                }
+                if (Alpaca.isEmpty(val))
+                {
+                    val = "";
+                }
+                if (val.length < this.schema.minLength)
+                {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        /**
+         * Validates against the schema maxLength property.
+         *
+         * @returns {Boolean} True if its size is less than maxLength , false otherwise.
+         */
+        _validateMaxLength: function()
+        {
+            if (!Alpaca.isEmpty(this.schema.maxLength))
+            {
+                var val = this.getValue();
+                if(Alpaca.isNumber(val)) {
+                    val = val.toString();
+                }
+                if (val === "" && this.options.allowOptionalEmpty && !this.isRequired())
+                {
+                    return true;
+                }
+                if (Alpaca.isEmpty(val))
+                {
+                    val = "";
+                }
+                if (val.length > this.schema.maxLength)
+                {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        /**
          * @see Alpaca.Fields.TextField#getType
          */
         getType: function() {
             return "number";
+        },
+
+        /**
+         * @see Alpaca.ControlField#onKeyPress
+         */
+        onKeyDown: function(e)
+        {
+            var self = this;
+
+            // ignore tab and arrow keys
+            if (e.keyCode === 9 || e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 ) {
+                return;
+            }
+
+            if (e.keyCode === 8) // backspace
+            {
+                if (!Alpaca.isEmpty(self.schema.minLength) && (self.options.constrainLengths || self.options.constrainMinLength))
+                {
+                    var newValue = self.getValue() || "";
+                    if(Alpaca.isNumber(newValue)) {
+                        newValue = newValue.toString();
+                    }
+                    if (newValue.length <= self.schema.minLength)
+                    {
+                        // kill event
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                    }
+                }
+            }
+            else
+            {
+                if (!Alpaca.isEmpty(self.schema.maxLength) && (self.options.constrainLengths || self.options.constrainMaxLength))
+                {
+                    var newValue = self.getValue() || "";
+                    if(Alpaca.isNumber(newValue)) {
+                        newValue = newValue.toString();
+                    }
+                    if (newValue.length >= self.schema.maxLength)
+                    {
+                        // kill event
+                        e.preventDefault();
+                        e.stopImmediatePropagation();
+                    }
+                }
+            }
+
+            if (e.keyCode === 32) // space
+            {
+                if (self.options.disallowEmptySpaces)
+                {
+                    // kill event
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                }
+            }
+        },
+
+        onKeyUp: function(e)
+        {
+            var self = this;
+
+            // if applicable, update the max length indicator
+            self.updateMaxLengthIndicator();
+
+            // trigger "fieldkeyup"
+            $(this.field).trigger("fieldkeyup");
         },
 
         /* builder_helpers */
@@ -16172,6 +16874,23 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                         "rightLabel": "Exclusive Maximum ?",
                         "helper": "Field value must be less than but not equal to this number if checked",
                         "type": "checkbox"
+                    }
+                }
+            });
+        },
+
+        /**
+         * @private
+         * @see Alpaca.Fields.NumberField#getSchemaOfOptions
+         */
+        getSchemaOfOptions: function() {
+            return Alpaca.merge(this.base(), {
+                "properties": {
+                    "numericEntry": {
+                        "title": "Numeric Entry",
+                        "description": "Whether to constrain data entry key presses to numeric values (0-9)",
+                        "type": "boolean",
+                        "default": false
                     }
                 }
             });
@@ -16257,23 +16976,30 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 this.options.actionbarStyle = "top";
             }
 
-            // legacy - uniqueItems, maxItems, minItems
-            if (this.schema.items)
+            if (!this.schema.items)
             {
-                if (this.schema.items.maxItems) {
-                    this.schema.maxItems = this.schema.items.maxItems;
-                    delete this.schema.items.maxItems;
-                }
+                this.schema.items = {};
+            }
 
-                if (this.schema.items.minItems) {
-                    this.schema.minItems = this.schema.items.minItems;
-                    delete this.schema.items.minItems;
-                }
+            if (!this.options.items)
+            {
+                this.options.items = {};
+            }
 
-                if (this.schema.items.uniqueItems) {
-                    this.schema.uniqueItems = this.schema.items.uniqueItems;
-                    delete this.schema.items.uniqueItems;
-                }
+            // legacy - uniqueItems, maxItems, minItems
+            if (this.schema.items.maxItems) {
+                this.schema.maxItems = this.schema.items.maxItems;
+                delete this.schema.items.maxItems;
+            }
+
+            if (this.schema.items.minItems) {
+                this.schema.minItems = this.schema.items.minItems;
+                delete this.schema.items.minItems;
+            }
+
+            if (this.schema.items.uniqueItems) {
+                this.schema.uniqueItems = this.schema.items.uniqueItems;
+                delete this.schema.items.uniqueItems;
             }
 
             // determine whether we are using "ruby on rails" compatibility mode
@@ -16284,11 +17010,6 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 {
                     this.options.rubyrails = true;
                 }
-            }
-
-            if (!this.options.items)
-            {
-                this.options.items = {};
             }
 
             var toolbarSticky = undefined;
@@ -16304,6 +17025,12 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             }
 
             this.options.toolbarSticky = toolbarSticky;
+
+            // by default, hide toolbar when children.count > 0
+            if (typeof(self.options.hideToolbarWithChildren) === "undefined")
+            {
+                self.options.hideToolbarWithChildren = true;
+            }
 
             // Enable forceRevalidation option so that any change in children will trigger parent's revalidation.
             if (this.schema.items && this.schema.uniqueItems)
@@ -16425,21 +17152,10 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 "label": self.getMessage("addItemButtonLabel"),
                 "action": "add",
                 "iconClass": self.view.getStyle("addIcon"),
-                "click": function(key, action)
-                {
-                    self.resolveItemSchemaOptions(function(itemSchema, itemOptions, circular) {
+                "click": function(key, action) {
 
-                        // we only allow addition if the resolved schema isn't circularly referenced
-                        // or the schema is optional
-                        if (circular)
-                        {
-                            return Alpaca.throwErrorWithCallback("Circular reference detected for schema: " + JSON.stringify(itemSchema), self.errorCallback);
-                        }
-
-                        var itemData = Alpaca.createEmptyDataInstance(itemSchema);
-                        self.addItem(0, itemSchema, itemOptions, itemData, function() {
-                            // all done
-                        });
+                    self.handleToolBarAddItemClick(function(item) {
+                        // done
                     });
                 }
             });
@@ -16465,21 +17181,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 "iconClass": self.view.getStyle("addIcon"),
                 "click": function(key, action, itemIndex) {
 
-                    self.resolveItemSchemaOptions(function(itemSchema, itemOptions, circular) {
-
-                        // we only allow addition if the resolved schema isn't circularly referenced
-                        // or the schema is optional
-                        if (circular)
-                        {
-                            return Alpaca.throwErrorWithCallback("Circular reference detected for schema: " + JSON.stringify(itemSchema), self.errorCallback);
-                        }
-
-                        var itemData = Alpaca.createEmptyDataInstance(itemSchema);
-                        self.addItem(itemIndex + 1, itemSchema, itemOptions, itemData, function() {
-                            // all done
-                        });
+                    self.handleActionBarAddItemClick(itemIndex, function(item) {
+                        // done
                     });
-
                 }
             });
             applyAction(self.actionbar.actions, "remove", {
@@ -16488,10 +17192,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 "iconClass": self.view.getStyle("removeIcon"),
                 "click": function(key, action, itemIndex) {
 
-                    self.removeItem(itemIndex, function() {
-                        // all done
+                    self.handleActionBarRemoveItemClick(itemIndex, function(item) {
+                        // done
                     });
-
                 }
             });
             applyAction(self.actionbar.actions, "up", {
@@ -16500,10 +17203,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 "iconClass": self.view.getStyle("upIcon"),
                 "click": function(key, action, itemIndex) {
 
-                    self.moveItem(itemIndex, itemIndex - 1, self.options.animate, function() {
-                        // all done
+                    self.handleActionBarMoveItemUpClick(itemIndex, function() {
+                        // done
                     });
-
                 }
             });
             applyAction(self.actionbar.actions, "down", {
@@ -16512,10 +17214,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 "iconClass": self.view.getStyle("downIcon"),
                 "click": function(key, action, itemIndex) {
 
-                    self.moveItem(itemIndex, itemIndex + 1, self.options.animate, function() {
-                        // all done
+                    self.handleActionBarMoveItemDownClick(itemIndex, function() {
+                        // done
                     });
-
                 }
             });
             cleanupActions(self.actionbar.actions, self.actionbar.showLabels);
@@ -16615,14 +17316,14 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @see Alpaca.ContainerField#getValue
+         * @see Alpaca.ContainerField#getContainerValue
          */
-        getValue: function()
+        getContainerValue: function()
         {
             // if we're empty and we're also not required, then we hand back undefined
             if (this.children.length === 0 && !this.isRequired())
             {
-                return;
+                return [];
             }
 
             // otherwise, construct an array and had it back
@@ -17217,7 +17918,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             //
 
             var toolbarEl = $(this.getFieldEl()).find(".alpaca-array-toolbar[data-alpaca-array-toolbar-field-id='" + self.getId() + "']");
-            if (this.children.length > 0)
+            if (this.children.length > 0 && self.options.hideToolbarWithChildren)
             {
                 // hide toolbar
                 $(toolbarEl).hide();
@@ -17248,10 +17949,10 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             //
 
             // if we're not using the "sticky" toolbar, then show and hide the item action buttons when hovered
-            if (typeof(this.options.toolbarSticky) === "undefined")
+            if (typeof(this.options.toolbarSticky) === "undefined" || this.options.toolbarSticky === null)
             {
                 // find each item
-                var items = this.getFieldEl().find(".alpaca-container-item");
+                var items = this.getFieldEl().find(".alpaca-container-item[data-alpaca-container-item-parent-field-id='" + self.getId() +  "']");
                 $(items).each(function(itemIndex) {
 
                     // find the actionbar for this item
@@ -17307,6 +18008,11 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 // if we're at max capacity, disable "add" buttons
                 if (self._validateEqualMaxItems())
                 {
+                    $(this).find("[data-alpaca-array-toolbar-action='add']").each(function(index) {
+                        $(this).removeClass('alpaca-button-disabled');
+                        self.fireCallback("enableButton", this);
+                    });
+
                     $(this).find("[data-alpaca-array-actionbar-action='add']").each(function(index) {
                         $(this).removeClass('alpaca-button-disabled');
                         self.fireCallback("enableButton", this);
@@ -17314,6 +18020,11 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 }
                 else
                 {
+                    $(this).find("[data-alpaca-array-toolbar-action='add']").each(function(index) {
+                        $(this).addClass('alpaca-button-disabled');
+                        self.fireCallback("disableButton", this);
+                    });
+
                     $(this).find("[data-alpaca-array-actionbar-action='add']").each(function(index) {
                         $(this).addClass('alpaca-button-disabled');
                         self.fireCallback("disableButton", this);
@@ -17361,6 +18072,86 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             var self = this;
 
             return $(self.container);
+        },
+
+        handleToolBarAddItemClick: function(callback)
+        {
+            var self = this;
+
+            self.resolveItemSchemaOptions(function(itemSchema, itemOptions, circular) {
+
+                // we only allow addition if the resolved schema isn't circularly referenced
+                // or the schema is optional
+                if (circular)
+                {
+                    return Alpaca.throwErrorWithCallback("Circular reference detected for schema: " + JSON.stringify(itemSchema), self.errorCallback);
+                }
+
+                // how many children do we have currently?
+                var insertionPoint = self.children.length;
+
+                var itemData = Alpaca.createEmptyDataInstance(itemSchema);
+                self.addItem(insertionPoint, itemSchema, itemOptions, itemData, function(item) {
+                    if (callback) {
+                        callback(item);
+                    }
+                });
+            });
+        },
+
+        handleActionBarAddItemClick: function(itemIndex, callback)
+        {
+            var self = this;
+
+            self.resolveItemSchemaOptions(function(itemSchema, itemOptions, circular) {
+
+                // we only allow addition if the resolved schema isn't circularly referenced
+                // or the schema is optional
+                if (circular)
+                {
+                    return Alpaca.throwErrorWithCallback("Circular reference detected for schema: " + JSON.stringify(itemSchema), self.errorCallback);
+                }
+
+                var itemData = Alpaca.createEmptyDataInstance(itemSchema);
+                self.addItem(itemIndex + 1, itemSchema, itemOptions, itemData, function(item) {
+                    if (callback) {
+                        callback(item);
+                    }
+                });
+            });
+        },
+
+        handleActionBarRemoveItemClick: function(itemIndex, callback)
+        {
+            var self = this;
+
+            self.removeItem(itemIndex, function() {
+                if (callback) {
+                    callback();
+                }
+            });
+        },
+
+        handleActionBarMoveItemUpClick: function(itemIndex, callback)
+        {
+            var self = this;
+
+            self.moveItem(itemIndex, itemIndex - 1, self.options.animate, function() {
+                if (callback) {
+                    callback();
+                }
+            });
+        },
+
+        handleActionBarMoveItemDownClick: function(itemIndex, callback)
+        {
+            var self = this;
+
+            self.moveItem(itemIndex, itemIndex + 1, self.options.animate, function() {
+                if (callback) {
+                    callback();
+                }
+            });
         },
 
         doAddItem: function(index, item)
@@ -17429,12 +18220,15 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                     // refresh validation state
                     self.refreshValidationState();
 
+                    // dispatch event: add
+                    self.trigger("add", item);
+
                     // trigger update
                     self.triggerUpdate();
 
                     if (callback)
                     {
-                        callback();
+                        callback(item);
                     }
                 });
             }
@@ -17478,6 +18272,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
                 // refresh validation state
                 self.refreshValidationState();
+
+                // dispatch event: remove
+                self.trigger("remove", childIndex);
 
                 // trigger update
                 self.triggerUpdate();
@@ -17593,8 +18390,8 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 self.updateChildDOMElements();
 
                 // update the action bar bindings
-                $(sourceContainer).find(".alpaca-container-item[data-alpaca-array-actionbar-item-index='" + sourceIndex + "']").attr("data-alpaca-array-actionbar-item-index", targetIndex);
-                $(targetContainer).find(".alpaca-container-item[data-alpaca-array-actionbar-item-index='" + targetIndex + "']").attr("data-alpaca-array-actionbar-item-index", sourceIndex);
+                $(sourceContainer).find(".alpaca-container-item[data-alpaca-array-actionbar-item-index='" + sourceIndex + "'][data-alpaca-container-item-parent-field-id='" + self.getId() +  "']").attr("data-alpaca-array-actionbar-item-index", targetIndex);
+                $(targetContainer).find(".alpaca-container-item[data-alpaca-array-actionbar-item-index='" + targetIndex + "'][data-alpaca-container-item-parent-field-id='" + self.getId() +  "']").attr("data-alpaca-array-actionbar-item-index", sourceIndex);
 
                 // update the array item toolbar state
                 self.updateToolbars();
@@ -17604,6 +18401,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
                 // trigger update
                 self.triggerUpdate();
+
+                // dispatch event: move
+                self.trigger("move");
 
                 if (callback)
                 {
@@ -17807,6 +18607,12 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                                 }
                             }
                         }
+                    },
+                    "hideToolbarWithChildren": {
+                        "type": "boolean",
+                        "title": "Hide Toolbar with Children",
+                        "description": "Indicates whether to hide the top toolbar when child elements are available.",
+                        "default": true
                     }
                 }
             };
@@ -17997,9 +18803,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         /**
          * Reconstructs the data object from the child fields.
          *
-         * @see Alpaca.Field#getValue
+         * @see Alpaca.ContainerField#getContainerValue
          */
-        getValue: function()
+        getContainerValue: function()
         {
             // if we don't have any children and we're not required, hand back empty object
             if (this.children.length === 0 && !this.isRequired())
@@ -18036,7 +18842,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                         {
                             assignedValue = fieldValue;
                         }
-                        else if (fieldValue)
+                        else if (fieldValue || fieldValue === 0)
                         {
                             assignedValue = fieldValue;
                         }
@@ -18154,7 +18960,10 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 var itemData = null;
                 if (self.data)
                 {
-                    itemData = self.data[propertyId];
+                    if (self.data.hasOwnProperty(propertyId))
+                    {
+                        itemData = self.data[propertyId];
+                    }
                 }
 
                 var pf = (function(propertyId, itemData, extraDataProperties)
@@ -18176,17 +18985,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
                             self.createItem(propertyId, schema, options, itemData, null, function (addedItemControl) {
 
-                                if (options.hasOwnProperty("order")) {
-                                    order = parseInt(options.order, 10);
-                                    if (order === order) {
-                                        // order is not NaN
-                                        items.splice(order, 0, addedItemControl);
-                                    } else {
-                                        items.push(addedItemControl);
-                                    }
-                                } else {
-                                    items.push(addedItemControl);
-                                }
+                                items.push(addedItemControl);
 
                                 // remove from extraDataProperties helper
                                 delete extraDataProperties[propertyId];
@@ -18207,6 +19006,22 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             }
 
             Alpaca.series(propertyFunctions, function(err) {
+
+                // sort by order
+                items.sort(function(a, b) {
+
+                    var orderA = a.options.order;
+                    if (!orderA) {
+                        orderA = 0;
+                    }
+                    var orderB = b.options.order;
+                    if (!orderB) {
+                        orderB = 0;
+                    }
+
+                    return (orderA - orderB);
+                });
+
                 cf();
             });
         },
@@ -18888,6 +19703,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 // refresh validation state
                 self.refreshValidationState(true, function() {
 
+                    // dispatch event: add
+                    self.trigger("add", child);
+
                     // trigger update
                     self.triggerUpdate();
 
@@ -18925,6 +19743,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             childField.destroy();
 
             this.refreshValidationState(true, function() {
+
+                // dispatch event: remove
+                self.trigger("remove", childField);
 
                 // trigger update handler
                 self.triggerUpdate();
@@ -19357,6 +20178,15 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
                                     refreshSteps();
                                 }
+                                else
+                                {
+                                    // allow focus to settle on invalid field
+                                    window.setTimeout(function() {
+                                        self.focus(function(field) {
+                                            // done
+                                        });
+                                    }, 250);
+                                }
                             });
                         }
                     });
@@ -19386,6 +20216,15 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                                             }
                                         }
                                     }
+                                }
+                                else
+                                {
+                                    // allow focus to settle on invalid field
+                                    window.setTimeout(function() {
+                                        self.focus(function(field) {
+                                            // done
+                                        });
+                                    }, 250);
                                 }
                             });
                         }
@@ -19675,6 +20514,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 // trigger update
                 self.triggerUpdate();
 
+                // dispatch event: move
+                self.trigger("move");
+
                 if (callback)
                 {
                     callback();
@@ -19830,9 +20672,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @see Alpaca.Field#getValue
+         * @see Alpaca.Fields.ControlField#getControlValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             return this._getControlVal(true);
         },
@@ -19986,9 +20828,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @see Alpaca.Field#getValue
+         * @see Alpaca.Fields.ControlField#getControlValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             return this._getControlVal(true);
         },
@@ -20447,11 +21289,14 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             }
         },
 
-        getValue: function()
+        /**
+         * @see Alpaca.Fields.ControlField#getControlValue
+         */
+        getControlValue: function()
         {
             var self = this;
 
-            var value = this.base();
+            var value = null;
 
             if (self.editor)
             {
@@ -20777,9 +21622,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @see Alpaca.Fields.TextField#getValue
+         * @see Alpaca.Fields.ControlField#getControlValue
          */
-        getValue: function() {
+        getControlValue: function() {
 
             var field = this.getControlEl();
 
@@ -21039,12 +21884,25 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 self.options.picker.format = self.options.dateFormat;
             }
 
+            if (!self.options.picker.locale) {
+                self.options.picker.locale = "en_US";
+            }
+
+            if (!self.options.picker.dayViewHeaderFormat) {
+                self.options.picker.dayViewHeaderFormat = "MMMM YYYY";
+            }
+
             // extra formats
             if (!self.options.picker.extraFormats) {
                 var extraFormats = self.getDefaultExtraFormats();
                 if (extraFormats) {
                     self.options.picker.extraFormats = extraFormats;
                 }
+            }
+
+            if (typeof(self.options.manualEntry) === "undefined")
+            {
+                self.options.manualEntry = false;
             }
         },
 
@@ -21072,12 +21930,44 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                         {
                             self.options.dateFormat = self.picker.format();
                         }
+
+                        // optionally block manual entry
+                        self.on("keypress", function (e) {
+                            if (!self.options.manualEntry)
+                            {
+                                e.preventDefault();
+                                e.stopImmediatePropagation();
+
+                                return false;
+                            }
+                        });
+
+                        // with date-time picker, trigger change using plugin
+                        self.getFieldEl().on("dp.change", function(e) {
+
+                            // we use a timeout here because we want this to run AFTER control click handlers
+                            setTimeout(function() {
+                                self.onChange.call(self, e);
+                                self.triggerWithPropagation("change", e);
+                            }, 250);
+
+                        });
                     }
                 }
 
                 callback();
 
             });
+        },
+
+        /**
+         * Allows manual entry mode to be toggled on and off.
+         *
+         * @param manualEntry
+         */
+        setManualEntry: function(manualEntry)
+        {
+            this.options.manualEntry = manualEntry;
         },
 
         /**
@@ -21205,14 +22095,6 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                     this.picker.date(value);
                 }
             }
-        },
-
-        /**
-         * @see Alpaca.Fields.TextField#getValue
-         */
-        getValue: function()
-        {
-            return this.base();
         },
 
         destroy: function()
@@ -21731,9 +22613,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @see Alpaca.Fields.TextField#getValue
+         * @see Alpaca.Fields.ControlField#getControlValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             var value = null;
 
@@ -22147,7 +23029,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         /**
          * @see Alpaca.Fields.NumberField#getValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             var val = this.base();
 
@@ -22522,9 +23404,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @see Alpaca.ContainerField#getValue
+         * @see Alpaca.Fields.ControlField#getControlValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             var val = this.base();
 
@@ -22806,6 +23688,20 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
+         * @see Alpaca.Fields.TextField#setup
+         */
+        setup: function()
+        {
+            var self = this;
+
+            this.base();
+
+            if (this.data) {
+                this.data = this.data.toLowerCase();
+            }
+        },
+
+        /**
          * @see Alpaca.Fields.TextField#setValue
          */
         setValue: function(val)
@@ -22911,9 +23807,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @see Alpaca.ContainerField#getValue
+         * @see Alpaca.ContainerField#getContainerValue
          */
-        getValue: function()
+        getContainerValue: function()
         {
             // if we don't have any children and we're not required, hand back undefined
             if (this.children.length === 0 && !this.isRequired())
@@ -23038,6 +23934,499 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         "keyNotUnique": "Keys of map field are not unique.",
         "keyMissing": "Map contains an empty key."
     });
+
+})(jQuery);
+
+(function($) {
+
+    var Alpaca = $.alpaca;
+
+    Alpaca.Fields.OptionTreeField = Alpaca.Fields.TextField.extend(
+    /**
+     * @lends Alpaca.Fields.OptionTree.prototype
+     */
+    {
+        /**
+         * @see Alpaca.Fields.ObjectField#getFieldType
+         */
+        getFieldType: function() {
+            return "optiontree";
+        },
+
+        /**
+         * @private
+         * @see Alpaca.Fields.ObjectField#setup
+         */
+        setup: function()
+        {
+            var self = this;
+
+            this.base();
+
+            if (!this.options.tree)
+            {
+                this.options.tree = {};
+            }
+
+            if (!this.options.tree.selectors)
+            {
+                this.options.tree.selectors = {};
+            }
+
+            if (!this.options.tree.order)
+            {
+                this.options.tree.order = [];
+            }
+
+            // ensure all options have schema
+            for (var k in this.options.tree.selectors)
+            {
+                if (!this.options.tree.selectors[k].schema) {
+                    Alpaca.logError("OptionTree selector for: " + k + " is missing schema");
+                    return;
+                }
+
+                if (!this.options.tree.selectors[k].options) {
+                    this.options.tree.selectors[k].options = {};
+                }
+            }
+
+            if (!this.options.tree.data)
+            {
+                this.options.tree.data = [];
+            }
+
+            // walk data
+            for (var i = 0; i < this.options.tree.data.length; i++)
+            {
+                var item = this.options.tree.data[i];
+
+                if (item.attributes)
+                {
+                    for (var k in item.attributes)
+                    {
+                        if (!this.options.tree.selectors[k])
+                        {
+                            this.options.tree.selectors[k] = {};
+                        }
+
+                        if (!this.options.tree.selectors[k].label)
+                        {
+                            this.options.tree.selectors[k].options.noneLabel = "Choose...";
+                        }
+
+                        if (!this.options.tree.selectors[k].type)
+                        {
+                            this.options.tree.selectors[k].options.type = "select";
+                        }
+                    }
+                }
+            }
+
+            // assume the order from the options if not otherwise provided
+            if (!self.options.tree.order)
+            {
+                self.options.tree.order = [];
+
+                for (var k in self.options.tree.selectors)
+                {
+                    self.options.tree.order.push(self.options.tree.selectors[k]);
+                }
+            }
+
+            if (typeof(self.options.tree.horizontal) === "undefined")
+            {
+                self.options.tree.horizontal = true;
+            }
+
+            // create a lookup list for option list key/value based on location
+            this.locationValueLists = {};
+            this.locationValues = {};
+
+            for (var i = 0; i < self.options.tree.data.length; i++)
+            {
+                if (self.options.tree.data[i].attributes)
+                {
+                    var location = "root";
+
+                    for (var k in self.options.tree.data[i].attributes)
+                    {
+                        var v = self.options.tree.data[i].attributes[k];
+
+                        var array = this.locationValueLists[location];
+                        if (!array) {
+                            array = [];
+                            this.locationValueLists[location] = array;
+                        }
+
+                        var exists = false;
+                        for (var x = 0; x < array.length; x++)
+                        {
+                            if (array[x].value === v) {
+                                exists = true;
+                                break;
+                            }
+                        }
+
+                        if (!exists)
+                        {
+                            array.push({
+                                "text": v,
+                                "value": v
+                            });
+                        }
+
+                        if (location.length > 0) {
+                            location += "~";
+                        }
+
+                        location += k + "=" + v;
+                    }
+
+                    this.locationValues[location] = self.options.tree.data[i].value;
+                }
+            }
+
+            this.currentAttributes = {};
+            this.controls = {};
+        },
+
+        toLocation: function(attrs)
+        {
+            var location = "root";
+
+            for (var k in attrs)
+            {
+                var v = attrs[k];
+
+                if (location.length > 0) {
+                    location += "~";
+                }
+
+                location += k + "=" + v;
+            }
+
+            return location;
+        },
+
+        existsLocationWithPrefix: function(prefix)
+        {
+            var match = false;
+
+            for (var k in this.locationValueLists)
+            {
+                if (k.indexOf(prefix) > -1)
+                {
+                    match = true;
+                    break;
+                }
+            }
+
+            return match;
+        },
+
+        /**
+         * @see Alpaca.Field#afterRenderControl
+         */
+        afterRenderControl: function(model, callback) {
+
+            var self = this;
+
+            self.optionTreeHolder = $(self.field).find(".optiontree");
+
+            if (self.options.tree.horizontal)
+            {
+                $(self.field).addClass("optiontree-horizontal");
+            }
+
+            this.base(model, function() {
+
+                self.refreshOptionTreeControls(function() {
+                    callback();
+                });
+
+            });
+        },
+
+        refreshOptionTreeControls: function(callback)
+        {
+            var self = this;
+
+            // hide all of the controls
+            for (var k in self.controls)
+            {
+                self.controls[k].hide();
+            }
+
+            // find the index of the last option for which we are missing a value
+            var displayUpToIndex = 0;
+            for (var i = 0; i < self.options.tree.order.length; i++)
+            {
+                var selectorId = self.options.tree.order[i];
+
+                if (typeof(self.currentAttributes[selectorId]) !== "undefined" && self.currentAttributes[selectorId] !== null  && self.currentAttributes[selectorId] !== "")
+                {
+                    displayUpToIndex++;
+                }
+            }
+
+            // walk through order and construct render functions
+            var location = "root";
+            var fns = [];
+            var displayCount = 0;
+            var i = 0;
+            do
+            {
+                if (i < self.options.tree.order.length)
+                {
+                    var selectorId = self.options.tree.order[i];
+
+                    var hasMatches = (i == self.options.tree.order.length - 1) || (self.existsLocationWithPrefix(location + "~" + selectorId + "="));
+                    if (hasMatches)
+                    {
+                        if (displayCount <= displayUpToIndex)
+                        {
+                            if (self.controls[selectorId])
+                            {
+                                // show this one
+                                self.controls[selectorId].show();
+
+                                location += "~" + selectorId + "=" + self.currentAttributes[selectorId];
+                            }
+                            else
+                            {
+                                var selector = self.options.tree.selectors[selectorId];
+                                var last = (i + 1 === self.options.tree.order.length);
+
+                                var fn = function(index, selectorId, selector, controls, optionTreeHolder, last) {
+                                    return function(done) {
+
+                                        var alpacaSchema = selector.schema;
+
+                                        var alpacaOptions = selector.options;
+                                        if (!alpacaOptions) {
+                                            alpacaOptions = {};
+                                        }
+                                        if (!alpacaOptions.type) {
+                                            alpacaOptions.type = "select";
+                                        }
+
+                                        if (alpacaOptions.type === "select") {
+
+                                            alpacaOptions.dataSource = function(callback) {
+
+                                                var currentLocation = self.toLocation(self.currentAttributes);
+                                                var currentValueList = self.locationValueLists[currentLocation];
+
+                                                callback(currentValueList);
+
+                                            };
+                                        }
+
+                                        // render via alpaca
+                                        var domEl = $("<div class='optiontree-selector'></div>");
+
+                                        $(domEl).alpaca({
+                                            "schema": alpacaSchema,
+                                            "options": alpacaOptions,
+                                            "postRender": function(control) {
+
+                                                controls[selectorId] = control;
+
+                                                // append to the holder element
+                                                $(optionTreeHolder).append(domEl);
+
+                                                control.selectorId = selectorId;
+
+                                                // when the value of this control changes, we record it into our
+                                                // current attribute set
+                                                control.on("change", function() {
+
+                                                    var selectorId = this.selectorId;
+
+                                                    // set our attribute value
+                                                    self.currentAttributes[selectorId] = this.getValue();
+
+                                                    // clear out everything past our index value
+                                                    for (var i = 0; i < self.options.tree.order.length; i++)
+                                                    {
+                                                        if (i > index)
+                                                        {
+                                                            var selectorId = self.options.tree.order[i];
+                                                            delete self.currentAttributes[selectorId];
+                                                            if (controls[selectorId])
+                                                            {
+                                                                controls[selectorId].destroy();
+                                                                delete controls[selectorId];
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if (last)
+                                                    {
+                                                        // find the match
+                                                        var val = null;
+
+                                                        for (var i = 0; i < self.options.tree.data.length; i++)
+                                                        {
+                                                            var match = true;
+
+                                                            var attrs = self.options.tree.data[i].attributes;
+                                                            for (var k in self.currentAttributes)
+                                                            {
+                                                                if (attrs[k] !== self.currentAttributes[k])
+                                                                {
+                                                                    match = false;
+                                                                    break;
+                                                                }
+                                                            }
+
+                                                            if (match)
+                                                            {
+                                                                val = self.options.tree.data[i].value;
+                                                            }
+                                                        }
+
+                                                        if (val)
+                                                        {
+                                                            self.setValue(val);
+                                                        }
+                                                    }
+
+                                                    self.refreshOptionTreeControls();
+                                                });
+
+                                                // show by default
+                                                control.show();
+
+                                                done();
+                                            }
+                                        });
+                                    }
+                                }(i, selectorId, selector, self.controls, self.optionTreeHolder, last);
+
+                                fns.push(fn);
+
+                                location += "~" + selectorId + "=" + self.currentAttributes[selectorId];
+                            }
+
+                            displayCount++;
+                        }
+                        else
+                        {
+                            if (self.controls[selectorId])
+                            {
+                                self.controls[selectorId].destroy();
+                                delete self.controls[selectorId];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (self.controls[selectorId])
+                        {
+                            self.controls[selectorId].destroy();
+                            delete self.controls[selectorId];
+                        }
+                    }
+                }
+
+                i++;
+            }
+            while (i < self.options.tree.order.length);
+
+            Alpaca.series(fns, function() {
+
+                if (callback)
+                {
+                    callback();
+                }
+
+            });
+
+        },
+
+        /**
+         * @see Alpaca.Fields.ObjectField#getType
+         */
+        getType: function() {
+            return "any";
+        }
+
+        /* builder_helpers */
+        ,
+
+        /**
+         * @see Alpaca.Fields.ObjectField#getTitle
+         */
+        getTitle: function() {
+            return "Option Tree";
+        },
+
+        /**
+         * @see Alpaca.Fields.ObjectField#getDescription
+         */
+        getDescription: function() {
+            return "Option Tree";
+        },
+
+        /**
+         * @private
+         * @see Alpaca.Fields.ObjectField#getSchemaOfOptions
+         */
+        getSchemaOfOptions: function() {
+            return Alpaca.merge(this.base(), {
+                "properties": {
+                    "tree": {
+                        "type": "object",
+                        "properties": {
+                            "options": {
+                                "type": "object"
+                            },
+                            "order": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "type": "any"
+                                        },
+                                        "attributes": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            },
+                            "horizontal": {
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                }
+            });
+        },
+
+        /**
+         * @private
+         * @see Alpaca.Fields.ObjectField#getOptionsForOptions
+         */
+        getOptionsForOptions: function() {
+            return Alpaca.merge(this.base(), {
+                "fields": {
+                }
+            });
+        }
+
+        /* end_builder_helpers */
+    });
+
+    Alpaca.registerFieldClass("optiontree", Alpaca.Fields.OptionTreeField);
 
 })(jQuery);
 
@@ -23737,6 +25126,12 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 self.options.animate = false;
             }
 
+            // assume toolbar sticky if not otherwise specified
+            if (typeof(this.options.toolbarSticky) === "undefined")
+            {
+                this.options.toolbarSticky = true;
+            }
+
             this.base();
 
             if (!this.options.items.type)
@@ -23776,6 +25171,73 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                     this.options.showActionsColumn = false;
                 }
             }
+
+            // data tables columns
+            this.options.datatables.columns = [];
+
+            // initialize data tables to detect alpaca field types and perform alpaca field sorting and filtering
+            if ($.fn.dataTableExt && !$.fn.DataTable.ext.type.search["alpaca"])
+            {
+                $.fn.DataTable.ext.order["alpaca"] = function (settings, col) {
+
+                    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+                        var alpacaId = $(td).children().attr("data-alpaca-field-id");
+                        return Alpaca.fieldInstances[alpacaId].getValue();
+                    } );
+
+                };
+
+                // this is a kind of hacky function at the moment, trying to do filtering that takes into account
+                // alpaca field values
+                //
+                // according to data tables authors, need to wait for next release for refactoring of filtering
+                // logic in data tables to really take control of this and do it right
+                // this "sort of" works for now
+                //
+                $.fn.dataTableExt.afnFiltering.push(function(settings, fields, fieldIndex, data, dataIndex) {
+
+                    var text = $(settings.nTableWrapper).find(".dataTables_filter input[type='search']").val();
+
+                    if (!text) {
+                        return true;
+                    }
+
+                    text = "" + text;
+
+                    text = $.trim(text);
+                    text = text.toLowerCase();
+
+                    var match = false;
+
+                    for (var i = 0; i < data.length; i++)
+                    {
+                        var dataValue = data[i];
+                        if (dataValue)
+                        {
+                            var z = dataValue.indexOf("data-alpaca-field-id=");
+                            if (z > -1)
+                            {
+                                var alpacaId = $(dataValue).attr("data-alpaca-field-id");
+
+                                var alpacaValue = Alpaca.fieldInstances[alpacaId].getValue();
+                                if (alpacaValue)
+                                {
+                                    alpacaValue = "" + alpacaValue;
+                                    alpacaValue = alpacaValue.toLowerCase();
+
+                                    if (alpacaValue.indexOf(text) > -1)
+                                    {
+                                        match = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    return match;
+                });
+            }
         },
 
         /**
@@ -23783,6 +25245,30 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
          */
         getFieldType: function() {
             return "table";
+        },
+
+        prepareContainerModel: function(callback)
+        {
+            var self = this;
+
+            // copy options.fields[k].label to schema.properties[k].title
+            if (self.schema.items && self.schema.items.properties)
+            {
+                for (var k in self.schema.items.properties)
+                {
+                    if (!self.schema.items.properties[k].title)
+                    {
+                        if (self.options.items && self.options.items.fields && self.options.items.fields[k])
+                        {
+                            self.schema.items.properties[k].title = self.options.items.fields[k].label;
+                        }
+                    }
+                }
+            }
+
+            self.base(function(model) {
+                callback(model);
+            });
         },
 
         /**
@@ -23812,9 +25298,43 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 {
                     if ($.fn.DataTable)
                     {
+                        // mix in fields from the items
+                        for (var k in self.schema.items.properties)
+                        {
+                            self.options.datatables.columns.push({
+                                "orderable": true,
+                                "orderDataType": "alpaca"
+                            });
+                        }
+
+                        // if we have an actions column enabled, then turn off sorting for the actions column (assumed to be last)
+                        if (self.options.showActionsColumn)
+                        {
+                            self.options.datatables.columns.push({
+                                "orderable": false,
+                                "name": "actions"
+                            });
+                        }
+
                         $(this.container).find("table").DataTable(self.options.datatables);
                     }
                 }
+
+                // walk through headers and allow for callback-based config
+                $(table).find("thead > tr > th[data-header-id]").each(function() {
+
+                    var key = $(this).attr("data-header-id");
+
+                    var schema = self.schema.items.properties[key];
+                    var options = null;
+                    if (self.options.items.fields && self.options.items.fields[key]) {
+                        options = self.options.items.fields[key];
+                    }
+
+                    // CALLBACK: "tableHeaderRequired"
+                    self.fireCallback("tableHeaderRequired", schema, options, this);
+
+                });
 
                 callback();
 
@@ -24011,11 +25531,11 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
             this.base(model, function() {
 
-                // apply "data-search" to the TD elements
+                // apply data-type="alpaca" to each TD
                 var tds = $(this.container).find("td");
                 for (var i = 0; i < self.children.length; i++)
                 {
-                    $(tds[i]).attr("data-filter", "abc");//self.children[i].getValue());
+                    $(tds[i]).attr("data-type", "alpaca");
                 }
 
                 callback();
@@ -24094,7 +25614,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         /**
          * @see Alpaca.Fields.TextField#getValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             var val = this.base();
 
@@ -24313,18 +25833,21 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                 }
             },
 
-            getValue:function()
+            /**
+             * @see Alpaca.Fields.ControlField#getControlValue
+             */
+            getControlValue:function()
             {
                 var self = this;
 
-                var returnVal = null;
+                var value = null;
 
                 if (self.editor)
                 {
-                    returnVal = self.editor.getContent()
+                    value = self.editor.getContent()
                 }
 
-                return returnVal;
+                return value;
             },
 
             initControlEvents: function()
@@ -24527,6 +26050,7 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
                         model.size = formatFileSize(model.size);
                         model.buttons = self.options.buttons;
                         model.view = self.view;
+                        model.fileIndex = i;
 
                         var row = Alpaca.tmpl(self.view.getTemplateDescriptor(templateId), model, self);
 
@@ -24544,13 +26068,24 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
                         self.handleWrapRow(this, options);
 
-                        // this event gets fired when the AJAX has been handled to delete the remote resource
-                        $(this).find("button.delete").on("destroyed", function() {
+                        var row = $(this);
+
+                        // this event gets fired when fileimpl has cleaned up the DOM element
+                        // we handle Ajax related stuff on our own here
+                        //$(this).find("button.delete").on("destroyed", function() {
+                        $(this).find("button.delete").on("click", function() {
+
+                            var button = $(row).find("button.delete");
+
+                            var fileIndex = $(button).attr("data-file-index");
+                            var file = files[fileIndex];
+
+                            self.onFileDelete.call(self, row, button, file);
+
+                            self.triggerWithPropagation("change");
                             setTimeout(function() {
-                                self.onFileDelete(row);
-                                self.triggerWithPropagation("change");
                                 self.refreshUIState();
-                            }, 400);
+                            }, 200);
                         });
 
                     });
@@ -24575,6 +26110,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             var self = this;
 
             this.base();
+
+            // disable bottom control buttons (we have a conflict over the 'buttons' namespace)
+            self.options.renderButtons = false;
 
             if (!self.options.buttons)
             {
@@ -25291,11 +26829,9 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
         },
 
         /**
-         * @override
-         *
-         * Retrieves an array of descriptors.
+         * @see Alpaca.Fields.ControlField#getControlValue
          */
-        getValue: function()
+        getControlValue: function()
         {
             return this.data;
         },
@@ -25410,8 +26946,26 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             }
         },
 
-        onFileDelete: function(domEl)
+        onFileDelete: function(rowEl, buttonEl, file)
         {
+            var self = this;
+
+            var deleteUrl = file.deleteUrl;
+            var deleteMethod = file.deleteType;
+
+            var c = {
+                "method": deleteMethod,
+                "url": deleteUrl,
+                "headers": {}
+            };
+
+            var csrfToken = self.determineCsrfToken();
+            if (csrfToken)
+            {
+                c.headers[Alpaca.CSRF_HEADER_NAME] = csrfToken;
+            }
+
+            $.ajax(c);
         },
 
         onUploadFail: function(data)
@@ -25427,6 +26981,31 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
             {
                 self.options.uploadFailHandler.call(self, data);
             }
+        },
+
+        /**
+         * @see Alpaca.Field#disable
+         */
+        disable: function()
+        {
+            // disable select button
+            $(this.field).find(".fileinput-button").prop("disabled", true);
+            $(this.field).find(".fileinput-button").attr("disabled", "disabled");
+
+            // hide the upload well
+            $(this.field).find(".alpaca-fileupload-well").css("visibility", "hidden");
+        },
+
+        /**
+         * @see Alpaca.Field#enable
+         */
+        enable: function()
+        {
+            $(this.field).find(".fileinput-button").prop("disabled", false);
+            $(this.field).find(".fileinput-button").removeAttr("disabled");
+
+            // show the upload well
+            $(this.field).find(".alpaca-fileupload-well").css("visibility", "visible");
         },
 
         /* builder_helpers */
@@ -25584,11 +27163,26 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
      * @lends Alpaca.Fields.UpperCaseField.prototype
      */
     {
+
         /**
          * @see Alpaca.Fields.TextField#getFieldType
          */
         getFieldType: function() {
             return "uppercase";
+        },
+
+        /**
+         * @see Alpaca.Fields.TextField#setup
+         */
+        setup: function()
+        {
+            var self = this;
+
+            this.base();
+
+            if (this.data) {
+                this.data = this.data.toUpperCase();
+            }
         },
 
         /**
@@ -25670,7 +27264,19 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
             this.base();
 
-            this.schema.pattern = Alpaca.regexps.url;
+            if (typeof(this.options.allowIntranet) === "undefined")
+            {
+                this.options.allowIntranet = false;
+            }
+
+            if (this.options.allowIntranet)
+            {
+                this.schema.pattern = Alpaca.regexps["intranet-url"];
+            }
+            else
+            {
+                this.schema.pattern = Alpaca.regexps.url;
+            }
             this.schema.format = "uri";
         },
 
@@ -25692,6 +27298,37 @@ this["HandlebarsPrecompiled"]["web-edit"]["wizard"] = Handlebars.template({"1":f
 
         /* builder_helpers */
         ,
+
+        /**
+         * @private
+         * @see Alpaca.Fields.TextField#getSchemaOfOptions
+         */
+        getSchemaOfOptions: function() {
+
+            return Alpaca.merge(this.base(), {
+                "properties": {
+                    "allowIntranet": {
+                        "title": "Allow intranet",
+                        "description": "Allows URLs with unqualified hostnames"
+                    }
+                }
+            });
+
+        },
+
+        /**
+         * @private
+         * @see Alpaca.Fields.TextField#getOptionsForOptions
+         */
+        getOptionsForOptions: function() {
+            return Alpaca.merge(this.base(), {
+                "fields": {
+                    "allowIntranet": {
+                        "type": "checkbox"
+                    }
+                }
+            });
+        },
 
         /**
          * @see Alpaca.Fields.TextField#getTitle

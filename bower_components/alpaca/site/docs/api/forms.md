@@ -38,8 +38,8 @@ $("#field1").alpaca({
             "age": {
                 "title": "Age",
                 "type": "integer",
-                "minValue": 0,
-                "maxValue": 100
+                "minimum": 0,
+                "maximum": 100
             },
             "preferences": {
                 "title": "Preferences",
@@ -99,8 +99,8 @@ $("#field2").alpaca({
             "age": {
                 "title": "Age",
                 "type": "integer",
-                "minValue": 0,
-                "maxValue": 100
+                "minimum": 0,
+                "maximum": 100
             }
         }
     },
@@ -148,8 +148,8 @@ $("#field3").alpaca({
             "age": {
                 "title": "Age",
                 "type": "integer",
-                "minValue": 0,
-                "maxValue": 100
+                "minimum": 0,
+                "maximum": 100
             }
         }
     },
@@ -263,6 +263,9 @@ In addition, for the "noop" button, we use the <code>styles</code> attribute to 
 to specify exact styling of the button.  If not specified, this will take on the value of the view's default style
 for buttons (view.styles.buttons).
 
+For giggles, we shimmy up the <code>submit</code> button and give it a DOM ID of <code>mySubmit</code>.  We also
+plug in a custom DOM attribute called <code>data-test</code> with value <code>123</code>.
+
 <div id="field5"> </div>
 {% raw %}
 <script type="text/javascript" id="field5-script">
@@ -282,8 +285,8 @@ $("#field5").alpaca({
             "age": {
                 "title": "Age",
                 "type": "integer",
-                "minValue": 0,
-                "maxValue": 100
+                "minimum": 0,
+                "maximum": 100
             }
         }
     },
@@ -314,6 +317,10 @@ $("#field5").alpaca({
                         this.ajaxSubmit().always(function() {
                             alert("Form submitted!");
                         });
+                    },
+                    "id": "mySubmit",
+                    "attributes": {
+                        "data-test": "123"
                     }
                 }
             }
@@ -324,6 +331,69 @@ $("#field5").alpaca({
         control.form.getButtonEl("noop").click(function() {
             alert("Ain't gonna do it");
         });
+    }
+});
+</script>
+{% endraw %}
+
+
+## Form with Auto Focus on Invalid Field
+
+Here is a form that takes focus back to an invalid field when submitted.  Click on submit to have the form auto-focus
+on the invalid <code>age</code> field.
+
+<div id="field6"> </div>
+{% raw %}
+<script type="text/javascript" id="field6-script">
+$("#field6").alpaca({
+    "data": {
+        "firstName": "Tre",
+        "lastName": "Styles",
+        "age": true
+    },
+    "schema": {
+        "title": "Your Information",
+        "type": "object",
+        "properties": {
+            "firstName": {
+                "title": "First Name",
+                "type": "string"
+            },
+            "lastName": {
+                "title": "Last Name",
+                "type": "string"
+            },
+            "age": {
+                "title": "Age",
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+            }
+        }
+    },
+    "options": {
+        "form": {
+            "attributes":{
+                "action": "http://httpbin.org/post",
+                "method": "post"
+            },
+            "buttons": {
+                "submit": {
+                    "click": function() {
+                        this.refreshValidationState(true);
+                        if (!this.isValid(true))
+                        {
+                            this.focus();
+                            return;
+                        }
+
+                        this.ajaxSubmit();
+                    }
+                }
+            }
+        },
+        "hideInitValidationError": true,
+        "focus": "firstName"
     }
 });
 </script>
