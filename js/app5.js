@@ -9,40 +9,84 @@
 
   var ENTER_KEY = 13;
 
-  // EDITING STARTS HERE (you dont need to edit anything above this line)
+  /* Para borrar bases
+  PouchDB.destroy(nomDB).then(function () {
+  // database destroyed
+}).catch(function (err) {
+  // error occurred
+})
+*/
 
-  var nomDB='fichamtchtest'; //esta es la base local.
-  var db = new PouchDB(nomDB);
   //var db = new PouchDB('http://tdc.iriscouch.com:5984/fichamtchtest');
   //var dbreset=db.destroy().then(function () {console.log("db borrada")}).catch(function(error){console.log(error);});
 
-  // Replace with remote instance, this just replicates to another local instance.
-  //var remoteCouch = 'http://tdc.iriscouch.com:5984/fichamtchtest';
   //var remoteCouch = 'http://terapeutageneral:fichamtch0220@tdc.iriscouch.com:5984/fichasegura';
   //mientras decido que hacer con la autenticación
-  if (typeof rutTerapeuta == 'undefined'){
-    var remoteCouch = 'http://tdc.iriscouch.com:5984/fichasegura';
-  }else {
-    var remoteCouch = 'http://terapeutageneral:fichamtch0220@tdc.iriscouch.com:5984/fichasegura'
-  }
+
+var db;
+var remoteCouch='http://tdc.iriscouch.com:5984/fichasegura';
+var remoteDb;
+var nomDB;
 
 
+function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
 
-  var intervaloSync = setInterval(function () {sync()}, 60000); //tratamos de sincronizar cada 60 segundos
+  var hash = sha3_256(usuario);
+  nomDB='ficha_'+hash; //esta es la base local.
+  console.log("DB:"+nomDB);
+  //alert(nomDB);
+
+  db = new PouchDB(nomDB);
+  remoteDb = 'http://tdc.iriscouch.com:5984/'+nomDB;
 
   db.changes({
     since: 'now',
     live: true,
     filter: function (doc) { //parece que no funciona
-          return doc.terapeuta === rutTerapeuta; //sincronizamos sólo las fichas de este terapeuta
+          return doc.terapeuta === usuario; //sincronizamos sólo las fichas de este terapeuta
         }
   }).on('change', showTodos);
+
+      showTodos();
+
+}
+
+function conectaDB(usuario){
+
+  var opts = {
+      live: true,
+      retry:true,
+      filter: function (doc) {
+          return doc.terapeuta === usuario; //sincronizamos sólo las fichas de este terapeuta
+        }
+      };
+
+  db.sync(remoteDb, opts).on('change', function (change) {
+      // yo, something changed!
+        syncProcess(change);
+
+      }).on('paused', function (info) {
+      // replication was paused, usually because of a lost connection
+        syncCompleted(info);
+
+      }).on('active', function (info) {
+      // replication was resumed
+        syncProcess(info);
+
+      }).on('error', function (err) {
+      // totally unhandled error (shouldn't happen)
+        syncError(err);
+
+      });
+
+
+}
 
  function addFicha(fichaJson){
    var miFicha=fichaJson;
 
-   var miId=hashFnv32a(miFicha.rut,true); //Debe haber sólo una ficha por paciente, el identificador es el RUT, pero se hace un HASH por privacidad
-
+  // var miId=hashFnv32a(miFicha.rut,true); //Debe haber sólo una ficha por paciente, el identificador es el RUT, pero se hace un HASH por privacidad
+   var miId=sha3_256(miFicha.rut);
    console.log("miId:"+miId);
 
    //miFicha["_id"]=new Date().toISOString();
@@ -64,7 +108,6 @@
           console.log(err);
           alert("Hubo un problema al cargar la ficha. Itentelo nuevamente.")
         });
-       sync();
      }else{
        console.log('Error al escribir en '+nomDB+' ! '+err+":"+result);
        alert("Error al grabar");
@@ -87,18 +130,11 @@
       descending: true,
       attachments: true
         };
-
+        console.log("showTodos:"+db);
     db.allDocs(opts, function(err, doc) {
       redrawTodosUI(doc.rows);
     });//*/
 
-/*
-    db.allDocs({include_docs: true,
-                descending: true,
-                attachments: true
-                }, function(err, doc) {
-      redrawTodosUI(doc.rows);
-    });*/
   }
 
   function checkboxChanged(todo, event) {
@@ -114,8 +150,6 @@
     if (result) {
       db.remove(todo);
       showTodos();
-      sync();
-      //alert("borrado");
     }
 
   }
@@ -138,38 +172,6 @@
       todo.title = trimmedText;
       db.put(todo);
     }
-  }
-
-  // Initialise a sync with the remote server
-  function sync() {
-    syncProcess("Sincronizando");
-
-    var opts = {
-        live: true,
-        filter: function (doc) {
-            return doc.terapeuta === rutTerapeuta; //sincronizamos sólo las fichas de este terapeuta
-          }
-        };
-
-
-    db.replicate.to(remoteCouch,opts).then(function (result) {
-        // handle 'completed' result
-        console.log("db.replicate.to Completado");
-        syncCompleted(result);
-
-      }).catch(function (err) {
-        syncError(err);
-    });
-
-    db.replicate.from(remoteCouch,opts).then(function (result) {
-        // handle 'completed' result
-        console.log("db.replicate.from Completado");
-        syncCompleted(result);
-
-      }).catch(function (err) {
-        syncError(err);
-    });
-
   }
 
 
@@ -256,15 +258,6 @@
     fila.appendChild(camat);
     fila.appendChild(cnombres);
     fila.appendChild(caccion);
-    //fila.appendChild(cshow);
-    //var celda=document.createElement("td");
-    //celda.appendChild(divDisplay);
-    //fila.appendChild(celda)
-
-    //var li = document.createElement('li');
-    //li.id = 'li_' + todo._id;
-    //li.appendChild(divDisplay);
-    //li.appendChild(inputEditTodo);
 
     if (todo.completed) {
       li.className += 'complete';
@@ -319,12 +312,7 @@
     });
   }
 
-
-  showTodos();
-
-  if (remoteCouch) {
-    sync();
-  }
+//  showTodos();
 
 //Sistema de autenticación directa contra Couchdb
 
@@ -368,6 +356,7 @@ function iniciaSesion(){
       if (err) {
         // network error
         alert("Problemas para contactar con el servidor.\n Se trabajará fuera de línea.")
+        console.log("Error de conexión:"+err);
 
       } else if (!response.userCtx.name) { //si se conecta, pero no hay usuario, muestra la pantalla de login
         // nobody's logged in
@@ -381,7 +370,8 @@ function iniciaSesion(){
         $('#loginLink').hide();
         //asignamos el usuario
         rutTerapeuta=response.userCtx.name;
-
+        creaDB(rutTerapeuta);
+        conectaDB(rutTerapeuta);
         //Mostramos la ficha
         $('#ficha').show();
 

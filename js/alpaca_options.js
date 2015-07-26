@@ -357,22 +357,6 @@ var misOpciones={
                                      },
                                      "click":function(){ //funciona
 
-                                       var divDisplay = document.createElement('div');
-                                       divDisplay.className="modal fade";
-                                       var mod=document.createElement('div');
-                                       mod.className="modal-dialog";
-                                       var modCont=document.createElement('div');
-                                       modCont.className="modal-content";
-                                       var modText=document.createElement('div');
-                                          modText.className="modal-title";
-                                        var modTitle=document.createTextNode("Ventana modal");
-                                       modText.appendChild(modTitle);
-                                       modCont.appendChild(modText);
-                                       mod.appendChild(modCont);
-                                       divDisplay.appendChild(mod);
-
-
-                                       console.log(divDisplay);
                                        //alert(divDisplay);
                                      }
 

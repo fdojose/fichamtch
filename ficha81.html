@@ -177,63 +177,15 @@
                               "form": {
                               },
                               "view":{
-                                  "parent": "bootstrap-edit-horizontal",
-                                   "wizard":{
-                                       "title": "Welcome to the Wizard",
-                                       "description": "Please fill things in as you wish",
-                                       "bindings": {
-                                           "_id":1,
-                                           "_rev":1,
-                                           "terapeuta":1,
-                                           "rut":1,
-                                           "clinica":1,
-                                           "fechaCreacion":1,
-                                           "datosPersonales": 1,
-                                           "datosContacto":1,
-                                           "familia":2,
-                                           "ocupacion":2,
-                                           "historia": 3,
-                                           "tratamientos":4
-                                       },
-                                       "steps": [{
-                                           "title": "Informaci&oacute;n Persona",
-                                           "description": "Datos del Paciente"
-                                       }, {
-                                           "title": "Familia - Ocupaci&oacute;n",
-                                           "description": "Antecedentes"
-                                       }, {
-                                           "title": "Historia",
-                                           "description": "Historia Cl&iacute;nica"
-                                       },{
-                                           "title":"Tratamientos",
-                                           "description":"Tratamientos"
-                                       }
-                                     ],
-                                     "markAllStepsVisited":true,
-                                     "buttons": {
-                                       "submit": {
-                                         "title": "Grabar",
-                                         "click": function() {
-                                           var value = this.getValue();
-                                           console.log(JSON.stringify(value, null, "  "));
-                                           addFicha(value);
-
-                                         }
-                                       }
-                                     }
-                                   },
+                                "parent": "bootstrap-edit-horizontal",
                                  "horizontal":true,
-                                 "fields":{
-                                   "/datosPersonales":{
                                      "layout":{
                                        "template":'./templates/layouts-example1-template.html',
                                        "bindings": {
-                                            "nombres": "#left",
-                                            "apat": "#right"
+                                            "datosPersonales": "#left",
+                                            "datosContacto": "#right"
                                         }
                                      }
-                                   }
-                                 }
                               },
                               "postRender": function(control) {
 
