@@ -9,14 +9,6 @@
 
   var ENTER_KEY = 13;
 
-  /* Para borrar bases
-  PouchDB.destroy(nomDB).then(function () {
-  // database destroyed
-}).catch(function (err) {
-  // error occurred
-})
-*/
-
   //var db = new PouchDB('http://tdc.iriscouch.com:5984/fichamtchtest');
   //var dbreset=db.destroy().then(function () {console.log("db borrada")}).catch(function(error){console.log(error);});
 
@@ -37,6 +29,7 @@ function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
   //alert(nomDB);
 
   db = new PouchDB(nomDB);
+  //var dbreset=db.destroy().then(function () {console.log("db borrada")}).catch(function(error){console.log(error);});
   remoteDb = 'http://tdc.iriscouch.com:5984/'+nomDB;
 
   db.changes({
@@ -78,22 +71,33 @@ function conectaDB(usuario){
         syncError(err);
 
       });
+}
 
+function refrescarCopiaLocal(){
+  var result = confirm("¡ATENCION!\nSe borrará la copia local y se perderá todo lo no sincronizado.");
+  if (result) {
+    var dbreset=db.destroy().then(function () {
+      console.log("db borrada");
+      iniciaSesion();
+    }
+    ).catch(function(error){
+      console.log(error);});
+  }
 
 }
+
 
  function addFicha(fichaJson){
    var miFicha=fichaJson;
 
-  // var miId=hashFnv32a(miFicha.rut,true); //Debe haber sólo una ficha por paciente, el identificador es el RUT, pero se hace un HASH por privacidad
-   var miId=sha3_256(miFicha.rut);
-   console.log("miId:"+miId);
+   if(typeof miFicha["_id"]==undefined){
+     var miId=sha3_256(miFicha.rut);
+     miFicha["_id"]=miId;
+   } else {
+     console.log("ficha existente:"+miFicha["_id"]);
+   }
 
-   //miFicha["_id"]=new Date().toISOString();
-
-   miFicha["_id"]=miId;
-
-   console.log(JSON.stringify(miFicha, null, "  "));
+   //console.log(JSON.stringify(miFicha, null, "  "));
 
    db.put(miFicha, function callback(err, result) {
      if (!err) {
@@ -101,16 +105,19 @@ function conectaDB(usuario){
        //Consultamos los registros grabados
        showTodos();
        alert("Grabado exitosamente.");
+       esperar(false,"");
        //luego de grabarlo obtenemos el documento y lo presentamos para tener el _rev.
        db.get(miFicha["_id"]).then(function(doc){
          showButtonPressed(doc);
        }).catch(function (err) {
           console.log(err);
           alert("Hubo un problema al cargar la ficha. Itentelo nuevamente.")
+          esperar(false,"");
         });
      }else{
        console.log('Error al escribir en '+nomDB+' ! '+err+":"+result);
        alert("Error al grabar");
+       esperar(false,"");
      }
    });
  }
@@ -125,16 +132,19 @@ function conectaDB(usuario){
   // Show the current list of todos by reading them from the database
   function showTodos() {
 
+    esperar(true,"");
+
     var opts = {
       include_docs: true,
       descending: true,
       attachments: true
         };
-        console.log("showTodos:"+db);
+
+    console.log("showTodos:"+db);
     db.allDocs(opts, function(err, doc) {
       redrawTodosUI(doc.rows);
     });//*/
-
+    esperar(false,"");
   }
 
   function checkboxChanged(todo, event) {
@@ -254,6 +264,7 @@ function conectaDB(usuario){
     clabel.appendChild(divDisplay);
 
     var fila=document.createElement("tr");
+    fila.className="filaListado";
     fila.appendChild(capat);
     fila.appendChild(camat);
     fila.appendChild(cnombres);
@@ -312,8 +323,6 @@ function conectaDB(usuario){
     });
   }
 
-//  showTodos();
-
 //Sistema de autenticación directa contra Couchdb
 
 //Script de login
@@ -357,6 +366,24 @@ function iniciaSesion(){
         // network error
         alert("Problemas para contactar con el servidor.\n Se trabajará fuera de línea.")
         console.log("Error de conexión:"+err);
+
+        $("#login-modal").modal("show");
+        $('#logout').hide();
+
+        $( '#submitLogin' ).click(function( event ) {
+
+          var usuario=$('#usuario').val();
+          var clave=$('#clave').val();
+
+          console.log(usuario+":"+clave);
+
+          rutTerapeuta=usuario;
+          //couchLogin(usuario,clave);
+          $("#login-modal").modal("hide");
+          console.log("Login sin conexión");
+          creaDB(rutTerapeuta); //no está funcionando
+
+        });
 
       } else if (!response.userCtx.name) { //si se conecta, pero no hay usuario, muestra la pantalla de login
         // nobody's logged in
@@ -454,9 +481,21 @@ function iniciaSesion(){
     $('#login').hide();
     $('#ficha').show();
   }
+
+function esperar(estado,mensaje){
+  if (estado){
+    $('#espera-modal').modal('show');
+  }else {
+    $('#espera-modal').modal('hide');
+  }
+
+}
   /*
   Hay que pensar que hacemos con los usuarios cuando no haya conexión, podemos usarlos con la clave en forma temporal y
   tratar de reconectar cada cierto tiempo.
   Si lo dejaremos autenticado contra el couchdb habra que cambiar el string de conexión. Actualmente usa un terapeuta genérico.
+
+  Si se usa una base por usuario para luego sincronizarla sería prudente construir el id también con los datos del terapeuta.
+
   */
 //Cierre autenticación directa

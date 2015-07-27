@@ -23,11 +23,12 @@ body {
 
 
 .alpaca-container-label{
-  background-color: #f6f46c;
+  background-color: #1BBD6F;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border: 1px solid #ccc;
   padding-left: 10px;
+  color: #ffffff;
 }
 
 thead{
@@ -62,12 +63,43 @@ thead{
 
 [data-sync-state=process] #sync-process {
   display: block;
+  color:#FF7F50;
 }
 
 [data-sync-state=success] #sync-success {
   display: block;
+  color:#006400;
 }
 
 [data-sync-state=error] #sync-error {
   display: block;
+  color:#FF0000;
+}
+
+.filaListado td{
+  display: block;
+  border-bottom: 1px solid #C0C0C0;
+}
+.filaListado.oddrow td {
+    display: block;
+    border-bottom: 1px solid #F00;
+}
+
+.esperamodal-container {
+padding: 30px;
+max-width: 350px;
+width: 100% !important;
+background-color: #F7F7F7;
+margin: 0 auto;
+border-radius: 2px;
+box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+overflow: hidden;
+font-family: roboto;
+}
+
+.esperamodal-container h1 {
+text-align: center;
+font-size: 1.8em;
+font-family: roboto;
+color:#00008B;
 }

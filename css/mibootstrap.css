@@ -1,0 +1,45 @@
+.btn-verde {
+  color: #ffffff;
+  background-color: #1BBD6F;
+  border-color: #176E4B;
+}
+
+.btn-verde:hover,
+.btn-verde:focus,
+.btn-verde:active,
+.btn-verde.active,
+.open .dropdown-toggle.btn-verde {
+  color: #ffffff;
+  background-color: #247A42;
+  border-color: #176E4B;
+}
+
+.btn-verde:active,
+.btn-verde.active,
+.open .dropdown-toggle.btn-verde {
+  background-image: none;
+}
+
+.btn-verde.disabled,
+.btn-verde[disabled],
+fieldset[disabled] .btn-verde,
+.btn-verde.disabled:hover,
+.btn-verde[disabled]:hover,
+fieldset[disabled] .btn-verde:hover,
+.btn-verde.disabled:focus,
+.btn-verde[disabled]:focus,
+fieldset[disabled] .btn-verde:focus,
+.btn-verde.disabled:active,
+.btn-verde[disabled]:active,
+fieldset[disabled] .btn-verde:active,
+.btn-verde.disabled.active,
+.btn-verde[disabled].active,
+fieldset[disabled] .btn-verde.active {
+  background-color: #1BBD6F;
+  border-color: #176E4B;
+}
+
+.btn-verde .badge {
+  color: #1BBD6F;
+  background-color: #ffffff;
+}

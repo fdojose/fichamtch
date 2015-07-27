@@ -4,6 +4,7 @@
 
         <link type="text/css" rel="stylesheet" href="./css/ficha.css" />
         <link type="text/css" rel="stylesheet" href="./css/login.css" />
+        <link type="text/css" rel="stylesheet" href="./css/mibootstrap.css" />
 
         <script type="text/javascript" src="./bower_components/alpaca/dist/lib/jquery/dist/jquery.min.js"></script>
 
@@ -27,7 +28,6 @@
         <script type="text/javascript" src="./bower_components/pouchdb-authentication/dist/pouchdb.authentication.min.js"></script>
         <script type="text/javascript" src="./bower_components/transform-pouch/dist/pouchdb.transform-pouch.min.js"></script>
 
-        <script type="text/javascript" src="./js/hashfvn1.js"></script>
         <script type="text/javascript" src="./bower_components/js-sha3/build/sha3.min.js"></script>
         <script type="text/javascript" src="./bower_components/aes/aes.js"></script>
 
@@ -76,12 +76,20 @@
         				</div>
         			</div>
       </div>
-    </div>
 
+    <div id="espera">
+      <div class="modal fade" id="espera-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+              <div class="modal-dialog">
+              <div class="esperamodal-container">
+                <h1><center>Un momento por favor...</center></h1><br>
+              </div>
+            </div>
+      </div>
+    </div>
 <div id="ficha">
 
 <div id="pacientes">
-    <button class="btn btn-primary glyphicon glyphicon-list-alt" type="button" data-toggle="collapse" data-target="#listadoPacientes" aria-expanded="true" aria-controls="listadoPacientes">
+    <button class="btn btn-verde glyphicon glyphicon-list-alt" type="button" data-toggle="collapse" data-target="#listadoPacientes" aria-expanded="true" aria-controls="listadoPacientes">
       Listado de Pacientes
     </button>
     <div class="collapse in" id="listadoPacientes">
@@ -89,6 +97,7 @@
         <section id="todoapp">
           <header id="header">
              <h2>Fichas</h2>
+             <div id="bexpandir" align="right"><button id="buttonExpandir" onclick="nuevaFicha()" class="btn btn-verde glyphicon glyphicon-plus btn-verde">Agregar Paciente</button></div>
           </header>
 
           <section id="main">
@@ -102,21 +111,21 @@
               <div id="sync-success">Sincronizado</div>
               <div id="sync-error">Hubo problemas se sincronizaci&oacute;n</div>
             </div>
-            <div id="bexpandir"><button id="buttonExpandir" onclick="nuevaFicha()" class="btn btn-primary glyphicon glyphicon-plus">Agregar Paciente</button></div>
+            <div id="bexpandir" align="left"><button id="buttonExpandir" onclick="refrescarCopiaLocal()" class="btn btn-verde glyphicon glyphicon-trash">Refrescar Copia Local</button></div>
           </footer>
         </section>
       </div>
     </div>
 </div>
 
-    <div id="btnExpandir">
+    <div id="btnExpandir" align="right">
       <table cellpadding="10">
         <tr>
           <td>
-              <div id="bcolapsar"><button id="buttonColapsar" onclick="colapsar()" class="btn btn-primary glyphicon glyphicon-collapse-up" >Colapsar</button></div>
+              <div id="bcolapsar"><button id="buttonColapsar" onclick="colapsar()" class="btn btn-verde glyphicon glyphicon-collapse-up" >Colapsar</button></div>
           </td>
           <td>
-              <div id="bexpandir"><button id="buttonExpandir" onclick="expandir()" class="btn btn-primary glyphicon glyphicon-collapse-down" >Expandir</button></div>
+              <div id="bexpandir"><button id="buttonExpandir" onclick="expandir()" class="btn btn-verde glyphicon glyphicon-collapse-down" >Expandir</button></div>
             </td>
         </tr>
       </table>
@@ -221,6 +230,10 @@
 
                function miAlpaca(miJson){
 
+                 esperar(true,"");
+
+                 console.log(JSON.stringify(miJson, null, "  "));
+
                  if ($('#field1').alpaca("exists")) //si existe ya una ficha desplegada, la borra
                     {
                       //alert("ya existe una ficha");
@@ -272,8 +285,9 @@
                                      "submit": {
                                        "title": "Grabar",
                                        "click": function() {
+                                        esperar(true,"Grabando...");
                                          var value = this.getValue();
-                                         console.log(JSON.stringify(value, null, "  "));
+                                         //console.log(JSON.stringify(value, null, "  "));
                                          addFicha(value);
 
                                        }
@@ -297,6 +311,7 @@
                                  colapsa(value);
                                });
 
+                              esperar(false,"");
 
                                /* selct2 no funciona, rellena el campo
                              var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
