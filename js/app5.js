@@ -42,7 +42,7 @@ function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
       if (result){
         //var midb = new PouchDB(nomDB);
       }else {
-        midb.destroy().then(function () {
+        midb.destroy().then(function () { //se borra la base creada para consultar.
             // success
           }).catch(function (error) {
             console.log(error);
@@ -117,7 +117,7 @@ function refrescarCopiaLocal(){
  function addFicha(fichaJson){
    var miFicha=fichaJson;
 
-   if(typeof miFicha["_id"]==undefined){
+   if(typeof miFicha._id==undefined || miFicha._id==undefined){ //no me queda claro porque dejo de funcionar.
      var miId=sha3_256(miFicha.rut);
      miFicha["_id"]=miId;
    } else {
@@ -143,7 +143,12 @@ function refrescarCopiaLocal(){
         });
      }else{
        console.log('Error al escribir en '+nomDB+' ! '+err+":"+result);
-       alert("Error al grabar");
+       if (err.name=="conflict"){
+         alert("Error al grabar, posiblemente ya existe la ficha.");
+       }else {
+         alert("Error al grabar");
+       }
+
        esperar(false,"");
      }
    });
