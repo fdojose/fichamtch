@@ -17,9 +17,12 @@
 
 var db;
 var remoteCouch='http://tdc.iriscouch.com:5984/fichasegura';
+//var remoteCouch='http://tdc.iriscouch.com';
 var remoteDb;
 var nomDB;
-
+var intervaloLogin;
+var reintentoLogin=10000; //Cada cuánto busca conectarse a la bd remota para validar el login
+var offline=false;
 
 function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
 
@@ -27,12 +30,36 @@ function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
   nomDB='ficha_'+hash; //esta es la base local.
   console.log("DB:"+nomDB);
   //alert(nomDB);
-
-  db = new PouchDB(nomDB);
-  //var dbreset=db.destroy().then(function () {console.log("db borrada")}).catch(function(error){console.log(error);});
+  midb = new PouchDB(nomDB);
   remoteDb = 'http://tdc.iriscouch.com:5984/'+nomDB;
 
-  db.changes({
+//verificamos si la base existe.
+  midb.info().then(function(result){
+    console.log(result.doc_count);
+    if (result.doc_count<1){
+      console.log("menos de 1 registro");
+      var result=confirm("No se encontraron fichas para este usuario. ¿Desea crear una nueva base?")
+      if (result){
+        //var midb = new PouchDB(nomDB);
+      }else {
+        midb.destroy().then(function () {
+            // success
+          }).catch(function (error) {
+            console.log(error);
+          });
+          return false;
+      }
+    }else{
+      console.log("mas de 0 registro");
+      //return true;
+    }
+  }).catch(function(err){
+    console.log(err);
+  })
+
+  //var dbreset=db.destroy().then(function () {console.log("db borrada")}).catch(function(error){console.log(error);});
+
+  midb.changes({
     since: 'now',
     live: true,
     filter: function (doc) { //parece que no funciona
@@ -40,11 +67,12 @@ function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
         }
   }).on('change', showTodos);
 
-      showTodos();
+      //showTodos();
 
+      return midb;
 }
 
-function conectaDB(usuario){
+function conectaDB(miDB){
 
   var opts = {
       live: true,
@@ -54,7 +82,7 @@ function conectaDB(usuario){
         }
       };
 
-  db.sync(remoteDb, opts).on('change', function (change) {
+  miDB.sync(remoteDb, opts).on('change', function (change) {
       // yo, something changed!
         syncProcess(change);
 
@@ -85,7 +113,6 @@ function refrescarCopiaLocal(){
   }
 
 }
-
 
  function addFicha(fichaJson){
    var miFicha=fichaJson;
@@ -345,13 +372,41 @@ function couchLogin(usuario, clave){
     if (err) {
       if (err.name === 'unauthorized') {
         // name or password incorrect
-      } else {
-        // cosmic rays, a meteor, etc.
+        alert("El usuario o clave son incorrectos.");
+        $("#login-modal").modal("show");
+        $('#ficha').hide();
 
+      } else if (err.name=="illegal_database_name") {
+        // cosmic rays, a meteor, etc.
+        alert("Base de datos remota no reconocida");
+      } else {
+        if (!offline){
+          var result=confirm("Problemas para conectar con el servidor. ¿Desea trabajar fuera de línea?");
+          if (result){
+            if (typeof intervaloLogin !=undefined){
+              clearInterval(intervaloLogin);
+              console.log("Intervalo Borrado");
+              offline=true;
+            }
+        }
+          intervaloLogin=setInterval(couchLogin,reintentoLogin,usuario,clave); //intenta reconectar cada cierto tiempo.
+          console.log("Trabajando off-line.");
+          rutTerapeuta=usuario;
+          db=creaDB(usuario);
+          conectaDB(db);
+          showTodos();
+          $("#login-modal").modal("hide");
+          $('#ficha').show();
+        }
       }
     }else {
       if(response.ok){
         $("#login-modal").modal("hide");
+        if (typeof intervaloLogin !=undefined){
+          clearInterval(intervaloLogin);
+          console.log("Intervalo Borrado");
+        }
+        offline=false;
         iniciaSesion();
       }
     }
@@ -364,26 +419,9 @@ function iniciaSesion(){
   ldb.getSession(function (err, response) {
       if (err) {
         // network error
-        alert("Problemas para contactar con el servidor.\n Se trabajará fuera de línea.")
-        console.log("Error de conexión:"+err);
-
+        //Si hay un error de conexión abre el login para trabajar fuera de línea
         $("#login-modal").modal("show");
         $('#logout').hide();
-
-        $( '#submitLogin' ).click(function( event ) {
-
-          var usuario=$('#usuario').val();
-          var clave=$('#clave').val();
-
-          console.log(usuario+":"+clave);
-
-          rutTerapeuta=usuario;
-          //couchLogin(usuario,clave);
-          $("#login-modal").modal("hide");
-          console.log("Login sin conexión");
-          creaDB(rutTerapeuta); //no está funcionando
-
-        });
 
       } else if (!response.userCtx.name) { //si se conecta, pero no hay usuario, muestra la pantalla de login
         // nobody's logged in
@@ -397,8 +435,9 @@ function iniciaSesion(){
         $('#loginLink').hide();
         //asignamos el usuario
         rutTerapeuta=response.userCtx.name;
-        creaDB(rutTerapeuta);
-        conectaDB(rutTerapeuta);
+        db=creaDB(rutTerapeuta);
+        conectaDB(db);
+        showTodos();
         //Mostramos la ficha
         $('#ficha').show();
 
