@@ -26,50 +26,51 @@ var offline=false;
 
 function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
 
-  var hash = sha3_256(usuario);
-  nomDB='ficha_'+hash; //esta es la base local.
-  console.log("DB:"+nomDB);
-  //alert(nomDB);
-  midb = new PouchDB(nomDB);
-  remoteDb = 'http://tdc.iriscouch.com:5984/'+nomDB;
+  return new Promise(function(resolve,reject){
 
-//verificamos si la base existe.
-  midb.info().then(function(result){
-    console.log(result.doc_count);
-    if (result.doc_count<1){
-      console.log("menos de 1 registro");
-      var result=confirm("No se encontraron fichas para este usuario. ¿Desea crear una nueva base?")
-      if (result){
-        //var midb = new PouchDB(nomDB);
-      }else {
-        midb.destroy().then(function () { //se borra la base creada para consultar.
-            // success
-          }).catch(function (error) {
-            console.log(error);
-          });
-          return false;
-      }
-    }else{
-      console.log("mas de 0 registro");
-      //return true;
-    }
-  }).catch(function(err){
-    console.log(err);
-  })
+    var hash = sha3_256(usuario);
+    nomDB='ficha_'+hash; //esta es la base local.
+    console.log("DB:"+nomDB);
+    //alert(nomDB);
+    midb = new PouchDB(nomDB);
+    remoteDb = 'http://tdc.iriscouch.com:5984/'+nomDB;
 
-  //var dbreset=db.destroy().then(function () {console.log("db borrada")}).catch(function(error){console.log(error);});
+  //verificamos si la base existe.
+    midb.info().then(function(result){
+      console.log(result.doc_count);
+      if (result.doc_count<1){
+        console.log("menos de 1 registro");
+        var result=confirm("No se encontraron fichas para este usuario:"+usuario+". \n¿Desea crear una nueva base?\n(IMPORTANTE: El usuario debe existir en el servidor para la sincronización)")
+        if (result){
+          midb.changes({
+            since: 'now',
+            live: true,
+            filter: function (doc) { //parece que no funciona
+                  return doc.terapeuta === usuario; //sincronizamos sólo las fichas de este terapeuta
+                }
+          }).on('change', showTodos, midb);
 
-  midb.changes({
-    since: 'now',
-    live: true,
-    filter: function (doc) { //parece que no funciona
-          return doc.terapeuta === usuario; //sincronizamos sólo las fichas de este terapeuta
+          resolve(midb);
+
+        }else {
+          midb.destroy().then(function () { //se borra la base creada para consultar.
+              // success
+            }).catch(function (error) {
+              console.log(error);
+            });
+            reject(Error("Creacion cancelada"));
         }
-  }).on('change', showTodos);
+      }else{
+        console.log("mas de 0 registro");
+        resolve(midb);
+        //return true;
+      }
+    }).catch(function(err){
+      console.log(err);
+      reject(Error(err));
+    })
+  });
 
-      //showTodos();
-
-      return midb;
 }
 
 function conectaDB(miDB){
@@ -130,7 +131,7 @@ function refrescarCopiaLocal(){
      if (!err) {
        console.log('Exitosamente grabado en '+nomDB+' !');
        //Consultamos los registros grabados
-       showTodos();
+       showTodos(db);
        alert("Grabado exitosamente.");
        esperar(false,"");
        //luego de grabarlo obtenemos el documento y lo presentamos para tener el _rev.
@@ -154,15 +155,8 @@ function refrescarCopiaLocal(){
    });
  }
 
- function muestraFicha(){
-   db.allDocs({include_docs: true, descending: true}, function(err, doc) {
-     //console.log(JSON.stringify(doc, null, "  "));
-   });
- }
-
-
   // Show the current list of todos by reading them from the database
-  function showTodos() {
+  function showTodos(midb) {
 
     esperar(true,"");
 
@@ -172,8 +166,8 @@ function refrescarCopiaLocal(){
       attachments: true
         };
 
-    console.log("showTodos:"+db);
-    db.allDocs(opts, function(err, doc) {
+    console.log("showTodos:"+midb);
+    midb.allDocs(opts, function(err, doc) {
       redrawTodosUI(doc.rows);
     });//*/
     esperar(false,"");
@@ -191,7 +185,7 @@ function refrescarCopiaLocal(){
     var result = confirm("Desea borrar a: "+todo.datosPersonales.nombres+" "+todo.datosPersonales.apat);
     if (result) {
       db.remove(todo);
-      showTodos();
+      showTodos(db);
     }
 
   }
@@ -367,11 +361,15 @@ $( '#submitLogin' ).click(function( event ) {
   console.log(usuario+":"+clave);
 
   rutTerapeuta=usuario;
+  esperar(true,"");
+  offline=false;
   couchLogin(usuario,clave);
 
 });
 
 function couchLogin(usuario, clave){
+
+console.log("couchLogin:"+usuario+"-"+clave);
 
   ldb.login(usuario,clave, function (err, response) {
     if (err) {
@@ -380,31 +378,45 @@ function couchLogin(usuario, clave){
         alert("El usuario o clave son incorrectos.");
         $("#login-modal").modal("show");
         $('#ficha').hide();
+        esperar(false,"");
 
       } else if (err.name=="illegal_database_name") {
         // cosmic rays, a meteor, etc.
         alert("Base de datos remota no reconocida");
+
       } else {
+        console.log("en offline 387");
         if (!offline){
-          var result=confirm("Problemas para conectar con el servidor. ¿Desea trabajar fuera de línea?");
+          var result=confirm("Problemas para conectar con el servidor.\n ¿Desea trabajar fuera de línea?");
           if (result){
             if (typeof intervaloLogin !=undefined){
               clearInterval(intervaloLogin);
               console.log("Intervalo Borrado");
               offline=true;
             }
+            intervaloLogin=setInterval(couchLogin,reintentoLogin,usuario,clave); //intenta reconectar cada cierto tiempo.
+            console.log("Trabajando off-line.");
+            rutTerapeuta=usuario;
+            creaDB(usuario).then(function(result){
+              conectaDB(result);
+              db=result;
+              showTodos(result);
+              $("#login-modal").modal("hide");
+              $('#ficha').show();
+
+            }).catch(function(err){
+              alert("error en la promesa");
+              esperar(false,"");
+            });
+        }else{
+          offline=false;
+          esperar(false,"");
         }
-          intervaloLogin=setInterval(couchLogin,reintentoLogin,usuario,clave); //intenta reconectar cada cierto tiempo.
-          console.log("Trabajando off-line.");
-          rutTerapeuta=usuario;
-          db=creaDB(usuario);
-          conectaDB(db);
-          showTodos();
-          $("#login-modal").modal("hide");
-          $('#ficha').show();
+
         }
       }
     }else {
+      console.log("en el else 415");
       if(response.ok){
         $("#login-modal").modal("hide");
         if (typeof intervaloLogin !=undefined){
@@ -440,11 +452,15 @@ function iniciaSesion(){
         $('#loginLink').hide();
         //asignamos el usuario
         rutTerapeuta=response.userCtx.name;
-        db=creaDB(rutTerapeuta);
-        conectaDB(db);
-        showTodos();
-        //Mostramos la ficha
-        $('#ficha').show();
+        creaDB(rutTerapeuta).then(function(result){
+          conectaDB(result);
+          showTodos(result);
+          db=result;
+          //Mostramos la ficha
+          $('#ficha').show();
+        }).catch(function(err){
+          alert("Hubo un problema:"+err);
+        });
 
         //revisamos si es administrador para mostrar el link de administración
         if (response.userCtx.roles.indexOf("_admin")>(-1)){
