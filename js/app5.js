@@ -16,8 +16,14 @@
   //mientras decido que hacer con la autenticación
 
 var db;
-var remoteCouch='http://tdc.iriscouch.com:5984/fichasegura';
+//var remoteCouch='http://tdc.iriscouch.com:5984/fichasegura';
 //var remoteCouch='http://tdc.iriscouch.com';
+//var remoteServer='http://tdc.iriscouch.com:5984/';
+
+var remoteCouch='https://fichamtch.smileupps.com/fichasegura';
+var remoteServer='https://fichamtch.smileupps.com/';
+//var remoteCouch='http://127.0.0.1:5984/fichasegura';
+//var remoteServer='http://127.0.0.1:5984/';
 var remoteDb;
 var nomDB;
 var intervaloLogin;
@@ -30,10 +36,12 @@ function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
 
     var hash = sha3_256(usuario);
     nomDB='ficha_'+hash; //esta es la base local.
-    console.log("DB:"+nomDB);
+
     //alert(nomDB);
     midb = new PouchDB(nomDB);
-    remoteDb = 'http://tdc.iriscouch.com:5984/'+nomDB;
+    remoteDb = remoteServer+nomDB;
+    //remoteDb = remoteServer+"fichasegura";
+    console.log("remoteDB:"+remoteDb);
 
   //verificamos si la base existe.
     midb.info().then(function(result){
@@ -44,10 +52,7 @@ function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
         if (result){
           midb.changes({
             since: 'now',
-            live: true,
-            filter: function (doc) { //parece que no funciona
-                  return doc.terapeuta === usuario; //sincronizamos sólo las fichas de este terapeuta
-                }
+            live: true
           }).on('change', showTodos, midb);
 
           resolve(midb);
@@ -75,6 +80,7 @@ function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
 
 function conectaDB(miDB){
 
+/* Falla con el cambio
   var opts = {
       live: true,
       retry:true,
@@ -82,22 +88,33 @@ function conectaDB(miDB){
           return doc.terapeuta === usuario; //sincronizamos sólo las fichas de este terapeuta
         }
       };
+*/
+    var opts={
+      live:true,
+      retry:true
+    };
 
+ console.log("conectaDB.miDB:"+miDB+":"+remoteDb);
   miDB.sync(remoteDb, opts).on('change', function (change) {
       // yo, something changed!
         syncProcess(change);
+        console.log("syncProcess:"+change);
+        showTodos(miDB);
 
       }).on('paused', function (info) {
       // replication was paused, usually because of a lost connection
         syncCompleted(info);
+        console.log("synCompleted:"+info);
 
       }).on('active', function (info) {
       // replication was resumed
         syncProcess(info);
+        console.log("syncProcess:"+info);
 
       }).on('error', function (err) {
       // totally unhandled error (shouldn't happen)
         syncError(err);
+        console.log("syncProcess:"+err);
 
       });
 }
@@ -215,6 +232,9 @@ function refrescarCopiaLocal(){
   // There was some form or error syncing
   function syncError(err) {
     syncDom.setAttribute('data-sync-state', 'error');
+    if(err.name=="not_found"){
+      alert("No se encontró la base en el servidor");
+    }
     console.log("syncError:"+err);
   }
   function syncCompleted(result) {
