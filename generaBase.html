@@ -1,0 +1,28 @@
+<html lang="es">
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+      <script type="text/javascript" src="./bower_components/alpaca/dist/lib/jquery/dist/jquery.min.js"></script>
+
+      <link type="text/css" rel="stylesheet" href="./bower_components/alpaca/dist/lib/bootstrap/dist/css/bootstrap.min.css" />
+      <script type="text/javascript" src="./bower_components/alpaca/dist/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+      <script type="text/javascript" src="./bower_components/js-sha3/build/sha3.min.js"></script>
+      <script type="text/javascript" src="./bower_components/aes/aes.js"></script>
+    </head>
+<body>
+  <div id="formulario">
+    <form>
+    <input type="text" id="usuario" name="user" placeholder="RUT/DNI">
+    <input type="password" id="clave" name="pass" placeholder="Clave">
+    <input type="button" id="submitLogin" name="login" class="btn btn-primary login loginmodal-submit" value="Generar">
+    </form>
+    <input type="text" id="nombreBase" size=126>
+  </div>
+  <script type="text/javascript">
+    $('#submitLogin').click(function(event){
+      var ficha="ficha_"+sha3_256($('#usuario').val())
+      $('#nombreBase').val(ficha);
+    });
+  </script>
+
+</body>

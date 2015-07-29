@@ -48,7 +48,7 @@ function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
       console.log(result.doc_count);
       if (result.doc_count<1){
         console.log("menos de 1 registro");
-        var result=confirm("No se encontraron fichas para este usuario:"+usuario+". \n¿Desea crear una nueva base?\n(IMPORTANTE: El usuario debe existir en el servidor para la sincronización)")
+        var result=confirm("No se encontraron fichas locales para este usuario:"+usuario+". \n¿Desea crear una nueva base?\n(IMPORTANTE: El usuario debe existir en el servidor para la sincronización)")
         if (result){
           midb.changes({
             since: 'now',
@@ -136,7 +136,7 @@ function refrescarCopiaLocal(){
    var miFicha=fichaJson;
 
    if(typeof miFicha._id==undefined || miFicha._id==undefined){ //no me queda claro porque dejo de funcionar.
-     var miId=sha3_256(miFicha.rut);
+     var miId=miFicha.terapeuta+"_"+sha3_256(miFicha.rut);
      miFicha["_id"]=miId;
    } else {
      console.log("ficha existente:"+miFicha["_id"]);
