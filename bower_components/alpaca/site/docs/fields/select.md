@@ -13,18 +13,19 @@ The ```select``` field.
 
 
 ## Example 1
-Select field with data, options and schema parameters. As default, select field will be rendered if schema enum property has more than 3 options.
+Select field with data, options and schema parameters. As default, a select field will be rendered if schema enum property has more than 3 options.
+The sort order for enumerated values and their text are assumed to be alphanumeric.
 <div id="field1"> </div>
 {% raw %}
 <script type="text/javascript" id="field1-script">
 $("#field1").alpaca({
     "data": "coffee",
+    "schema": {
+        "enum": ["vanilla", "chocolate", "coffee", "strawberry", "mint"]
+    },    
     "options": {
         "label": "Ice cream",
         "helper": "What flavor of ice cream do you prefer?"
-    },
-    "schema": {
-        "enum": ["vanilla", "chocolate", "coffee", "strawberry", "mint"]
     }
 });
 </script>
@@ -34,19 +35,36 @@ $("#field1").alpaca({
 ## Example 2
 Here is the same select field but labels in French.  The important thing to note is that the schema stays the same.
 The options change, letting you customize forms into different languages.
+
+In addition, we apply a custom sort here using the <code>options.sort</code> override.  This lets us plug in a custom sort function.
+Here we reverse the order.
+
+Note: If you want to disable sorting, set <code>sort</code> to <code>false</code>.  Or, if you wish to disable sorting for
+all of your enumerated fields, set <code>Alpaca.defaultSort</code> to <code>false</code>.  See the example below!
+to <code>false</code>
 <div id="field2"> </div>
 {% raw %}
 <script type="text/javascript" id="field2-script">
 $("#field2").alpaca({
     "data": "coffee",
+    "schema": {
+        "enum": ["vanilla", "chocolate", "coffee", "strawberry", "mint"]
+    },
     "options": {
         "label": "Crème Glacée",
         "helper": "Quelle saveur de crème glacée préférez-vous?",
-        "optionLabels": ["Vanille", "Chocolat", "Café", "Fraise", "Comme"]
-    },
-    "schema": {
-        "enum": ["vanilla", "chocolate", "coffee", "strawberry", "mint"]
-    }
+        "optionLabels": ["Vanille", "Chocolat", "Café", "Fraise", "Comme"],
+        "sort": function(a, b) {
+        
+            if (a.text > b.text) {
+                return -1;
+            }
+            else if (a.text < b.text) {
+                return 1;
+            }
+            return 0;            
+        }
+    }    
 });
 </script>
 {% endraw %}
@@ -309,6 +327,75 @@ $("#field13").alpaca({
         "noneLabel": "-- Select --",
         "removeDefaultNone": false
     }
+});
+</script>
+{% endraw %}
+
+## Example 14
+A multi-select field with numeric selects.
+
+<div id="field14"> </div>
+{% raw %}
+<script type="text/javascript" id="field14-script">
+$("#field14").alpaca({
+    "schema": {
+        "type": "object",
+        "properties": {
+            "intList": {
+                "required": true,
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                    "type": "integer"
+                },
+                "enum": [1, 2, 3]
+            }
+        }
+    },
+    "options": {
+        "fields": {
+            "intList": {
+                "multiselect": {
+                    "enableFiltering": true,
+                    "includeSelectAllOption": true
+                },
+                "label": "Int List",
+                "type": "select",
+                "multiple": true,
+                "hideInitValidationError": true
+            }
+        },
+        "form": {
+            "buttons": {
+                "submit": {
+                    "click": function() {
+                        alert(JSON.stringify(this.getValue(), null, "  "));
+                    }
+                }
+            }
+        }
+    }
+});</script>
+{% endraw %}
+
+## Example 15
+Here is an example where we explicitly disable sorting.  We do this within the field configuration.  We could also do
+this by globally setting <code>Alpaca.defaultSort</code> to <code>false</code>.
+<div id="field15"> </div>
+{% raw %}
+<script type="text/javascript" id="field15-script">
+// Alpaca.defaultSort = false;
+$("#field15").alpaca({
+    "data": "coffee",
+    "schema": {
+        "enum": ["vanilla", "chocolate", "coffee", "strawberry", "mint"]
+    },
+    "options": {
+        "label": "Crème Glacée",
+        "helper": "Quelle saveur de crème glacée préférez-vous?",
+        "optionLabels": ["Vanille", "Chocolat", "Café", "Fraise", "Comme"],
+        "sort": false
+    }    
 });
 </script>
 {% endraw %}

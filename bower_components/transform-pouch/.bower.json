@@ -1,6 +1,6 @@
 {
   "name": "transform-pouch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Transform Pouch - a PouchDB plugin for transforming documents",
   "main": "dist/pouchdb.transform-pouch.js",
   "homepage": "https://github.com/nolanlawson/transform-pouch",
@@ -25,14 +25,13 @@
     "tests",
     "vendor"
   ],
-  "_release": "1.0.2",
+  "_release": "1.0.3",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.2",
-    "commit": "21eb7915c08f892107a128ebd8afb1fbec4900ff"
+    "tag": "v1.0.3",
+    "commit": "593ca6d81219541cc4869c32cbc075944f959d46"
   },
-  "_source": "git://github.com/nolanlawson/transform-pouch.git",
+  "_source": "https://github.com/nolanlawson/transform-pouch.git",
   "_target": "~1.0.2",
-  "_originalSource": "transform-pouch",
-  "_direct": true
+  "_originalSource": "transform-pouch"
 }

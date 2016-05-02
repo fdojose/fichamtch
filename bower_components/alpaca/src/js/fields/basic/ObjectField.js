@@ -161,6 +161,11 @@
                 var propertyId = this.children[i].propertyId;
                 var fieldValue = this.children[i].getValue();
 
+                if(fieldValue !== fieldValue) {
+                    // NaN
+                    fieldValue = undefined;
+                }
+
                 if (typeof(fieldValue) !== "undefined")
                 {
                     if (this.determineAllDependenciesValid(propertyId))
@@ -301,7 +306,7 @@
 
                 var pf = (function(propertyId, itemData, extraDataProperties)
                 {
-                    return function(callback)
+                    return function(_done)
                     {
                         // only allow this if we have data, otherwise we end up with circular reference
                         self.resolvePropertySchemaOptions(propertyId, function (schema, options, circular) {
@@ -309,7 +314,7 @@
                             // we only allow addition if the resolved schema isn't circularly referenced
                             // or the schema is optional
                             if (circular) {
-                                return Alpaca.throwErrorWithCallback("Circular reference detected for schema: " + JSON.stringify(schema), _this.errorCallback);
+                                return Alpaca.throwErrorWithCallback("Circular reference detected for schema: " + JSON.stringify(schema), self.errorCallback);
                             }
 
                             if (!schema) {
@@ -326,9 +331,11 @@
                                 // by the time we get here, we may have constructed a very large child chain of
                                 // sub-dependencies and so we use nextTick() instead of a straight callback so as to
                                 // avoid blowing out the stack size
-                                Alpaca.nextTick(function () {
-                                    callback();
-                                });
+                                //Alpaca.nextTick(function () {
+                                //    callback();
+                                //});
+
+                                _done();
                             });
                         });
                     };
@@ -338,24 +345,43 @@
                 propertyFunctions.push(pf);
             }
 
-            Alpaca.series(propertyFunctions, function(err) {
+            // run on the next tick
+            Alpaca.nextTick(function() {
 
-                // sort by order
-                items.sort(function(a, b) {
+                Alpaca.series(propertyFunctions, function(err) {
 
-                    var orderA = a.options.order;
-                    if (!orderA) {
-                        orderA = 0;
+                    // is there any order information in the items?
+                    var hasOrderInformation = false;
+                    for (var i = 0; i < items.length; i++) {
+                        if (typeof(items[i].options.order) !== "undefined") {
+                            hasOrderInformation = true;
+                            break;
+                        }
                     }
-                    var orderB = b.options.order;
-                    if (!orderB) {
-                        orderB = 0;
+
+                    if (hasOrderInformation)
+                    {
+                        // sort by order?
+                        items.sort(function (a, b) {
+
+                            var orderA = a.options.order;
+                            if (!orderA)
+                            {
+                                orderA = 0;
+                            }
+                            var orderB = b.options.order;
+                            if (!orderB)
+                            {
+                                orderB = 0;
+                            }
+
+                            return (orderA - orderB);
+                        });
                     }
 
-                    return (orderA - orderB);
+                    cf();
                 });
 
-                cf();
             });
         },
 
@@ -609,7 +635,7 @@
 
             status = this._validateMinProperties();
             valInfo["tooFewProperties"] = {
-                "message": status ? "" : Alpaca.substituteTokens(this.getMessage("tooManyItems"), [this.schema.items.minProperties]),
+                "message": status ? "" : Alpaca.substituteTokens(this.getMessage("tooManyItems"), [this.schema.minProperties]),
                 "status": status
             };
 
@@ -703,6 +729,49 @@
         },
 
         /**
+         * Helper function for resolving dependencies for a child property.
+         * This takes into account JSON Schema v4 and also provides for legacy v3 support.
+         *
+         * @param propertyId
+         */
+        getChildDependencies: function(propertyId)
+        {
+            // first, check for dependencies declared within the object (container)
+            var itemDependencies = null;
+            if (this.schema.dependencies)
+            {
+                itemDependencies = this.schema.dependencies[propertyId];
+            }
+            if (!itemDependencies)
+            {
+                // second, check for dependencies declared on the item itself
+                // this is to support legacy v3 json schema
+                var item = this.childrenByPropertyId[propertyId];
+                if (item)
+                {
+                    itemDependencies = item.schema.dependencies;
+                }
+            }
+
+            return itemDependencies;
+        },
+
+        getChildConditionalDependencies: function(propertyId)
+        {
+            var itemConditionalDependencies = null;
+
+            // second, check for conditional dependencies declared on the item itself
+            // this is to support legacy v3 json options
+            var item = this.childrenByPropertyId[propertyId];
+            if (item)
+            {
+                itemConditionalDependencies = item.options.dependencies;
+            }
+
+            return itemConditionalDependencies;
+        },
+
+        /**
          * Determines whether the dependencies for a property pass.
          *
          * @param propertyId
@@ -717,7 +786,8 @@
                 return Alpaca.throwErrorWithCallback("Missing property: " + propertyId, self.errorCallback);
             }
 
-            var itemDependencies = item.schema.dependencies;
+            // first check for dependencies declared within the object (container)
+            var itemDependencies = self.getChildDependencies(propertyId);;
             if (!itemDependencies)
             {
                 // no dependencies, so yes, we pass
@@ -754,7 +824,7 @@
                 return Alpaca.throwErrorWithCallback("Missing property: " + propertyId, self.errorCallback);
             }
 
-            var itemDependencies = item.schema.dependencies;
+            var itemDependencies = self.getChildDependencies(propertyId);
             if (!itemDependencies)
             {
                 // no dependencies, so simple return
@@ -810,7 +880,7 @@
                 return Alpaca.throwErrorWithCallback("Missing property: " + propertyId, self.errorCallback);
             }
 
-            var itemDependencies = propertyField.schema.dependencies;
+            var itemDependencies = self.getChildDependencies(propertyId);
             if (!itemDependencies)
             {
                 // no dependencies, so simple return
@@ -872,7 +942,7 @@
             var valid = false;
 
             // go one of two directions depending on whether we have conditional dependencies or not
-            var conditionalDependencies = this.childrenByPropertyId[propertyId].options.dependencies;
+            var conditionalDependencies = this.getChildConditionalDependencies(propertyId);
             if (!conditionalDependencies || conditionalDependencies.length === 0)
             {
                 //
@@ -1008,27 +1078,13 @@
                 }
 
                 // register the child
-                self.registerChild(child, ((index != null) ? index + 1 : null));
+                self.registerChild(child, ((index != null) ? index + 1 : 0));
 
                 // insert into dom
-                if (!index)
-                {
-                    // insert first into container
-                    $(self.container).append(child.getFieldEl());
-                }
-                else
-                {
-                    // insert at a specific index
-                    var existingElement = self.getContainerEl().children("[data-alpaca-container-item-index='" + index + "']");
-                    if (existingElement && existingElement.length > 0)
-                    {
-                        // insert after
-                        existingElement.after(child.getFieldEl());
-                    }
-                }
+                self.doAddItem(index, child);
 
-                // updates child dom marker elements
-                self.updateChildDOMElements();
+                // updates dom markers for this element and any siblings
+                self.handleRepositionDOMRefresh();
 
                 // update the array item toolbar state
                 //self.updateToolbars();
@@ -1042,6 +1098,9 @@
                     // trigger update
                     self.triggerUpdate();
 
+                    // trigger "ready"
+                    child.triggerWithPropagation.call(child, "ready", "down");
+
                     if (callback)
                     {
                         callback();
@@ -1049,6 +1108,48 @@
 
                 });
             });
+        },
+
+        doAddItem: function(index, item)
+        {
+            var self = this;
+
+            // insert into dom
+            if (!index)
+            {
+                // insert first into container
+                $(self.container).prepend(item.containerItemEl);
+            }
+            else
+            {
+                // insert at a specific index
+                var existingElement = self.getContainerEl().children("[data-alpaca-container-item-index='" + index + "']");
+                if (existingElement && existingElement.length > 0)
+                {
+                    // insert after
+                    existingElement.after(item.containerItemEl);
+                }
+            }
+
+            self.doAfterAddItem(item, function() {
+
+                // trigger ready
+                Alpaca.fireReady(item);
+
+            });
+
+        },
+
+        doAfterAddItem: function(item, callback)
+        {
+            callback();
+        },
+
+        doResolveItemContainer: function()
+        {
+            var self = this;
+
+            return $(self.container);
         },
 
         /**
@@ -1061,36 +1162,53 @@
         {
             var self = this;
 
-            this.children = $.grep(this.children, function(val, index) {
-                return (val.getId() != propertyId);
-            });
-
-            var childField = this.childrenById[propertyId];
-
-            delete this.childrenById[propertyId];
-            if (childField.propertyId)
+            var childField = this.childrenByPropertyId[propertyId];
+            if (childField)
             {
-                delete this.childrenByPropertyId[childField.propertyId];
+                this.children = $.grep(this.children, function (val, index) {
+                    return (val.propertyId !== propertyId);
+                });
+
+                delete this.childrenByPropertyId[propertyId];
+                delete this.childrenById[childField.getId()];
+
+                // remove itemContainerEl from DOM
+                self.doRemoveItem(childField);
+
+                this.refreshValidationState(true, function () {
+
+                    // updates dom markers for this element and any siblings
+                    self.handleRepositionDOMRefresh();
+
+                    // dispatch event: remove
+                    self.trigger("remove", childField);
+
+                    // trigger update handler
+                    self.triggerUpdate();
+
+                    if (callback)
+                    {
+                        callback();
+                    }
+                });
             }
-
-            childField.destroy();
-
-            this.refreshValidationState(true, function() {
-
-                // dispatch event: remove
-                self.trigger("remove", childField);
-
-                // trigger update handler
-                self.triggerUpdate();
-
-                if (callback)
-                {
-                    callback();
-                }
-            });
+            else
+            {
+                callback();
+            }
         },
 
+        doRemoveItem: function(item)
+        {
+            var self = this;
 
+            var removeItemContainer = self.doResolveItemContainer();
+
+            removeItemContainer.children(".alpaca-container-item[data-alpaca-container-item-name='" + item.name + "']").remove();
+
+            // destroy child field itself
+            item.destroy();
+        },
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         //
@@ -1693,23 +1811,25 @@
             }
 
             var step = 1;
-            var col = [];
+            var stepFields = [];
             do
             {
                 // collect fields in this step
-                col = [];
+                stepFields = [];
                 for (var propertyId in stepBindings)
                 {
-                    if (stepBindings[propertyId] == step)
+                    if (stepBindings[propertyId] === step)
                     {
                         if (this.childrenByPropertyId && this.childrenByPropertyId[propertyId])
                         {
-                            col.push(this.childrenByPropertyId[propertyId].field);
+                            //col.push(this.childrenByPropertyId[propertyId].field);
+                            //col.push(this.childrenByPropertyId[propertyId].containerItemEl);
+                            stepFields.push(this.childrenByPropertyId[propertyId]);
                         }
                     }
                 }
 
-                if (col.length > 0)
+                if (stepFields.length > 0)
                 {
                     var stepEl = null;
                     if (createSteps)
@@ -1722,19 +1842,53 @@
                         stepEl = $($(this.field).find("[data-alpaca-wizard-role='step']")[step-1]);
                     }
 
-                    // move elements in
-                    for (var i = 0; i < col.length; i++)
+                    // is there any order information in the items?
+                    var hasOrderInformation = false;
+                    for (var i = 0; i < stepFields.length; i++) {
+                        if (typeof(stepFields[i].options.order) !== "undefined") {
+                            hasOrderInformation = true;
+                            break;
+                        }
+                    }
+
+                    if (hasOrderInformation)
                     {
-                        $(stepEl).append(col[i]);
+                        // sort by order?
+                        stepFields.sort(function (a, b) {
+
+                            var orderA = a.options.order;
+                            if (!orderA)
+                            {
+                                orderA = 0;
+                            }
+                            var orderB = b.options.order;
+                            if (!orderB)
+                            {
+                                orderB = 0;
+                            }
+
+                            return (orderA - orderB);
+                        });
+                    }
+
+                    // move elements in
+                    for (var i = 0; i < stepFields.length; i++)
+                    {
+                        $(stepEl).append(stepFields[i].containerItemEl);
                     }
 
                     step++;
                 }
             }
-            while (col.length > 0);
+            while (stepFields.length > 0);
 
             // now run the normal wizard
             this.wizard();
+
+            // if the container element doesn't have any children left, hide it
+            if ($(this.container).children().length === 0) {
+                $(this.container).css("display", "none");
+            }
         },
 
         /**
@@ -1834,8 +1988,8 @@
                 tempSourceMarker.replaceWith(targetContainer);
                 tempTargetMarker.replaceWith(sourceContainer);
 
-                // updates child dom marker elements
-                self.updateChildDOMElements();
+                // updates dom markers for this element and any siblings
+                self.handleRepositionDOMRefresh();
 
                 // update the action bar bindings
                 $(sourceContainer).find("[data-alpaca-array-actionbar-item-index='" + sourceIndex + "']").attr("data-alpaca-array-actionbar-item-index", targetIndex);

@@ -472,17 +472,23 @@
             if (this.schema.pattern)
             {
                 var val = this.getValue();
+
                 if (val === "" && this.options.allowOptionalEmpty && !this.isRequired())
                 {
                     return true;
                 }
+
                 if (Alpaca.isEmpty(val))
                 {
                     val = "";
                 }
-                if (!val.match(this.schema.pattern))
+
+                if (typeof(val) === "string")
                 {
-                    return false;
+                    if (!val.match(this.schema.pattern))
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -499,6 +505,10 @@
             if (!Alpaca.isEmpty(this.schema.minLength))
             {
                 var val = this.getValue();
+                if(val !== val) {
+                    // NaN
+                    val = "";
+                }
                 if (val === "" && this.options.allowOptionalEmpty && !this.isRequired())
                 {
                     return true;
@@ -507,7 +517,7 @@
                 {
                     val = "";
                 }
-                if (val.length < this.schema.minLength)
+                if ((""+val).length < this.schema.minLength)
                 {
                     return false;
                 }
@@ -533,7 +543,7 @@
                 {
                     val = "";
                 }
-                if (val.length > this.schema.maxLength)
+                if ((""+val).length > this.schema.maxLength)
                 {
                     return false;
                 }
@@ -581,7 +591,7 @@
         /**
          * @see Alpaca.ControlField#onKeyPress
          */
-        onKeyDown: function(e)
+        onKeyPress: function(e)
         {
             var self = this;
 

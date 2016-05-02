@@ -20,10 +20,14 @@ var db;
 //var remoteCouch='http://tdc.iriscouch.com';
 //var remoteServer='http://tdc.iriscouch.com:5984/';
 
-var remoteCouch='https://fichamtch.smileupps.com/fichasegura';
-var remoteServer='https://fichamtch.smileupps.com/';
+//var remoteCouch='https://fichamtch.smileupps.com/fichasegura';
+//var remoteServer='https://fichamtch.smileupps.com/';
 //var remoteCouch='http://127.0.0.1:5984/fichasegura';
 //var remoteServer='http://127.0.0.1:5984/';
+
+var remoteCouch='https://couchdb-a35b38.smileupps.com/fichasegura';
+var remoteServer='https://couchdb-a35b38.smileupps.com/';
+
 var remoteDb;
 var nomDB;
 var intervaloLogin;

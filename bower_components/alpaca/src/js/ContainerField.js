@@ -124,7 +124,8 @@
 
             this.containerDescriptor = this.view.getTemplateDescriptor("container-" + containerTemplateType, self);
 
-            var collapsible = true;
+            // default to false
+            var collapsible = false;
 
             if (!Alpaca.isEmpty(this.view.collapsible)) {
                 collapsible = this.view.collapsible;
@@ -176,7 +177,7 @@
             }
 
             // destroy any child controls
-            Alpaca.each(this.children, function() {
+            Alpaca.each(this.children, function () {
                 this.destroy();
             });
 
@@ -445,10 +446,12 @@
                         }
                         if (holder.length > 0)
                         {
-                            $(item.containerItemEl).appendTo(holder);
-
-                            // reset domEl to allow for refresh
-                            item.domEl = holder;
+                            // create a wrapper (which will serve as the domEl)
+                            item.domEl = $("<div></div>");
+                            $(item.domEl).addClass("alpaca-layout-binding-holder");
+                            $(item.domEl).attr("alpaca-layout-binding-field-name", item.name);
+                            holder.append(item.domEl);
+                            item.domEl.append(item.containerItemEl);
                         }
                     }
 
@@ -548,56 +551,96 @@
          * This method gets invoked after items are dynamically added, removed or moved around in the child chain.
          * It adjusts classes on child DOM elements to make sure they're correct.
          */
-        updateChildDOMElements: function()
+        updateDOMElement: function()
         {
             var self = this;
 
-            var layoutBindings = null;
-            if (self.view.getLayout()) {
-                layoutBindings = self.view.getLayout().bindings;
+            this.base();
+
+            if (self.children.length > 0)
+            {
+                $(self.getContainerEl()).addClass("alpaca-container-has-items");
+                $(self.getContainerEl()).attr("data-alpaca-container-item-count", self.children.length);
+            }
+            else
+            {
+                $(self.getContainerEl()).removeClass("alpaca-container-has-items");
+                $(self.getContainerEl()).removeAttr("data-alpaca-container-item-count");
             }
 
-            if (!layoutBindings)
+            for (var i = 0; i < self.children.length; i++)
             {
-                if (self.children.length > 0)
+                var child = self.children[i];
+
+                // set path if not set
+                if (!child.path)
                 {
-                    $(self.getContainerEl()).addClass("alpaca-container-has-items");
-                    $(self.getContainerEl()).attr("data-alpaca-container-item-count", self.children.length);
-                }
-                else
-                {
-                    $(self.getContainerEl()).removeClass("alpaca-container-has-items");
-                    $(self.getContainerEl()).removeAttr("data-alpaca-container-item-count");
-                }
-
-                for (var i = 0; i < self.children.length; i++)
-                {
-                    var child = self.children[i];
-
-                    // reset path and name
-                    child.path = self.path + "[" + i + "]";
-                    child.calculateName();
-
-                    $(child.containerItemEl).removeClass("alpaca-container-item-first");
-                    $(child.containerItemEl).removeClass("alpaca-container-item-last");
-                    $(child.containerItemEl).removeClass("alpaca-container-item-index");
-                    $(child.containerItemEl).removeClass("alpaca-container-item-key");
-
-                    $(child.containerItemEl).addClass("alpaca-container-item");
-
-                    if (i === 0)
+                    if (child.schema.type === "array")
                     {
-                        $(child.containerItemEl).addClass("alpaca-container-item-first");
+                        child.path = self.path + "[" + i + "]";
                     }
-                    if (i + 1 === self.children.length)
+                    else
                     {
-                        $(child.containerItemEl).addClass("alpaca-container-item-last");
+                        child.path = self.path + "/" + child.propertyId;
                     }
-
-                    $(child.containerItemEl).attr("data-alpaca-container-item-index", i);
-                    $(child.containerItemEl).attr("data-alpaca-container-item-name", child.name);
-                    $(child.containerItemEl).attr("data-alpaca-container-item-parent-field-id", self.getId());
                 }
+
+                child.calculateName();
+
+                $(child.containerItemEl).removeClass("alpaca-container-item-first");
+                $(child.containerItemEl).removeClass("alpaca-container-item-last");
+                $(child.containerItemEl).removeClass("alpaca-container-item-index");
+                $(child.containerItemEl).removeClass("alpaca-container-item-key");
+
+                $(child.containerItemEl).addClass("alpaca-container-item");
+
+                if (i === 0)
+                {
+                    $(child.containerItemEl).addClass("alpaca-container-item-first");
+                }
+                if (i + 1 === self.children.length)
+                {
+                    $(child.containerItemEl).addClass("alpaca-container-item-last");
+                }
+
+                $(child.containerItemEl).attr("data-alpaca-container-item-index", i);
+                $(child.containerItemEl).attr("data-alpaca-container-item-name", child.name);
+                $(child.containerItemEl).attr("data-alpaca-container-item-parent-field-id", self.getId());
+
+                self.updateChildDOMWrapperElement(i, child);
+
+                child.updateDOMElement();
+            }
+        },
+
+        /**
+         * EXTENSION POINT that allows containers to update any custom wrapper elements for child controls.
+         *
+         * @param i
+         * @param child
+         */
+        updateChildDOMWrapperElement: function(i, child)
+        {
+
+        },
+
+        /**
+         * Gets called whenever an item is dynamically added or removed from a container.  This allows all of the
+         * container markers to refresh on the DOM.
+         */
+        handleRepositionDOMRefresh: function()
+        {
+            var self = this;
+
+            if (self.getParent())
+            {
+                // call update dom markers for parent which will trickle down to to cover this field and our siblings
+                self.getParent().updateDOMElement();
+            }
+            else
+            {
+                // just ourselves
+                self.updateDOMElement();
             }
         },
 
@@ -634,21 +677,27 @@
         {
             var self = this;
 
+            if (this.isDisplayOnly())
+            {
+                if (onFocusCallback) {
+                    onFocusCallback();
+                }
+                return;
+            }
+
             this.base();
 
             var invalidIndex = -1;
 
             // use the dom to create an array that orders things as they are laid out on the page
-            var pageOrderedChildren = new Array(this.children.length);
+            var pageOrderedChildren = [];
             var el = this.getContainerEl();
             if (this.form) {
                 el = this.form.getFormEl();
             }
-            var pageOrder = 0;
             $(el).find(".alpaca-container-item[data-alpaca-container-item-parent-field-id='" + this.getId() + "']").each(function() {
                 var childIndex = $(this).attr("data-alpaca-container-item-index");
-                pageOrderedChildren[pageOrder] = self.children[childIndex];
-                pageOrder++;
+                pageOrderedChildren.push(self.children[childIndex]);
             });
 
             // walk the ordered children and find first invalid
@@ -722,6 +771,7 @@
 
             var value = self.getContainerValue();
 
+            /*
             if (self.isDisplayOnly())
             {
                 if (value)
@@ -729,6 +779,7 @@
                     value = JSON.stringify(value, null, "  ");
                 }
             }
+            */
 
             return value;
         },
@@ -739,6 +790,26 @@
         getContainerValue: function()
         {
             return null;
+        },
+
+        firstChild: function() {
+            var child = null;
+
+            if (this.children.length > 0) {
+                child = this.children[0];
+            }
+
+            return child;
+        },
+
+        lastChild: function() {
+            var child = null;
+
+            if (this.children.length > 0) {
+                child = this.children[this.children.length - 1];
+            }
+
+            return child;
         }
 
         /* builder_helpers */
@@ -761,7 +832,7 @@
                         "title": "Collapsible",
                         "description": "Field set is collapsible if true.",
                         "type": "boolean",
-                        "default": true
+                        "default": false
                     },
                     "collapsed": {
                         "title": "Collapsed",

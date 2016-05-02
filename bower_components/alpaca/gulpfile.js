@@ -25,6 +25,7 @@ var wrap        = require('gulp-wrap');
 var bump        = require('gulp-bump');
 var wrapUmd     = require("gulp-wrap-umd");
 var awspublish  = require('gulp-awspublish');
+var gulpTemplate = require('gulp-template');
 
 // custom builder_helper stripper to remove builder helper functions
 var stripper = require("./gulp/gulp-stripper");
@@ -101,6 +102,7 @@ var paths = {
             "src/js/fields/advanced/TagField.js",
             "src/js/fields/advanced/TimeField.js",
             "src/js/fields/advanced/TinyMCEField.js",
+            "src/js/fields/advanced/TokenField.js",
             "src/js/fields/advanced/UploadField.js",
             "src/js/fields/advanced/UpperCaseField.js",
             "src/js/fields/advanced/URLField.js",
@@ -110,12 +112,15 @@ var paths = {
             "src/js/views/base.js",
 
             // i18n
+            "src/js/messages/i18n/cs_CZ.js",
             "src/js/messages/i18n/de_AT.js",
+            "src/js/messages/i18n/de_DE.js",
             "src/js/messages/i18n/es_ES.js",
             "src/js/messages/i18n/fr_FR.js",
             "src/js/messages/i18n/hr_HR.js",
             "src/js/messages/i18n/it_IT.js",
             "src/js/messages/i18n/ja_JP.js",
+            "src/js/messages/i18n/nl_BE.js",
             "src/js/messages/i18n/pl_PL.js",
             "src/js/messages/i18n/pt_BR.js",
             "src/js/messages/i18n/zh_CN.js"
@@ -221,7 +226,7 @@ gulp.task("build-templates", function(cb)
     // Mozilla
     var escapeRegExp = function(string){
             return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }
+    };
 
     var processName = function(filepath)
     {
@@ -247,7 +252,7 @@ gulp.task("build-templates", function(cb)
 
         // web
         gulp.src(paths.templates["web"])
-            .pipe(handlebars())
+            .pipe(handlebars({ handlebars: require('handlebars') }))
             .pipe(wrap('Handlebars.template(<%= contents %>)'))
             .pipe(declare({
                 namespace: 'HandlebarsPrecompiled',
@@ -259,7 +264,7 @@ gulp.task("build-templates", function(cb)
 
         // bootstrap
         gulp.src(paths.templates["bootstrap"])
-            .pipe(handlebars())
+            .pipe(handlebars({ handlebars: require('handlebars') }))
             .pipe(wrap('Handlebars.template(<%= contents %>)'))
             .pipe(declare({
                 namespace: 'HandlebarsPrecompiled',
@@ -271,7 +276,7 @@ gulp.task("build-templates", function(cb)
 
         // jqueryui
         gulp.src(paths.templates["jqueryui"])
-            .pipe(handlebars())
+            .pipe(handlebars({ handlebars: require('handlebars') }))
             .pipe(wrap('Handlebars.template(<%= contents %>)'))
             .pipe(declare({
                 namespace: 'HandlebarsPrecompiled',
@@ -283,7 +288,7 @@ gulp.task("build-templates", function(cb)
 
         // jquerymobile
         gulp.src(paths.templates["jquerymobile"])
-            .pipe(handlebars())
+            .pipe(handlebars({ handlebars: require('handlebars') }))
             .pipe(wrap('Handlebars.template(<%= contents %>)'))
             .pipe(declare({
                 namespace: 'HandlebarsPrecompiled',
@@ -634,6 +639,7 @@ gulp.task("package", function(cb) {
 
 gulp.task("default", function(cb) {
     runSequence(
+        "update-release-txt",
         "build-templates",
         ["build-scripts", "build-styles", "package"],
         function() {
@@ -915,7 +921,7 @@ var applyFieldAnnotationsToFile = function(filePath, Alpaca)
 
 var applyFieldAnnotations = function(basePath, callback)
 {
-    var env = require('jsdom').env;
+    var jsdom = require("jsdom");
     var html = '<html><body><div id="form"></div></html>';
 
     var jQuerySrc = fs.readFileSync("./lib/jquery/dist/jquery.js", "utf-8");
@@ -924,9 +930,12 @@ var applyFieldAnnotations = function(basePath, callback)
 
     var wrench = require("wrench");
 
+    var virtualConsole = jsdom.createVirtualConsole().sendTo(console);
+
     // first argument can be html string, filename, or url
-    env(html, {
-        src: [jQuerySrc, handlebarsSrc, alpacaSrc]
+    jsdom.env(html, {
+        src: [jQuerySrc, handlebarsSrc, alpacaSrc],
+        virtualConsole: virtualConsole
     }, function (errors, window) {
 
         global.$ = window.$;
@@ -1009,3 +1018,21 @@ var doReplace = function(text, token, value)
 
     return text;
 };
+
+gulp.task("update-release-txt", function() {
+
+    if (fs.existsSync("license.txt"))
+    {
+        fs.unlinkSync("license.txt");
+    }
+
+    return gulp.src("license.txt.template", {
+        "cwd": "./config"
+    })
+        .pipe(gulpTemplate({
+            version: pkg.version
+        }))
+        .pipe(rename("license.txt"))
+        .pipe(gulp.dest("."));
+
+});

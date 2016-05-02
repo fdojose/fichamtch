@@ -246,6 +246,11 @@
                 }
                 else
                 {
+                    // in case we're an array modeled on a single select, just use the 0th element
+                    if (Alpaca.isArray(val)) {
+                        val = val[0];
+                    }
+
                     return ($.inArray(val, this.schema["enum"]) > -1);
                 }
             }
@@ -327,6 +332,25 @@
             };
 
             return baseStatus && valInfo["tooManyItems"]["status"] && valInfo["notEnoughItems"]["status"];
+        },
+
+        /**
+         * @see Alpaca.Field#focus
+         */
+        focus: function(onFocusCallback)
+        {
+            if (this.control && this.control.length > 0)
+            {
+                // set focus onto the select
+                var el = $(this.control).get(0);
+
+                el.focus();
+
+                if (onFocusCallback)
+                {
+                    onFocusCallback(this);
+                }
+            }
         }
 
         /* builder_helpers */

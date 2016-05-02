@@ -64,11 +64,11 @@
                 return value;
             },
 
-            initControlEvents: function()
+            initTinyMCEEvents: function()
             {
                 var self = this;
 
-                setTimeout(function() {
+                if (self.editor) {
 
                     // click event
                     self.editor.on("click", function (e) {
@@ -107,36 +107,43 @@
                     });
 
                     // keydown event
-                    self.editor.on("keydown", function(e) {
+                    self.editor.on("keydown", function (e) {
                         self.onKeyDown.call(self, e);
                         self.trigger("keydown", e);
                     });
-                }, 525);
+                }
             },
 
             afterRenderControl: function(model, callback)
             {
                 var self = this;
+
                 this.base(model, function() {
 
-                    if (!self.isDisplayOnly() && self.control)
+                    if (!self.isDisplayOnly() && self.control && typeof(tinyMCE) !== "undefined")
                     {
-                        var rteFieldID = self.control[0].id;
+                        // wait for Alpaca to declare the DOM swapped and ready before we attempt to do anything with CKEditor
+                        self.on("ready", function() {
 
-                        setTimeout(function () {
+                            if (!self.editor)
+                            {
+                                var rteFieldID = $(self.control)[0].id;
 
-                            tinyMCE.init({
-                                init_instance_callback: function(editor) {
-                                    self.editor = editor;
+                                tinyMCE.init({
+                                    init_instance_callback: function(editor) {
+                                        self.editor = editor;
 
-                                    callback();
-                                },
-                                selector: "#" + rteFieldID,
-                                toolbar: self.options.toolbar
-                            });
+                                        self.initTinyMCEEvents();
+                                    },
+                                    selector: "#" + rteFieldID,
+                                    toolbar: self.options.toolbar
+                                });
 
-                        }, 500);
+                            }
+                        });
                     }
+
+                    callback();
                 });
             },
 
@@ -145,11 +152,13 @@
              */
             destroy: function()
             {
+                var self = this;
+
                 // destroy the plugin instance
-                if (this.editor)
+                if (self.editor)
                 {
-                    this.editor.remove();
-                    this.editor = null;
+                    self.editor.remove();
+                    self.editor = null;
                 }
 
                 // call up to base method

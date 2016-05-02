@@ -1,8 +1,24 @@
+Instalar node.js (descargar de la página)
 Instalar npm o actualizar npm (sudo npm install -g npm ,  luego actualizar los paquetes npm update -g)
 Dar permisos a /usr/local/lib/node_modules
 Instalar bower (debe tener permisos para crear un link en usr/lib/bin)
+sudo npm install -g bower
+bower init
+(revisar que esté aprobada la instalación de xcode)
+sudo chown mactdc /Users/mactdc/.config/configstore/bower-github.json
+bower update
 bower install alpaca
 bower install pouchdb
 bower install moment
 bower install eonasdan-bootstrap-datetimepicker
 bower install pouchdb-find
+
+
+El usario del coudb del macbookpro es fichamtch y la clave fichamtch0220
+
+Está fallando el Cors, no autentifica por ser desde otro dominio
+https://couchdb-a35b38.smileupps.com/_utils/config.html
+Se puede bajar una applicación: npm install -g add-cors-to-couchdb
+add-cors-to-couchdb https://couchdb-a35b38.smileupps.com -u admin -p a2e49d28b2d3
+
+Se está trabajando con una unica base de datos por rut, las que se replican a una base que permite ver todas las fichas.
