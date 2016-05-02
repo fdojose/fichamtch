@@ -352,8 +352,8 @@ var misOpciones={
                                  "nombre":{
                                    "type":"text",
                                    "events":{
-                                     "focus":function(){ //no parece funcionar
-                                       alert("Tomando el foco");
+                                     "focus":function(){ //antes no funcionaba ahora si
+                                       //alert("Tomando el foco");
                                      },
                                      "click":function(){ //funciona
 
