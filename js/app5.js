@@ -25,8 +25,11 @@ var db;
 //var remoteCouch='http://127.0.0.1:5984/fichasegura';
 //var remoteServer='http://127.0.0.1:5984/';
 
-var remoteCouch='https://couchdb-a35b38.smileupps.com/fichasegura';
-var remoteServer='https://couchdb-a35b38.smileupps.com/';
+//var remoteCouch='https://couchdb-a35b38.smileupps.com/fichasegura';
+//var remoteServer='https:/./couchdb-a35b38.smileupps.com/';
+
+var remoteCouch='http://db.fichamtch.org:5984/fichasegura';
+var remoteServer='http://db.fichamtch.org:5984/';
 
 var remoteDb;
 var nomDB;
