@@ -80,6 +80,24 @@ var misOpciones={
 
         }
       },
+      "familia":{
+        "collapsible":true,
+        "collapsed": true,
+        "fields":{
+          "pareja":{
+            "type": "radio",
+            "vertical":false
+          },
+          "convive":{
+            "type": "radio",
+            "vertical":false
+          },
+          "hijos":{
+            "type": "radio",
+            "vertical":false
+          }
+        }
+      },
       "tratamientos":{
         "actionbar": {
           "showLabels": true,

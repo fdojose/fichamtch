@@ -25,3 +25,7 @@ Se está trabajando con una unica base de datos por rut, las que se replican a u
 
 https://couchdb-a35b38.smileupps.com/ficha_4426baec9c503a3ef7049caea39d30daff59e7ce51b57914b316bade6517933d
 https://couchdb-a35b38.smileupps.com/ficha_91291854a965109239e56ea85cc724aebeb786f392ec9662393439b89a959488
+
+Ver si se están creando las bases de datos al crear usuarios y si se están creando las sincronizaciones.
+
+Hay que agregar collapsible true a todos los objetos que queramos colapsados.
