@@ -29,3 +29,5 @@ https://couchdb-a35b38.smileupps.com/ficha_91291854a965109239e56ea85cc724aebeb78
 Ver si se están creando las bases de datos al crear usuarios y si se están creando las sincronizaciones.
 
 Hay que agregar collapsible true a todos los objetos que queramos colapsados.
+
+Ver la posibilidad de cargar el los json de ficha y options desde la bd.

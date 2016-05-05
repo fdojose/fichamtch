@@ -45,8 +45,30 @@ function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
     nomDB='ficha_'+hash; //esta es la base local.
 
     //alert(nomDB);
-    midb = new PouchDB(nomDB);
     remoteDb = remoteServer+nomDB;
+    //Creamos la base local
+    midb = new PouchDB(nomDB);
+    //Creamos la base remota
+    miRemote=new PouchDB(remoteDb);
+    //Conectamos al replicador
+    miReplicator=new PouchDB(remoteServer+"_replicator");
+
+    //Se crea el registro de replicación hacia fichasegura
+    jsonReplicador={
+       "_id": "rep_"+nomDB+"_fichasegura",
+       "source": nomDB,
+       "target": "fichasegura",
+       "continuous": true,
+       "user_ctx": {
+           "roles": [
+               "_admin"
+           ]
+       },
+       "owner": "admin"
+    };
+
+    miReplicator.put(jsonReplicador);
+
     //remoteDb = remoteServer+"fichasegura";
     console.log("remoteDB:"+remoteDb);
 
@@ -526,6 +548,25 @@ function iniciaSesion(){
       }
     }, function (err, response) {
       // etc.
+        if (err) {
+          if (err.name === 'conflict') {
+            // "batman" already exists, choose another username
+          } else if (err.name === 'forbidden') {
+            // invalid username
+          } else {
+            // HTTP error, cosmic rays, etc.
+          }
+        } else {//en caso que se haya creado.
+          if (response.ok){
+            alert("Usuario "+usuario+" creado.");
+          //Creamos la base para el nuevo usuario.
+            console.log("creando base para usuario:"+JSON.stringify(response)+"-err:"+err);
+            creaDB(usuario).then(function(result){
+
+              }
+            )
+            }
+        }
       console.log("crearUsuario:"+JSON.stringify(response)+"-err:"+err);
     });
   };
