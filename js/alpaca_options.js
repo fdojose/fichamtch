@@ -9,19 +9,25 @@ var misOpciones={
       "terapeuta":{
         "hidden":true
       },
+      "datosContacto":{
+        "collapsible":true,
+        "collapsed": true,
+      },
       "historia":{
         "fields":{
           "hipertension":{
+            "collapsible":true,
+            "collapsed": true,
              "fields":{
                "sino":{
                  "type": "radio",
                  "vertical":false
                }
              },
-             "collapsible":true,
-             "collapsed": true
           },
           "tiroidismo":{
+            "collapsible":true,
+            "collapsed": true,
              "fields":{
                "sino":{
                  "type": "radio",
@@ -30,6 +36,8 @@ var misOpciones={
              }
           },
           "diabetes":{
+            "collapsible":true,
+            "collapsed": true,
              "fields":{
                "sino":{
                  "type": "radio",
@@ -38,6 +46,8 @@ var misOpciones={
              }
           },
           "ets":{
+            "collapsible":true,
+            "collapsed": true,
              "fields":{
                "sino":{
                  "type": "radio",
@@ -46,6 +56,8 @@ var misOpciones={
              }
           },
           "hepatitis":{
+            "collapsible":true,
+            "collapsed": true,
              "fields":{
                "sino":{
                  "type": "radio",
@@ -54,6 +66,8 @@ var misOpciones={
              }
           },
           "cancer":{
+            "collapsible":true,
+            "collapsed": true,
              "fields":{
                "sino":{
                  "type": "radio",
@@ -62,6 +76,8 @@ var misOpciones={
              }
           },
           "cirugias":{
+            "collapsible":true,
+            "collapsed": true,
              "fields":{
                "sino":{
                  "type": "radio",
@@ -70,6 +86,8 @@ var misOpciones={
              }
           },
           "otras":{
+            "collapsible":true,
+            "collapsed": true,
              "fields":{
                "sino":{
                  "type": "radio",
@@ -97,6 +115,10 @@ var misOpciones={
             "vertical":false
           }
         }
+      },
+      "ocupacion":{
+        "collapsible":true,
+        "collapsed": true,
       },
       "tratamientos":{
         "actionbar": {
@@ -130,14 +152,24 @@ var misOpciones={
                        "helper": "Por favor ingrese el diagn&oacute;stico occidental, si lo hubiese."
                   },
                 "medicamentos":{
+                  "collapsible":true,
+                  "collapsed": true,
                   "type":"table"
                 },
                  "habitos":{
                    "fields":{
                      "drogas":{
+                       "collapsible":true,
+                       "collapsed": true,
                        "type":"table"
                      },
+                     "ejercicio":{
+                       "collapsible":true,
+                       "collapsed": true,
+                     },
                      "sueno":{ //funciona
+                       "collapsible":true,
+                       "collapsed": true,
                        "fields":{
                          "concilacion":{
                            "type": "radio",
@@ -161,7 +193,17 @@ var misOpciones={
                  }, //tratamientos_0_sintomas_oido_vertigo
                  "sintomas":{
                    "fields":{
+                     "dolores":{
+                       "collapsible":true,
+                       "collapsed": true,
+                     },
+                     "emociones":{
+                       "collapsible":true,
+                       "collapsed": true,
+                     },
                      "oido":{
+                       "collapsible":true,
+                       "collapsed": true,
                        "fields":{
                          "vertigo":{
                            "type":"radio",
@@ -174,6 +216,8 @@ var misOpciones={
                        }
                      },
                      "ojos":{
+                       "collapsible":true,
+                       "collapsed": true,
                        "fields":{
                          "lagrimas":{
                            "type":"radio",
@@ -186,6 +230,8 @@ var misOpciones={
                        }
                      },//tratamientos_0_sintomas_cardiovacular_circulatorio
                      "cardiovascular":{
+                       "collapsible":true,
+                       "collapsed": true,
                        "fields":{
                          "circulatorio":{
                            "type":"checkbox"
@@ -196,6 +242,8 @@ var misOpciones={
                        }
                      },
                      "digestion":{
+                       "collapsible":true,
+                       "collapsed": true,
                        "fields":{
                          "labios":{
                            "type":"checkbox"
@@ -226,6 +274,8 @@ var misOpciones={
                            }
                          },
                          "orina":{
+                           "collapsible":true,
+                           "collapsed": true,
                            "fields":{
                              "sensaciones":{
                                "type":"radio",
@@ -238,6 +288,8 @@ var misOpciones={
                            }
                          },
                          "evacuaciones":{
+                           "collapsible":true,
+                           "collapsed": true,
                            "fields":{
                              "olor":{
                                "type":"radio",
@@ -252,8 +304,12 @@ var misOpciones={
                        }
                      },
                      "respiratorio":{
+                       "collapsible":true,
+                       "collapsed": true,
                        "fields":{
                          "nariz":{
+                           "collapsible":true,
+                           "collapsed": true,
                            "fields":{
                              "obstruccion":{
                                "type":"radio",
@@ -273,7 +329,13 @@ var misOpciones={
                              }
                            }
                          },
+                         "faringeLaringe":{
+                           "collapsible":true,
+                           "collapsed": true,
+                         },
                          "respiracion":{
+                           "collapsible":true,
+                           "collapsed": true,
                            "fields":{
                              "intensidad":{
                                "type":"radio",
@@ -282,6 +344,8 @@ var misOpciones={
                            }
                          },
                          "tos":{
+                           "collapsible":true,
+                           "collapsed": true,
                            "fields":{
                              "expectoracion":{
                                "type":"checkbox"
@@ -292,13 +356,26 @@ var misOpciones={
                            }
                          }
                        }
-
+                     },
+                     "reproductor":{
+                       "fields":{
+                         "menstruacion":{
+                           "collapsible":true,
+                           "collapsed": true,
+                         },
+                         "sexuales":{
+                           "collapsible":true,
+                           "collapsed": true,
+                         }
+                       }
                      }
                    }
                  },
                  "signos":{
                    "fields":{
-                     "emociones":{
+                     "vitalidad":{
+                       "collapsible":true,
+                       "collapsed": true,
                        "fields":{
                          "emocion":{
                            "type":"checkbox",
@@ -306,7 +383,13 @@ var misOpciones={
                          }
                        }
                      },
+                     "temperatura":{
+                       "collapsible":true,
+                       "collapsed": true,
+                     },
                      "piel":{
+                       "collapsible":true,
+                       "collapsed": true,
                        "fields":{
                          "piel":{
                            "type":"checkbox",
@@ -323,6 +406,8 @@ var misOpciones={
                        }
                      },
                      "sudor":{
+                       "collapsible":true,
+                       "collapsed": true,
                        "fields":{
                          "tipo":{
                            "type":"checkbox"
@@ -332,7 +417,13 @@ var misOpciones={
                          }
                        }
                      },
+                     "palpacion":{
+                       "collapsible":true,
+                       "collapsed": true,
+                     },
                      "cabeza":{
+                       "collapsible":true,
+                       "collapsed": true,
                        "fields":{
                          "dolor":{
                            "fields":{

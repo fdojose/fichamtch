@@ -31,3 +31,5 @@ Ver si se están creando las bases de datos al crear usuarios y si se están cre
 Hay que agregar collapsible true a todos los objetos que queramos colapsados.
 
 Ver la posibilidad de cargar el los json de ficha y options desde la bd.
+
+Ver que pasa con el campo definitions
