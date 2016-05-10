@@ -9,6 +9,8 @@ var misOpciones={
       "terapeuta":{
         "hidden":true
       },
+      "propietarios":{
+      },
       "datosContacto":{
         "collapsible":true,
         "collapsed": true,

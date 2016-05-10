@@ -18,6 +18,13 @@
       "type": "string",
       "readonly": false
     },
+    "propietarios":{
+      "title": "Comparten",
+      "type": "array",
+      "items":{
+      },
+      "readonly": false
+    },
     "clinica": {
       "title": "Clinica",
       "type": "string",
