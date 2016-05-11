@@ -12,15 +12,6 @@ body {
   font-smoothing: antialiased;
 }
 
-#todoapp {
-  background: #ede9d7;
-  padding-left: 10px;
-  border: 3px solid #ccc;
-  position: relative;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-
 
 .alpaca-container-label{
   background-color: #1BBD6F;
@@ -31,16 +22,21 @@ body {
   color: #ffffff;
 }
 
+/*
 thead{
   font: 12px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+*/
 
 .alpaca-field-radio{
   font: 12px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+/* no funciona
 .container-fluid.alpaca-wizard-back{
-  background-color: #f6f46c; /*no funciona*/
+  background-color: #f6f46c;
 }
+*/
 
 .alpaca-control.checkbox{
   float:left;

@@ -248,9 +248,7 @@ function refrescarCopiaLocal(){
   function deleteButtonPressed(todo) {
 
     //Verificamos que sea el propietario de la ficha a borrar.
-    if(rutTerapeuta!=todo.terapeuta){
-      alert("Solo puede borrar fichas propias.");
-    }else {
+    if(rutTerapeuta===todo.terapeuta){
       var result = confirm("Desea borrar a: "+todo.datosPersonales.nombres+" "+todo.datosPersonales.apat);
       if (result) {
         //verificamos si el usuario puede borrar
@@ -258,6 +256,8 @@ function refrescarCopiaLocal(){
         db.remove(todo);
         showTodos(db);
       }
+    }else {
+      alert("Solo puede borrar fichas propias.");
     }
 
 
@@ -371,7 +371,7 @@ function refrescarCopiaLocal(){
     clabel.appendChild(divDisplay);
 
     var fila=document.createElement("tr");
-    fila.className="filaListado";
+    //fila.className="filaListado";
     fila.appendChild(capat);
     fila.appendChild(camat);
     fila.appendChild(cnombres);
@@ -390,10 +390,17 @@ function refrescarCopiaLocal(){
 
     console.log("Redibujando los pacientes");
 
-    var tb = document.getElementById('todo-list');
-    tb.setAttribute("data-toggle","table");
-    tb.className="table table-striped table-bordered table-condensed";
-    tb.setAttribute("data-pagination","true");
+    //var tb = document.getElementById('todo-list');
+    //tb.innerHTML = ''; //limpia la tabla
+
+    var main=document.getElementById('main');
+    var tb=document.createElement("table");
+    tb.innerHTML = ''; //limpia la tabla
+    //tb.setAttribute("data-toggle","table");
+    tb.className="table table-striped";
+    //tb.setAttribute("data-pagination","true");
+
+    var tbody=document.createElement("tbody");
 
     var thead=document.createElement("thead");
     var tr=document.createElement("tr");
@@ -423,11 +430,15 @@ function refrescarCopiaLocal(){
 
     tb.appendChild(thead);
 
-    tb.innerHTML = ''; //limpia la tabla
+    //tb.innerHTML = ''; //limpia la tabla
     todos.forEach(function(todo) {
       //ul.appendChild(createTodoListItem(todo.doc));
-      tb.appendChild(createTodoListItem(todo.doc))
+      tbody.appendChild(createTodoListItem(todo.doc))
     });
+
+    tb.appendChild(tbody);
+    main.appendChild(tb);
+
   }
 
 //Sistema de autenticación directa contra Couchdb

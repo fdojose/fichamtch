@@ -5,15 +5,15 @@
         <link type="text/css" rel="stylesheet" href="./css/ficha.css" />
         <link type="text/css" rel="stylesheet" href="./css/login.css" />
         <link type="text/css" rel="stylesheet" href="./css/mibootstrap.css" />
+        <link type="text/css" href="./bower_components/alpaca/dist/alpaca/bootstrap/alpaca.min.css" rel="stylesheet" />
+        <link type="text/css" rel="stylesheet" href="./bower_components/alpaca/dist/lib/bootstrap/dist/css/bootstrap.min.css" />
 
         <script type="text/javascript" src="./bower_components/alpaca/dist/lib/jquery/dist/jquery.min.js"></script>
 
-        <link type="text/css" rel="stylesheet" href="./bower_components/alpaca/dist/lib/bootstrap/dist/css/bootstrap.min.css" />
         <script type="text/javascript" src="./bower_components/alpaca/dist/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
         <script type="text/javascript" src="./bower_components/alpaca/dist/lib/handlebars/handlebars.min.js"></script>
 
-        <link type="text/css" href="./bower_components/alpaca/dist/alpaca/bootstrap/alpaca.min.css" rel="stylesheet" />
         <script type="text/javascript" src="./bower_components/alpaca/dist/alpaca/bootstrap/alpaca.min.js"></script>
 
         <script type="text/javascript" src="./bower_components/alpaca/dist/lib/typeahead.js/dist/bloodhound.js"></script>
@@ -103,23 +103,17 @@
       </div>
     </div>
 <div id="ficha">
-
 <div id="pacientes">
     <button class="btn btn-verde glyphicon glyphicon-list-alt" type="button" data-toggle="collapse" data-target="#listadoPacientes" aria-expanded="true" aria-controls="listadoPacientes">
       Listado de Pacientes
     </button>
     <div class="collapse in" id="listadoPacientes">
-      <div class="wellnomquedaclaroparaque">
-        <section id="todoapp">
           <header id="header">
              <h2>Fichas</h2>
              <div id="bexpandir" align="right"><button id="buttonExpandir" onclick="nuevaFicha()" class="btn btn-verde glyphicon glyphicon-plus btn-verde">Agregar Paciente</button></div>
           </header>
-
-          <section id="main">
-            <table id="todo-list" data-toggle="table"></table>
-          </section>
-
+            <div id="main">
+            </div>
           <footer id="footer">
              <span id="todo-count"></span>
             <div id="sync-wrapper">
@@ -129,8 +123,6 @@
             </div>
             <div id="bexpandir" align="left"><button id="buttonExpandir" onclick="refrescarCopiaLocal()" class="btn btn-verde glyphicon glyphicon-trash">Refrescar Copia Local</button></div>
           </footer>
-        </section>
-      </div>
     </div>
 </div>
 
@@ -154,8 +146,6 @@
     <script src="./data/puntos_nombres.js"></script>
 
               <script type="text/javascript">
-
-
 
                 var substrMatcher= function(strs) {  //no la estamos usando de momento.
 
