@@ -57,7 +57,7 @@
       </div>
       <div id="usersAdmin">
 
-        <a href="#" id="adminLink" data-toggle="modal" data-target="#admin-modal">Admin</a>
+        <a href="#" id="adminLink" data-toggle="modal" data-target="#admin-modal">Crear Usuario</a>
 
         <div class="modal fade" id="admin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
             	  <div class="modal-dialog">
@@ -75,6 +75,22 @@
         				  </div>
         				</div>
         			</div>
+      </div>
+      <div id="borraLocal">
+        <a href="#" id="adminLink" data-toggle="modal" data-target="#borraLocal-modal">Borrar base local</a>
+
+        <div class="modal fade" id="borraLocal-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                <div class="loginmodal-container">
+                  <h1>Ingrese el usuario de la base local a borrar</h1><br>
+                  <form>
+                  <input type="text" id="blusuario" name="bluser" placeholder="RUT/DNI">
+                  <input type="button" id="submitBorraLocal" name="nlogin" class="btn btn-primary login loginmodal-submit" value="Borrar">
+                  <input type="button" id="cancelarBorraLocal" name="nlogin" class="btn btn-primary login loginmodal-submit" value="Cancelar">
+                  </form>
+                  </div>
+                </div>
+              </div>
       </div>
 
     <div id="espera">

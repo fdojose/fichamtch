@@ -67,7 +67,25 @@ function creaDB(usuario){ //crea la bd y la conexión sengún el usuario
        "owner": "admin"
     };
 
+    jsonCompartidor={
+       "_id": "rep_fichasegura_"+nomDB,
+       "source": "fichasegura",
+       "target": nomDB,
+       "filter": "repfilter/propietarios",
+       "query_params": {
+         "compartido": usuario
+        },
+       "continuous": true,
+       "user_ctx": {
+           "roles": [
+               "_admin"
+           ]
+       },
+       "owner": "admin"
+    }
+
     miReplicator.put(jsonReplicador);
+    miReplicator.put(jsonCompartidor);
 
     //remoteDb = remoteServer+"fichasegura";
     console.log("remoteDB:"+remoteDb);
@@ -228,11 +246,20 @@ function refrescarCopiaLocal(){
 
   // User pressed the delete button for a todo, delete it
   function deleteButtonPressed(todo) {
-    var result = confirm("Desea borrar a: "+todo.datosPersonales.nombres+" "+todo.datosPersonales.apat);
-    if (result) {
-      db.remove(todo);
-      showTodos(db);
+
+    //Verificamos que sea el propietario de la ficha a borrar.
+    if(rutTerapeuta!=todo.terapeuta){
+      alert("Solo puede borrar fichas propias.");
+    }else {
+      var result = confirm("Desea borrar a: "+todo.datosPersonales.nombres+" "+todo.datosPersonales.apat);
+      if (result) {
+        //verificamos si el usuario puede borrar
+        //alert("ficha borrada!")
+        db.remove(todo);
+        showTodos(db);
+      }
     }
+
 
   }
 
@@ -298,6 +325,7 @@ function refrescarCopiaLocal(){
 
     var clabel=document.createElement("td");
     var label = document.createElement('label');
+    //console.log(JSON.stringify(todo));
     label.appendChild( document.createTextNode(todo._id+" : "+todo.datosPersonales.apat+" "+todo.datosPersonales.amat+", "+todo.datosPersonales.nombres));
     label.addEventListener('dblclick', todoDblClicked.bind(this, todo));
     //clabel.appendChild(label);
@@ -313,12 +341,16 @@ function refrescarCopiaLocal(){
 
 
     var caccion=document.createElement("td");
+
     var deleteLink = document.createElement('button');
+    var tborrar=document.createTextNode("");
+
     deleteLink.className = "glyphicon glyphicon-trash";
     deleteLink.addEventListener( 'click', deleteButtonPressed.bind(this, todo));
-    var tborrar=document.createTextNode("");
     deleteLink.appendChild(tborrar);
+
     caccion.appendChild(deleteLink);
+
 
     //var cshow=document.createElement("td");
     var showLink = document.createElement('button');
@@ -514,8 +546,10 @@ function iniciaSesion(){
         //revisamos si es administrador para mostrar el link de administración
         if (response.userCtx.roles.indexOf("_admin")>(-1)){
           $('#usersAdmin').show();
+          $('#borraLocal').show();
         }else{
           $('#usersAdmin').hide();
+          $('#borraLocal').hide();
         }
       }
       console.log("getSession:"+JSON.stringify(response));
@@ -587,6 +621,30 @@ function iniciaSesion(){
       alert("Las contraseñas no coinciden")
     }
 
+  });
+
+  $('#submitBorraLocal').click(function(event){ //envía un nuevo usuario a la base remota.
+
+    var usuario=$('#blusuario').val();
+    var hash = sha3_256(usuario);
+    nomDB='ficha_'+hash; //esta es la base local.
+    if (confirm("Está seguro que desea borrar la base local:"+nomDB)){
+      //Creamos la base local
+      var bldb = new PouchDB(nomDB);
+      bldb.destroy().then(function () { //se borra la base creada para consultar.
+          // success
+          alert("Base borrada.");
+          $('#borraLocal-modal').modal("hide");
+        }).catch(function (error) {
+          console.log(error);
+          alert("No fue posible borrarla:"+error);
+        });
+    }
+
+  });
+
+  $('#cancelarBorraLocal').click(function(event) { //Cancela la creación de un usuario
+    $('#borraLocal-modal').modal("hide");
   });
 
   $('#cancelarNuevo').click(function(event) { //Cancela la creación de un usuario

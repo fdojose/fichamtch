@@ -1,0 +1,29 @@
+{
+   "_id": "rep_fichasegura_ficha_4426baec9c503a3ef7049caea39d30daff59e7ce51b57914b316bade6517933d",
+   "source": "fichasegura",
+   "target": "ficha_4426baec9c503a3ef7049caea39d30daff59e7ce51b57914b316bade6517933d",
+   "filterfun":"function(doc,req) { if (doc.propietarios.indexOf('125851940')!==-1){return true;}else{return false;}}",
+   "continuous": true,
+   "user_ctx": {
+       "roles": [
+           "_admin"
+       ]
+   },
+   "owner": "admin"
+}
+
+{
+   "_id": "_design/only_terapeutas",
+   "_rev": "1-eb9bb18c5ea08e5e5bcbbee670bd49e7",
+   "validate_doc_update": "function(newDoc, oldDoc, userCtx) {   var role = \"terapeuta\";   if (userCtx.roles.indexOf(\"_admin\") === -1 && userCtx.roles.indexOf(role) === -1) {     throw({forbidden : \"Only users with role \" + role + \" or an admin can modify this database.\"});   } }"
+}
+
+//filtro en ficha segura
+
+{
+   "_id": "_design/repfilter",
+   "_rev": "5-76389e130930e76ec2f5e41d2c672688",
+   "filters": {
+       "propietarios": "function(doc,req) {if (doc.propietarios && doc.propietarios.indexOf(req.query.compartido)!==-1){return true;}else {return false}}"
+   }
+}
