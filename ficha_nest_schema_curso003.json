@@ -1,0 +1,1648 @@
+{
+  "title": "Datos del Paciente",
+  "description": "Por favor ingresar sus datos correctamente.",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "title": "ID Bd",
+      "type": "string",
+      "readonly": true
+    },
+    "_rev": {
+      "title": "Rev Bd",
+      "type": "string",
+      "readonly": true
+    },
+    "terapeuta": {
+      "title": "Terapeuta",
+      "type": "string",
+      "readonly": false
+    },
+    "propietarios":{
+      "title": "Comparten",
+      "type": "array",
+      "items":{
+      },
+      "readonly": false
+    },
+    "clinica": {
+      "title": "Clinica",
+      "type": "string",
+      "readonly": false
+    },
+    "fechaCreacion": {
+      "title": "Fecha Creación",
+      "type": "string",
+      "readonly": true
+    },
+    "rut": {
+      "title": "RUT",
+      "description": "Por favor ingrese su RUT",
+      "type": "string",
+      "required": true,
+      "minLength": 6,
+      "maxLength": 14,
+      "format": "text"
+    },
+    "datosPersonales": {
+      "title": "Identificación",
+      "type": "object",
+      "properties": {
+        "nombres": {
+          "title": "Nombres",
+          "description": "Ingrese sus nombres",
+          "type": "string",
+          "required": true
+        },
+        "apat": {
+          "title": "Apellido Paterno",
+          "description": "Ingrese su apellido paterno",
+          "type": "string",
+          "required": true
+        },
+        "amat": {
+          "title": "Apellido Materno",
+          "description": "Ingrese su apellido materno",
+          "type": "string",
+          "required": true
+        },
+        "fechnac": {
+          "title": "Fecha de Nacimiento",
+          "description": "Ingrese el día, mes y año en que nació",
+          "type": "string",
+          "format": "date"
+        },
+        "genero": {
+          "title": "Genero",
+          "type": "string",
+          "enum": [
+            "Masculino",
+            "Femenino"
+          ],
+          "required": true
+        },
+        "talla": {
+          "title": "Talla",
+          "description": "Ingrese su talla aproximada en cms",
+          "minumum": 50,
+          "maximum": 300
+        }
+      }
+    },
+    "datosContacto": {
+      "title": "Datos de Contacto",
+      "type": "object",
+      "properties": {
+        "correo": {
+          "title": "Correo Electrónico",
+          "description": "Ingrese su e-mail",
+          "type": "string",
+          "format": "email"
+        },
+        "movil": {
+          "title": "Teléfono",
+          "type": "string",
+          "description": "Teléfono móvil",
+          "format": "text"
+        },
+        "emergencia": {
+          "title": "Teléfono Emergencias",
+          "type": "string",
+          "description": "Teléfono en caso de Emergencias",
+          "format": "phone"
+        },
+        "direccion": {
+          "title": "Dirección",
+          "type": "object",
+          "properties": {
+            "calle": {
+              "title": "Calle",
+              "description": "Ingrese su calle y número",
+              "type": "string"
+            },
+            "comuna": {
+              "title": "Comuna",
+              "description": "Ingrese su comuna de residencia",
+              "type": "string"
+            },
+            "ciudad": {
+              "title": "Ciudad",
+              "description": "Ingrese su ciudad de residencia",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "historia": {
+      "title": "Historia Médica",
+      "type": "object",
+      "properties": {
+        "hipertension": {
+          "type": "object",
+          "title": "Hipertension",
+          "properties": {
+            "sino": {
+              "title": "Seleccione:",
+              "type": "string",
+              "enum": [
+                "si"
+              ]
+            },
+            "tiempo": {
+              "type": "string",
+              "title": "Tiempo",
+              "dependencies": "sino"
+            }
+          }
+        },
+        "tiroidismo": {
+          "type": "object",
+          "title": "Tiroidismo",
+          "properties": {
+            "sino": {
+              "title": "Seleccione:",
+              "type": "string",
+              "enum": [
+                "si"
+              ]
+            },
+            "tipo": {
+              "tipo": "string",
+              "enum": [
+                "Hipertiroidismo",
+                "Hipotiroidismo"
+              ],
+              "dependencies": "sino"
+            },
+            "tiempo": {
+              "type": "string",
+              "title": "Tiempo",
+              "dependencies": "sino"
+            }
+          }
+        },
+        "diabetes": {
+          "type": "object",
+          "title": "Diabetes",
+          "properties": {
+            "sino": {
+              "title": "Seleccione:",
+              "type": "string",
+              "enum": [
+                "si"
+              ]
+            },
+            "tipo": {
+              "tipo": "string",
+              "enum": [
+                "I",
+                "II"
+              ],
+              "dependencies": "sino"
+            },
+            "tiempo": {
+              "type": "string",
+              "title": "Tiempo",
+              "dependencies": "sino"
+            }
+          }
+        },
+        "ets": {
+          "type": "object",
+          "title": "ETS",
+          "properties": {
+            "sino": {
+              "title": "Seleccione:",
+              "type": "string",
+              "enum": [
+                "si"
+              ]
+            },
+            "tipo": {
+              "title": "tipo",
+              "tipo": "string",
+              "dependencies": "sino"
+            },
+            "tiempo": {
+              "type": "string",
+              "title": "Tiempo",
+              "dependencies": "sino"
+            }
+          }
+        },
+        "hepatitis": {
+          "type": "object",
+          "title": "Hepatitis",
+          "properties": {
+            "sino": {
+              "title": "Seleccione:",
+              "type": "string",
+              "enum": [
+                "si"
+              ]
+            },
+            "tiempo": {
+              "type": "string",
+              "title": "Tiempo",
+              "dependencies": "sino"
+            }
+          }
+        },
+        "cancer": {
+          "type": "object",
+          "title": "Cancer",
+          "properties": {
+            "sino": {
+              "title": "Seleccione:",
+              "type": "string",
+              "enum": [
+                "si"
+              ]
+            },
+            "diagnostico": {
+              "type": "string",
+              "title": "Diagnostico",
+              "dependencies": "sino"
+            },
+            "tiempo": {
+              "type": "string",
+              "title": "Tiempo",
+              "dependencies": "sino"
+            }
+          }
+        },
+        "cirugias": {
+          "type": "object",
+          "title": "Cirugías",
+          "properties": {
+            "sino": {
+              "title": "Seleccione:",
+              "type": "string",
+              "enum": [
+                "si"
+              ]
+            },
+            "diagnostico": {
+              "type": "string",
+              "title": "Diagnostico",
+              "dependencies": "sino"
+            },
+            "tiempo": {
+              "type": "string",
+              "title": "Fecha",
+              "dependencies": "sino"
+            }
+          }
+        },
+        "otras": {
+          "type": "object",
+          "title": "Otras",
+          "properties": {
+            "sino": {
+              "title": "Seleccione:",
+              "type": "string",
+              "enum": [
+                "si"
+              ]
+            },
+            "tipo": {
+              "tipo": "string",
+              "dependencies": "sino"
+            },
+            "tiempo": {
+              "type": "string",
+              "title": "Tiempo",
+              "dependencies": "sino"
+            }
+          }
+        },
+        "historiaDrogas": {
+          "type": "array",
+          "title": "Historia de Drogas (Cigarro, Alcohol, otras)",
+          "items": {
+            "$ref": "#/definitions/droga"
+          }
+        }
+      }
+    },
+    "familia": {
+      "type": "object",
+      "title": "Familia",
+      "properties": {
+        "pareja": {
+          "type": "string",
+          "title": "Pareja",
+          "enum": [
+            "Femenino",
+            "Masculino"
+          ]
+        },
+        "convive": {
+          "type": "string",
+          "title": "Conviviente",
+          "enum": [
+            "si"
+          ],
+          "dependencies": "pareja"
+        },
+        "tiempo": {
+          "type": "string",
+          "title": "Tiempo",
+          "dependencies": "pareja"
+        },
+        "hijos": {
+          "type": "string",
+          "title": "Hijos",
+          "enum": [
+            "si"
+          ]
+        },
+        "cantidad": {
+          "type": "string",
+          "title": "Cuántos",
+          "dependencies": "hijos"
+        },
+        "edades": {
+          "type": "string",
+          "title": "Edades",
+          "dependencies": "hijos"
+        },
+        "otros": {
+          "type": "string",
+          "title": "Otras personas con que viva"
+        }
+      }
+    },
+    "ocupacion": {
+      "type": "object",
+      "title": "Ocupación",
+      "properties": {
+        "tipo": {
+          "type": "string",
+          "title": "Ocupacion",
+          "enum": [
+            "Estudiante",
+            "Empleado",
+            "Auto Empleo",
+            "Empresario",
+            "Jubilado"
+          ]
+        },
+        "tipoOcupacion": {
+          "type": "string",
+          "title": "Tipo de Ocupación (Principalmente)",
+          "enum": [
+            "Escritorio",
+            "Clases",
+            "Terreno",
+            "Conducción"
+          ],
+          "dependencies": "tipo"
+        }
+      }
+    },
+    "tratamientos": {
+      "type": "array",
+      "title": "Tratamientos",
+      "items": {
+        "$ref": "#/definitions/curso"
+      }
+    },
+    "definitions": {
+      "curso": {
+        "type": "object",
+        "title":"Tratamiento",
+        "properties": {
+          "diagnosticoOccidental":{
+            "title": "Diagnóstico Occidental",
+            "description": "(Si lo hubiese)",
+            "type": "string"
+          },
+          "motivo": {
+            "title": "Motivo de Principal de Consulta",
+            "description": "Ingrese el motivo principal de la consulta",
+            "type": "string"
+          },
+          "motivoSecundario": {
+            "title": "Motivo de Secundario de Consulta",
+            "description": "Ingrese el secundario principal de la consulta",
+            "type": "string"
+          },
+          "descripcion": {
+            "title": "Describa el problema:",
+            "description": "Describa el problema",
+            "type": "string"
+          },
+          "bagang":{
+            "type":"object",
+            "title":"BaGang",
+            "properties":{
+              "yinYang": {
+                "type": "string",
+                "enum": [
+                  "Yin","Yang"
+                ]
+              },
+              "frioCalor": {
+                "type": "string",
+                "enum": [
+                  "Frío","Calor"
+                ]
+              },
+              "iternoExterno": {
+                "type": "string",
+                "enum": [
+                  "Interno","Externo"
+                ]
+              },
+              "vacioPlenitud": {
+                "type": "string",
+                "enum": [
+                  "Vacío","Plenitud"
+                ]
+              }
+            }
+          },
+          "organoInvolucrado":{
+            "title": "Organo Involucrado",
+            "type": "string",
+            "enum": [
+              "Corazón",
+              "Pulmón",
+              "Riñón",
+              "Bazó",
+              "Higado"
+            ]
+          },
+          "meridianoInvolucrado":{
+            "title": "Meridiano Involucrado",
+            "type": "string",
+            "enum": [
+              "Shaoyin de la mano",
+              "Taiyang de la mano",
+              "Taiyin de la mano",
+              "Yangming de la mano",
+              "Jueyin de la mano",
+              "Shaoyang de la mano",
+              "Shaoyin del pie",
+              "Taiyang del pie",
+              "Taiyin del pie",
+              "Yangming del pie",
+              "Jueyin del pie",
+              "Shaoyang del pie",
+              "Ren",
+              "Du"
+            ]
+          },
+          "patogenoInvolucrado":{
+            "title": "Patogeno Involucrado",
+            "type": "string",
+            "enum": [
+              "Frío",
+              "Calor",
+              "Viento"
+            ]
+          },
+          "peso": {
+            "title": "Peso",
+            "description": "Ingrese su peso actual aproximado en kilogramos",
+            "minimum": 3,
+            "maximum": 300
+          },
+          "medicamentos": {
+            "type": "array",
+            "title": "Medicamentos",
+            "items": {
+              "$ref": "#/definitions/medicamento"
+            }
+          },
+          "habitos": {
+            "type": "object",
+            "title": "Hábitos",
+            "properties": {
+              "drogas": {
+                "type": "array",
+                "title": "Drogas (Café, Té, Alchol, otras)",
+                "items": {
+                  "$ref": "#/definitions/droga"
+                }
+              },
+              "ejercicio": {
+                "type": "object",
+                "title": "Ejercicio",
+                "properties": {
+                  "sino": {
+                    "type": "string",
+                    "enum": [
+                      "si"
+                    ]
+                  },
+                  "cual": {
+                    "type": "string",
+                    "title": "Actividad",
+                    "dependencies": "sino"
+                  },
+                  "horasPorSemana": {
+                    "type": "string",
+                    "title": "Horas por Semana",
+                    "dependencies": "sino"
+                  }
+                }
+              },
+              "sueno": {
+                "type": "object",
+                "title": "Calidad del Sueño",
+                "properties": {
+                  "calidad": {
+                    "type": "string",
+                    "enum": [
+                      "Reparador",
+                      "No Reparador"
+                    ]
+                  },
+                  "tipo": {
+                    "type": "string",
+                    "enum": [
+                      "Soliloquios",
+                      "Profundo",
+                      "Superficial"
+                    ]
+                  },
+                  "suenos": {
+                    "type": "string",
+                    "enum": [
+                      "Sin sueños",
+                      "Sueños agradables",
+                      "Pesadillas"
+                    ]
+                  },
+                  "concilacion": {
+                    "type": "string",
+                    "enum": [
+                      "Fácil concilación",
+                      "Dificil conciliación",
+                      "Insomnio",
+                      "Interrumpido"
+                    ]
+                  },
+                  "horas": {
+                    "type": "string",
+                    "title": "Horas"
+                  }
+                }
+              }
+            }
+          },
+          "sintomas": {
+            "type": "object",
+            "title": "Síntomas",
+            "properties": {
+              "dolores": {
+                "type": "array",
+                "title": "Dolores",
+                "items": {
+                  "$ref": "#/definitions/dolor"
+                }
+              },
+              "emociones": {
+                "type": "object",
+                "title": "Emociones",
+                "properties": {
+                  "emocion": {
+                    "title": "Emoción Principal",
+                    "type": "string",
+                    "enum": [
+                      "Alegría",
+                      "Ansiedad",
+                      "Ira",
+                      "Miedo",
+                      "Tristeza",
+                      "Pensamiento Obsesivo",
+                      "Duelo"
+                    ]
+                  }
+                }
+              },
+              "oido":{
+                "type":"object",
+                "title":"Oido",
+                "properties":{
+                  "audicion":{
+                    "title":"Audición",
+                    "type":"string",
+                    "enum":["Completa","Disminuida","Sordera en un oido","Sordera en ambos oidos"]
+                  },
+                  "vertigo":{
+                    "title":"Vértigo",
+                    "type":"string",
+                    "enum":["Sí"]
+                  },
+                  "condicionVertigo":{
+                    "title":"Cuándo",
+                    "type":"string",
+                    "enum":["Siembre","Al levantarse", "Al acostarse","Al caminar","Acostado","Parado"],
+                    "dependencies":"vertigo"
+                  },
+                  "tinitus":{
+                    "title":"Tinitus",
+                    "type":"string",
+                    "enum":["Sí"]
+                  },
+                  "tipoTinitus":{
+                    "title":"Tipo de Tinitus",
+                    "type":"string",
+                    "enum":["Sonido Agudo","Sonido Mar"],
+                    "dependencies":"tinitus"
+                  },
+                  "intensidaTinitus":{
+                    "title":"Intensidad",
+                    "type":"string",
+                    "enum":["0","1","2","3","4","5","6","7","8","9","10"],
+                    "dependencies":"tinitus"
+                  },
+                  "frecuenciaTinitus":{
+                    "title":"Cuándo",
+                    "type":"string",
+                    "enum":["Siembre","Al levantarse", "Al acostarse","Al caminar","Acostado","Parado"],
+                    "dependencies":"tinitus"
+                  }
+                }
+              },
+              "ojos":{
+                "type":"object",
+                "title":"Ojos",
+                "properties":{
+                  "lagrimas":{
+                    "type":"string",
+                    "title":"Lágrimas",
+                    "enum":["Ojo Secos","Lagrimeo"]
+                  },
+                  "secreciones":{
+                    "type":"string",
+                    "title":"Secreciones",
+                    "enum":["Sí"]
+                  },
+                  "conjuntiva":{
+                    "type":"string",
+                    "title":"Conjuntiva",
+                    "enum":["Roja","Amarilla","Pálida","Rosada"]
+                  }
+                }
+              },
+              "cardiovascular":{
+                "type":"object",
+                "title":"Cardiosvacular",
+                "properties":{
+                  "circulatorio":{
+                    "type":"string",
+                    "title":"Venas y Arterias",
+                    "enum":["Telangestacia","Equimosis","Varices","Petequias","Edemas"]
+                  },
+                  "corazon":{
+                    "type":"string",
+                    "title":"Corazón",
+                    "enum":["Opresión en el pecho","Dolor pectoral","Palpitaciones"]
+                  }
+                }
+              },
+              "digestion":{
+                "type":"object",
+                "title":"Digestion",
+                "properties":{
+                  "halitosis":{
+                    "type":"string",
+                    "title":"Halitosis",
+                    "enum":["Sí"]
+                  },
+                  "labios":{
+                    "type":"string",
+                    "title":"Labios",
+                    "enum":["Secos","Partidos","Ulceras"]
+                  },
+                  "gustoBoca":{
+                    "type":"string",
+                    "title":"Gusto especial en la boca",
+                    "enum":["Amargo","Dulce","Ácido","Salado","Picante","Pegajoso","Pegajoso Grasiento"]
+                  },
+                  "prefiere":{
+                    "type":"string",
+                    "title":"Prefiere los sabores",
+                    "enum":["Amargo","Dulce","Ácido","Salado","Picante"]
+                  },
+                  "evita":{
+                    "type":"string",
+                    "title":"Evita los sabores",
+                    "enum":["Amargo","Dulce","Ácido","Salado","Picante"]
+                  },
+                  "encias":{
+                    "type":"string",
+                    "title":"Encías",
+                    "enum":["Sangramiento","Caída de dientes","Ulceras"]
+                  },
+                  "nauceas":{
+                    "type":"string",
+                    "title":"Nauceas",
+                    "enum":["En la mañana","En el día","En la noche","Después de comer","Siempre"]
+                  },
+                  "vomitos":{
+                    "type":"string",
+                    "title":"Vómitos",
+                    "enum":["Contenido alimenticio","Contenido bilioso"]
+                  },
+                  "apetito":{
+                    "type":"string",
+                    "title":"Apetito",
+                    "enum":["Normal","Mucho","Poco","Anorexia","Bulimia","Hambre sin deseos de comer"]
+                  },
+                  "acidez":{
+                    "type":"string",
+                    "title":"Acidez",
+                    "enum":["Acidez","Reflujo"]
+                  },
+                  "sensacionAbdominal":{
+                    "type":"string",
+                    "title":"Sensación Abdominal",
+                    "enum":["Plenitud","Vacío","Ardor","Frío","Eructos","Regurgitación","Hipo","Meteorismo","Borborismos","Distensión","Flatulencia"]
+                  },
+                  "evacuaciones":{
+                    "type":"object",
+                    "title":"Evacuaciones",
+                    "properties":{
+                      "frecuencia":{
+                        "type":"string",
+                        "title":"Frecuencia",
+                        "enum":["1 vez por día","2 veces por día","Más de 2 veces por día","Cada 2 días","Cada 3 días","Cada 4 días","Cada 5 días","Más de 5 días"]
+                      },
+                      "constitucion":{
+                        "type":"string",
+                        "title":"Constitución",
+                        "enum":["Diarreicas","Pastosas","Restos","Duras","Secas","Blancas","Lientéricas","Esteaotorrea","Mucosas","Sangre","Pujo","Tenesmo"]
+                      },
+                      "olor":{
+                        "type":"string",
+                        "title":"Olor",
+                        "enum":["Fétido","Podrido","Ácido"]
+                      },
+                      "hemorroides":{
+                        "type":"string",
+                        "title":"Hemorroides",
+                        "enum":["Internas","Externas"]
+                      },
+                      "pruritoRectal":{
+                        "type":"string",
+                        "title":"Prurito Rectal",
+                        "enum":["Sí"]
+                      }
+                    }
+                  },
+                  "liquidos":{
+                    "type":"object",
+                    "title":"Líquidos",
+                    "properties":{
+                      "condicion":{
+                        "type":"string",
+                        "title":"Sed",
+                        "enum":["Normal","Abundante","Escasa","Sed con poco líquido","Sed sin deseos de beber"]
+                      },
+                      "preferencia":{
+                        "type":"string",
+                        "title":"Preferencia por",
+                        "enum":["Bebidas frías","Bebidas Calientes"]
+                      },
+                      "principalFuente":{
+                        "type":"string",
+                        "title":"Principal fuente de líquidos",
+                        "enum":["Agua","Gaseosas","Té","Café","Infusiones"]
+                      },
+                      "litros":{
+                        "type":"string",
+                        "title":"Litros al día"
+                    }
+                  }
+                },
+                "orina":{
+                  "type":"object",
+                  "title":"Orina",
+                  "properties":{
+                    "color":{
+                      "type":"string",
+                      "title":"Color",
+                      "enum":["Clara","Amarilla","Amarilla Obscura","Café","Rojiza"]
+                    },
+                    "cantidad":{
+                      "type":"string",
+                      "title":"Cantidad",
+                      "enum":["Normal","Abundante","Goteo","Eneuresis"]
+                    },
+                    "sensaciones":{
+                      "type":"string",
+                      "title":"Sensación",
+                      "enum":["Ardor","Dolor"]
+                    },
+                    "frecuencia":{
+                      "type":"string",
+                      "title":"Frecuencia",
+                      "enum":["Normal","Poliuria","Eneuresis"]
+                    }
+                  }
+                }
+              }
+            },
+            "respiratorio":{
+              "type":"object",
+              "title":"Sistema Respiratorio",
+              "properties":{
+                "nariz":{
+                  "type":"object",
+                  "title":"Nariz",
+                  "properties":{
+                    "obstruccion":{
+                      "type":"string",
+                      "title":"Obstruccion",
+                      "enum":["Sí"]
+                    },
+                    "mucosidad":{
+                      "type":"string",
+                      "title":"Mucosidad",
+                      "enum":["Fluida","Espesa","Clara","Amarilla","Verdosa"]
+                    },
+                    "olores":{
+                      "type":"string",
+                      "title":"Olores",
+                      "enum":["Normal","Anosmia"]
+                    },
+                    "epistaxis":{
+                      "type":"string",
+                      "title":"Epistaxis",
+                      "enum":["Sí"]
+                    }
+                  }
+                },
+                "faringeLaringe":{
+                  "type":"object",
+                  "title":"Faringe-Laringe",
+                  "properties":{
+                    "inflamacion":{
+                      "type":"string",
+                      "title":"Inflamación",
+                      "enum":["Sí"]
+                    },
+                    "voz":{
+                      "type":"string",
+                      "title":"Voz",
+                      "enum":["Disfonía","Afonía","Voz Débil","Voz Fuerte"]
+                    }
+                  }
+                },
+                "tos":{
+                  "type":"object",
+                  "title":"Tos",
+                  "properties":{
+                    "expectoracion":{
+                      "type":"string",
+                      "title":"Expectoriación",
+                      "enum":["Productiva","Seca","Fluida","Espesa","Clara","Amarilla","Olor","Sangramiento"]
+                    },
+                    "hora":{
+                      "type":"string",
+                      "title":"Horario",
+                      "enum":["Mañana","Medio Día","Tarde","Noche","Madrugada"]
+                    }
+                  }
+                },
+                "respiracion":{
+                  "type":"object",
+                  "title":"Respiración",
+                  "properties":{
+                    "intensidad":{
+                      "type":"string",
+                      "title":"Intensidad",
+                      "enum":["Normal","Débil","Fuerte"]
+                    },
+                    "calidad":{
+                      "type":"string",
+                      "title":"Calidad",
+                      "enum":["Suspiros","Disnea","Entrecortada","Ruidosa","Lenta","Superficial"]
+                    }
+                  }
+                }
+
+
+              }
+
+            },
+            "reproductor":{
+                "type":"object",
+                "title":"S. Reproductor",
+                "properties":{
+                  "menstruacion":{
+                    "type":"object",
+                    "title":"Menstruación",
+                    "properties":{
+                      "etapa":{
+                        "type":"string",
+                        "title":"Etapa",
+                        "enum":["Infantil","Metrorragia","Embarazo","Menopausia","Sin regla"]
+                      },
+                      "frecuencia":{
+                        "type":"string",
+                        "title":"Frecuencia",
+                        "enum":["Regurlar","Irregular"]
+                      },
+                      "volumen":{
+                        "type":"string",
+                        "title":"Volumen",
+                        "enum":["Ausente","Profusa","Escasa"]
+                      },
+                      "color":{
+                        "type":"string",
+                        "title":"Color",
+                        "enum":["Rojo Claro","Rojo Obscuro","Púrpura","Amarilla"]
+                      },
+                      "coagulos":{
+                        "type":"string",
+                        "title":"Coagulos",
+                        "enum":["Sí","No"]
+                      },
+                      "sangramiento":{
+                        "type":"string",
+                        "title":"Sangramiento intermenstrual",
+                        "enum":["Sí","No"]
+                      },
+                      "olor":{
+                        "type":"string",
+                        "title":"Olor",
+                        "enum":["Sí","No"]
+                      },
+                      "disminorrea":{
+                        "type":"string",
+                        "title":"Disminorrea (dolor)",
+                        "enum":["Sí","No"]
+                      },
+                      "spm":{
+                        "type":"string",
+                        "title":"Síndrome Premenstrual",
+                        "enum":["No","Antes","Durante"]
+                      },
+                      "duracion":{
+                          "type":"string",
+                          "title":"Duración",
+                          "enum":["1 a 3 días","4 a 7 días","7 a 10 días","11 o más días"]
+                        },
+                      "leucorrea":{
+                          "type":"string",
+                          "title":"Leucorrea",
+                          "enum":["No","Blanca","Amarilla","Rosada","Roja y Blanca","Con olor"]
+                        }
+                    }
+                  },
+                  "sexuales":{
+                    "type":"object",
+                    "title":"Problemas Sexuales",
+                    "properties":{
+                      "libido":{
+                        "type":"string",
+                        "title":"Líbido",
+                        "enum":["Normal","Mucha","Poca"]
+                      },
+                      "infertiliad":{
+                        "type":"string",
+                        "title":"Infertilidad",
+                        "enum":["Sí","No"]
+                      },
+                      "disfuncion":{
+                        "type":"string",
+                        "title":"Disfunción",
+                        "enum":["Disfunción eréctil","Espermatorrea","Frigidez","Eyaculación Precoz","Eyaculación Retardada","Dispareunia","Vaginismo"]
+                      }
+                    }
+                  }
+
+                }
+              }
+            }
+          },
+          "signos": {
+            "type": "object",
+            "title": "Signos",
+            "properties": {
+              "vitalidad": {
+                "type": "object",
+                "title": "Vitalidad",
+                "properties": {
+                  "vitalidadShen": {
+                    "type": "string",
+                    "title": "Vitalidad Shen",
+                    "enum": [
+                      "Presencia",
+                      "Ausencia"
+                    ]
+                  },
+                  "constitucionJing": {
+                    "type": "string",
+                    "title": "Constitución Jing",
+                    "enum": [
+                      "Débil",
+                      "Normal",
+                      "Fuerte",
+                      "Grueso",
+                      "Obeso",
+                      "Delgado"
+                    ]
+                  },
+                  "complexionQi": {
+                    "type": "string",
+                    "title": "Complexión Qi",
+                    "enum": [
+                      "Deficiente",
+                      "Exceso",
+                      "Normal",
+                      "Estancamiento"
+                    ]
+                  }
+                }
+              },
+              "temperatura": {
+                "type": "object",
+                "title": "Temperatura, fiebre, escalofríos",
+                "properties": {
+                  "tipo": {
+                    "type": "string",
+                    "enum": [
+                      "Bajo Normal",
+                      "Normal",
+                      "Sub-febril",
+                      "Fiebre",
+                      "Fiebre Alta"
+                    ]
+                  },
+                  "sensaciones": {
+                    "type": "string",
+                    "enum": [
+                      "Escalofríos",
+                      "Calor 5 Suelas",
+                      "Otros"
+                    ]
+                  }
+                }
+              },
+              "piel": {
+                "type": "object",
+                "title": "Piel, pelo y unas",
+                "properties": {
+                  "piel": {
+                    "title": "Piel",
+                    "type": "string",
+                    "enum": [
+                      "Pálida",
+                      "Roja",
+                      "Amarilla",
+                      "Obscura",
+                      "Blanca",
+                      "Verdusca",
+                      "Cianótica",
+                      "Erupciones",
+                      "Seborrea",
+                      "Lesiones en Piel"
+                    ]
+                  },
+                  "unas": {
+                    "type": "string",
+                    "title": "Uñas",
+                    "enum": [
+                      "Quebradizas",
+                      "Duras",
+                      "Blandas"
+                    ]
+                  },
+                  "pelo": {
+                    "type": "string",
+                    "title": "Pelo",
+                    "enum": [
+                      "Caída",
+                      "Quebradizo",
+                      "Canas",
+                      "Seco",
+                      "Grasoso"
+                    ]
+                  }
+                }
+              },
+              "sudor": {
+                "type": "object",
+                "title": "Sudor",
+                "properties": {
+                  "tipo": {
+                    "type": "string",
+                    "title": "Tipo",
+                    "enum": [
+                      "Ausente",
+                      "Espontáneo",
+                      "Diurno",
+                      "Nocturno",
+                      "Frío",
+                      "Caliente",
+                      "Excesivo",
+                      "Pegajoso",
+                      "Fétido"
+                    ]
+                  },
+                  "localizacion": {
+                    "type": "string",
+                    "title": "Ubicación",
+                    "enum": [
+                      "Cara",
+                      "Cuello",
+                      "Torax",
+                      "Palmas",
+                      "Plantas"
+                    ]
+                  }
+                }
+              },
+              "palpacion":{
+                "type":"object",
+                "title":"Palpación",
+                "properties":{
+                  "palapcion":{
+                    "type":"string",
+                    "title":"Resultado Palapación"
+                  }
+                }
+              }
+            }
+          },
+          "sesiones": {
+            "type": "array",
+            "title": "Sesiones",
+            "items": {
+              "$ref": "#/definitions/sesion"
+            }
+          }
+        }
+      },
+      "sesion": {
+        "type": "object",
+        "title":"Sesion",
+        "properties": {
+          "fecha": {
+            "type": "string",
+            "title": "Fecha",
+            "format": "date"
+          },
+          "evolucion": {
+            "type": "object",
+            "title": "Evolución",
+            "properties": {
+              "evolucionPrincipal": {
+                "type": "string",
+                "title": "Evolución del motivo principal de consulta (%)",
+                "enum": [
+                  "0",
+                  "10",
+                  "20",
+                  "30",
+                  "40",
+                  "50",
+                  "60",
+                  "70",
+                  "80",
+                  "90",
+                  "100"
+                ]
+              },
+              "evolucionSecundaria": {
+                "type": "string",
+                "title": "Evolución de los motivos secundarios de consulta (%)",
+                "enum": [
+                  "0",
+                  "10",
+                  "20",
+                  "30",
+                  "40",
+                  "50",
+                  "60",
+                  "70",
+                  "80",
+                  "90",
+                  "100"
+                ]
+              },
+              "detalle": {
+                "type": "string",
+                "title": "Detalle"
+              }
+            }
+          },
+          "lengua": {
+            "type": "object",
+            "title": "Lengua",
+            "properties": {
+              "cuerpo": {
+                "type": "object",
+                "properties": {
+                  "forma": {
+                    "type": "string",
+                    "title": "Forma",
+                    "enum": [
+                      "Normal",
+                      "Rigida",
+                      "Flacida",
+                      "Hinchada",
+                      "Grande",
+                      "Martillada",
+                      "Corta",
+                      "Larga",
+                      "Delgada"
+                    ]
+                  },
+                  "color": {
+                    "type": "string",
+                    "title": "Color",
+                    "enum": [
+                      "Normal",
+                      "Púrpura",
+                      "Rojo",
+                      "Rojo Intenso",
+                      "Rojo Obscuro",
+                      "Pálida",
+                      "Verde"
+                    ]
+                  },
+                  "textura": {
+                    "type": "string",
+                    "title": "Textura",
+                    "enum": [
+                      "Normal",
+                      "Tierna",
+                      "Dura",
+                      "Puntos Rojos",
+                      "Puntos Blacos",
+                      "Ulceras",
+                      "Desviada",
+                      "Temblorosa",
+                      "Marcas Dentarias"
+                    ]
+                  },
+                  "humedad": {
+                    "type": "string",
+                    "title": "Humedad",
+                    "enum": [
+                      "Normal",
+                      "Humeda",
+                      "Seca",
+                      "Ligeramente Seca"
+                    ]
+                  }
+                }
+              },
+              "capa": {
+                "type": "object",
+                "properties": {
+                  "consistencia": {
+                    "type": "string",
+                    "title": "Consistencia",
+                    "enum": [
+                      "Normal",
+                      "Delgada",
+                      "Gruesa",
+                      "Pelada",
+                      "Geográfica"
+                    ]
+                  },
+                  "color": {
+                    "type": "string",
+                    "title": "Color",
+                    "enum": [
+                      "Normal",
+                      "Blanca",
+                      "Empolvada",
+                      "Nevada",
+                      "Amarilla",
+                      "Amarilla Obscura",
+                      "Gris",
+                      "Negra"
+                    ]
+                  },
+                  "raiz": {
+                    "type": "string",
+                    "title": "Raíz",
+                    "enum": [
+                      "Con Raíz",
+                      "Sin Raíz"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "pulso": {
+            "type": "array",
+            "title": "Pulso",
+            "items": {
+              "type": "object",
+              "properties": {
+                "zona": {
+                  "type": "string",
+                  "title": "Zona",
+                  "enum": [
+                    "Mano Izq",
+                    "Mano Der",
+                    "Cuello",
+                    "Estomago",
+                    "Pierna",
+                    "Pie"
+                  ]
+                },
+                "profundidad": {
+                  "type": "string",
+                  "title": "Profundidad",
+                  "enum": [
+                    "Normal",
+                    "Flotante",
+                    "Hundido"
+                  ]
+                },
+                "amplitud": {
+                  "type": "string",
+                  "title": "Amplitud",
+                  "enum": [
+                    "Normal",
+                    "Fino",
+                    "Lleno"
+                  ]
+                },
+                "largo": {
+                  "type": "string",
+                  "title": "Largo",
+                  "enum": [
+                    "Normal",
+                    "Largo",
+                    "Corto"
+                  ]
+                },
+                "intesidad": {
+                  "type": "string",
+                  "title": "Intesidad",
+                  "enum": [
+                    "Normal",
+                    "Débil",
+                    "Fuerte"
+                  ]
+                },
+                "ritmo": {
+                  "type": "string",
+                  "title": "Ritmo",
+                  "enum": [
+                    "Regular",
+                    "Irregular"
+                  ]
+                },
+                "frecuencia": {
+                  "type": "string",
+                  "title": "Frecuencia",
+                  "enum": [
+                    "Normal",
+                    "Lento",
+                    "Rápido"
+                  ]
+                },
+                "resbalozo": {
+                  "type": "string",
+                  "title": "Resbalozo",
+                  "enum": [
+                    "Áspero",
+                    "Resbalozo",
+                    "Rugoso"
+                  ]
+                }
+              }
+            }
+          },
+          "acupuntura": {
+            "type": "array",
+            "title": "Acupuntura (Puntos)",
+            "items": {
+              "$ref": "#/definitions/punto"
+            }
+          },
+          "ventosa": {
+            "type": "string",
+            "title": "Ventosas (Áreas)"
+          },
+          "masaje": {
+            "type": "string",
+            "title": "Masaje (Áreas)"
+          }
+        }
+      },
+      "droga": {
+        "type": "object",
+        "title":"Droga",
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "title": "Tipo",
+            "enum": [
+              "Café",
+              "Té",
+              "Alcohol",
+              "Tabaco",
+              "Canabis",
+              "Otras"
+            ]
+          },
+          "nombre": {
+            "title": "Nombre",
+            "type": "string"
+          },
+          "cantidad": {
+            "type": "string",
+            "title": "frecuencia al día"
+          }
+        }
+      },
+      "medicamento": {
+        "type": "object",
+        "title":"Medicamento",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "title": "Nombre"
+          },
+          "tipoMedicamento": {
+            "type": "string",
+            "title": "Tipo",
+            "enum": [
+              "Analgésicos",
+              "Antiinflamatorios",
+              "Antihipertensivos",
+              "Antidiuréticos",
+              "Antialérgicos",
+              "Antiarrítmicos",
+              "Antibióticos",
+              "Anticoagulantes",
+              "Antidepresivos",
+              "Antireumáticos",
+              "Antiviral",
+              "Broncodilatador",
+              "Corticoesteroides",
+              "Diuréticos",
+              "Hipoglicemiante",
+              "Hipotensor",
+              "Inmunosupresor",
+              "Inductor del Sueño",
+              "Opiáceos",
+              "Relajante Muscular",
+              "Otros"
+            ]
+          },
+          "frecuencia": {
+            "type": "string",
+            "title": "Frecuencia"
+          }
+        }
+      },
+      "dolor": {
+        "type": "object",
+        "title":"Dolor",
+        "properties": {
+          "area": {
+            "type": "string",
+            "title": "zona",
+            "enum": [
+              "Cabeza",
+              "Cuello",
+              "Hombros",
+              "Brazos",
+              "Antebrazos",
+              "Manos",
+              "Torax",
+              "Hipocondrio",
+              "Zona Lumbar",
+              "Abdomen Inferior",
+              "Cadera-Gluteos",
+              "Pierna",
+              "Rodilla",
+              "Pierna Inferior",
+              "Pie"
+            ]
+          },
+          "zona": {
+            "type": "string",
+            "title": "zona",
+            "enum": [
+              "Frontal",
+              "Lateral",
+              "Trasero"
+            ]
+          },
+          "tipo": {
+            "type": "string",
+            "title": "Tipo de dolor",
+            "enum": [
+              "Opresivo",
+              "Punzante",
+              "Quemante",
+              "Inflamado",
+              "Picazón",
+              "Tirante irradiado"
+            ]
+          },
+          "modificador": {
+            "type": "string",
+            "title": "Se modifica",
+            "enum": [
+              "Aumenta con el Calor",
+              "Disminuye con el Calor",
+              "Disminuye con el Frío",
+              "Aumenta con el Frío",
+              "Alivio al Tacto",
+              "Aumenta al Tacto",
+              "Disminuye con el Movimiento",
+              "Aumenta con el Movimiento"
+            ]
+          },
+          "escala": {
+            "type": "string",
+            "title": "escala",
+            "enum": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10"
+            ]
+          },
+          "frecuencia": {
+            "type": "string",
+            "title": "Frecuencia",
+            "enum": [
+              "Diaria",
+              "Día por medio",
+              "Semanal",
+              "Quincenal",
+              "Mensual"
+            ]
+          },
+          "horario": {
+            "type": "string",
+            "title": "Horario",
+            "enum": [
+              "Mañana",
+              "Medio Día",
+              "Tarde",
+              "Noche",
+              "Madrugada"
+            ]
+          },
+          "periodo": {
+            "type": "sting",
+            "title": "Asociado al Período Menstrual",
+            "enum": [
+              "Antes",
+              "Durante",
+              "Después"
+            ]
+          }
+        }
+      },
+      "punto": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "title": "Punto"
+          },
+          "accion": {
+            "type": "string",
+            "title": "Acción",
+            "enum": [
+              "Tonifica",
+              "Seda"
+            ]
+          },
+          "tecnica": {
+            "type": "string",
+            "title": "Técnica",
+            "enum": [
+              "Moxa",
+              "Electro",
+              "Moxa aguja",
+              "Lampara",
+              "A.fuego",
+              "otra"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
