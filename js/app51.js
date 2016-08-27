@@ -4,6 +4,7 @@
 
   var puedeBorrar=true;
   var soloTerapeuta=true;
+  var tablaPacientes=new Array();
 
   'use strict';
 
@@ -223,6 +224,7 @@ function refrescarCopiaLocal(){
   function showTodos(midb) {
 
     esperar(true,"");
+    var mitabla;
 
     var opts = {
       include_docs: true,
@@ -231,10 +233,27 @@ function refrescarCopiaLocal(){
         };
 
     console.log("showTodos:"+midb);
-    midb.allDocs(opts, function(err, doc) {
-      redrawTodosUI(doc.rows);
+
+    midb.allDocs(opts).then(function(doc) {
+       tablaPacientes=redrawTodosUI(doc.rows);
+       console.log("tablaPacientes1:"+tablaPacientes.toString());
+
+       $('#listadoFichas').DataTable({
+         data: tablaPacientes,
+          columns: [
+              { "title": "apat" },
+              { "title": "amat" },
+              { "title": "nombres" },
+              { "title": "acciones" }
+          ]
+       });
+
+    }).catch(function (err){
+      console.log(err);
     });//*/
     esperar(false,"");
+    console.log("mitabla:"+tablaPacientes.toString());
+
   }
 
   function checkboxChanged(todo, event) {
@@ -370,6 +389,8 @@ function refrescarCopiaLocal(){
 
     var fila=document.createElement("tr");
     //fila.className="filaListado";
+    //Colgarse de aqui para agregar los usuarios a la tabla dinámica. Ponerlos en una variable para su uso posterior.
+
     fila.appendChild(capat);
     fila.appendChild(camat);
     fila.appendChild(cnombres);
@@ -387,6 +408,7 @@ function refrescarCopiaLocal(){
   function redrawTodosUI(todos) {
 
     console.log("Redibujando los pacientes");
+    var latabla=[];
 
     //var tb = document.getElementById('todo-list');
     //tb.innerHTML = ''; //limpia la tabla
@@ -437,11 +459,27 @@ function refrescarCopiaLocal(){
     //tb.appendChild(tfoot);
 
     //tb.innerHTML = ''; //limpia la tabla
+
     todos.forEach(function(todo) {
-      tbody.appendChild(createTodoListItem(todo.doc))
+      tbody.appendChild(createTodoListItem(todo.doc));
+
+      //para la tabla
+      var nuevaLinea=[];
+      nuevaLinea.push(todo.doc.datosPersonales.apat);
+      nuevaLinea.push(todo.doc.datosPersonales.amat);
+      nuevaLinea.push(todo.doc.datosPersonales.nombres);
+      nuevaLinea.push("accion");
+
+      //console.log("nuevaLinea:"+nuevaLinea.toString());
+      latabla.push(nuevaLinea);
+      //console.log("tablaPacientes1:"+tablaPacientes.toString());
     });
 
     tb.appendChild(tbody);
+  //  tbHidden.setAttribute("value",latabla);
+    //tb.appendChild(tbHidden);
+
+    return latabla;
 
     //main.appendChild(tb);
 
