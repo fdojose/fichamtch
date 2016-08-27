@@ -238,16 +238,6 @@ function refrescarCopiaLocal(){
        tablaPacientes=redrawTodosUI(doc.rows);
        console.log("tablaPacientes1:"+tablaPacientes.toString());
 
-       $('#listadoFichas').DataTable({
-         data: tablaPacientes,
-          columns: [
-              { "title": "apat" },
-              { "title": "amat" },
-              { "title": "nombres" },
-              { "title": "acciones" }
-          ]
-       });
-
     }).catch(function (err){
       console.log(err);
     });//*/
@@ -342,6 +332,7 @@ function refrescarCopiaLocal(){
   function createTodoListItem(todo) {
     //console.log(todo);
 
+
     var clabel=document.createElement("td");
     var label = document.createElement('label');
     //console.log(JSON.stringify(todo));
@@ -373,6 +364,7 @@ function refrescarCopiaLocal(){
     var showLink = document.createElement('button');
     showLink.className = 'glyphicon glyphicon-list-alt';
     showLink.addEventListener( 'click', showButtonPressed.bind(this, todo));
+
     var t = document.createTextNode("");
     showLink.appendChild(t);
     caccion.appendChild(showLink);
@@ -478,6 +470,33 @@ function refrescarCopiaLocal(){
     tb.appendChild(tbody);
   //  tbHidden.setAttribute("value",latabla);
     //tb.appendChild(tbHidden);
+           var listado=$('#listadoFichas').DataTable({
+             data: latabla,
+              columns: [
+                  { "title": "apat" },
+                  { "title": "amat" },
+                  { "title": "nombres" },
+                  { "title": "acciones" }
+              ],
+              "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+
+                var deleteLink = document.createElement('button');
+                var tborrar=document.createTextNode("");
+                deleteLink.className = "glyphicon glyphicon-trash";
+                //deleteLink.addEventListener( 'click', deleteButtonPressed.bind(this, todo));
+                deleteLink.appendChild(tborrar);
+
+                var showLink = document.createElement('button');
+                showLink.className = 'glyphicon glyphicon-list-alt';
+                //showLink.addEventListener( 'click', showButtonPressed.bind(this, todo));
+                var t = document.createTextNode("");
+                showLink.appendChild(t);
+
+                $('td:eq(3)', nRow).append(deleteLink);
+                $('td:eq(3)', nRow).append(showLink);
+                  //$('td:eq(3)', nRow).append("<div class='col1d'><button class='glyphicon glyphicon-list-alt'><button class='glyphicon glyphicon-trash'></button></div>");
+              }
+           });
 
     return latabla;
 
